@@ -1,0 +1,28 @@
+{
+    "name": "Xuan25.KaraokePlaylist",
+    "rootNamespace": "",
+    "references": [
+        "UdonSharp.Runtime",
+        "Unity.TextMeshPro",
+        "JLChnToZ.VVMW",
+        "Xuan25.UrlPool",
+        "Xuan25.VideoPlayer-7.1",
+        "JLChnToZ.VRC.Foundation",
+        "VRC.Udon.Serialization.OdinSerializer"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "idv.jlchntoz.vvmw",
+            "expression": "",
+            "define": "VIZVID"
+        }
+    ],
+    "noEngineReferences": false
+}

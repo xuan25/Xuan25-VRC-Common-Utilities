@@ -1,0 +1,19 @@
+{
+    "name": "Xuan25.VRCUrlTemplateSetter.Editor",
+    "rootNamespace": "",
+    "references": [
+        "Xuan25.VRCUrlTemplateSetter",
+        "UdonSharp.Editor",
+        "UdonSharp.Runtime",
+        "VRC.Udon"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

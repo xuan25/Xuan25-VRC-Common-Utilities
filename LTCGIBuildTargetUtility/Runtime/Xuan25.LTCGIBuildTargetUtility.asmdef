@@ -1,0 +1,22 @@
+{
+    "name": "Xuan25.LTCGIBuildTargetUtility",
+    "rootNamespace": "",
+    "references": [
+        "at.pimaker.ltcgi.Editor"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "at.pimaker.ltcgi",
+            "expression": "",
+            "define": "LTCGI_INCLUDED"
+        }
+    ],
+    "noEngineReferences": false
+}

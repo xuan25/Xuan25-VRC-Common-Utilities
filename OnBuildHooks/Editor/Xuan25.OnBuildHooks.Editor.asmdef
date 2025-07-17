@@ -1,0 +1,23 @@
+{
+    "name": "Xuan25.OnBuildHooks.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:7679aad4a78ed1d49bd91ddc9eac8c8a",
+        "GUID:d3802d62b65ae4848a923cbbdd4653e9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "at.pimaker.ltcgi",
+            "expression": "",
+            "define": "LTCGI_INCLUDED"
+        }
+    ],
+    "noEngineReferences": false
+}

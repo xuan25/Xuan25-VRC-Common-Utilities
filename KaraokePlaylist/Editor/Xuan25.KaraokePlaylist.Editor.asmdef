@@ -1,0 +1,22 @@
+{
+    "name": "Xuan25.KaraokePlaylist.Editor",
+    "rootNamespace": "",
+    "references": [
+        "UdonSharp.Editor",
+        "Xuan25.KaraokePlaylist",
+        "JLChnToZ.VVMW",
+        "Xuan25.VideoPlayer-7.1",
+        "UdonSharp.Runtime",
+        "JLChnToZ.VRC.Foundation",
+        "VRC.Udon"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

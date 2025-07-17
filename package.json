@@ -1,0 +1,17 @@
+{
+    "name": "com.xuan25.common",
+    "version": "0.0.0",
+    "displayName": "Xuan25 Common Utilities",
+    "description": "Common utilities for Xuan25's projects",
+    "unity": "2022.3",
+    "unityRelease": "22f1",
+    "dependencies": {
+        "com.vrchat.base": "3.8.1",
+        "com.vrchat.worlds": "3.8.1"
+    },
+    "author": {
+        "name": "Xuan25",
+        "email": "xuan@xuan25.com",
+        "url": "https://xuan25.com"
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "Xuan25.BGMVolumeControl",
+    "rootNamespace": "",
+    "references": [
+        "UdonSharp.Runtime",
+        "Yamadev.YamaStream.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "net.kwxxw.yama-stream",
+            "expression": "",
+            "define": "YAMASTREAM"
+        }
+    ],
+    "noEngineReferences": false
+}

@@ -1,0 +1,16 @@
+{
+    "name": "Xuan25.VideoPlayer-7.1",
+    "rootNamespace": "",
+    "references": [
+        "UdonSharp.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

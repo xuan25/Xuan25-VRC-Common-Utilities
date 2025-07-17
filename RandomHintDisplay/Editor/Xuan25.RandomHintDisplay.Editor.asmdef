@@ -1,0 +1,16 @@
+{
+    "name": "Xuan25.RandomHintDisplay.Editor",
+    "rootNamespace": "",
+    "references": [
+        "Xuan25.RandomHintDisplay"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

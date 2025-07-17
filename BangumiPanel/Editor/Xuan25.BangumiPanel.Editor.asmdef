@@ -1,0 +1,24 @@
+{
+    "name": "Xuan25.BangumiPanel.Editor",
+    "rootNamespace": "",
+    "references": [
+        "Xuan25.BangumiPanel",
+        "Yamadev.YamaStream.Runtime",
+        "UdonSharp.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "net.kwxxw.yama-stream",
+            "expression": "",
+            "define": "YAMASTREAM"
+        }
+    ],
+    "noEngineReferences": false
+}

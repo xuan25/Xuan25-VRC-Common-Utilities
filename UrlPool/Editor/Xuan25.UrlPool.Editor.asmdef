@@ -1,0 +1,17 @@
+{
+    "name": "Xuan25.UrlPool.Editor",
+    "rootNamespace": "",
+    "references": [
+        "UdonSharp.Runtime",
+        "Xuan25.UrlPool"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,26 @@
+{
+    "name": "Xuan25.BangumiPanel",
+    "rootNamespace": "",
+    "references": [
+        "UdonSharp.Runtime",
+        "Unity.TextMeshPro",
+        "Xuan25.UrlPool",
+        "Yamadev.YamaStream.Runtime",
+        "VRC.Udon.Serialization.OdinSerializer"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "net.kwxxw.yama-stream",
+            "expression": "",
+            "define": "YAMASTREAM"
+        }
+    ],
+    "noEngineReferences": false
+}

@@ -1,0 +1,18 @@
+{
+    "name": "Xuan25.AudioSynthesizer.Examples",
+    "rootNamespace": "",
+    "references": [
+        "UdonSharp.Runtime",
+        "Unity.TextMeshPro",
+        "Xuan25.AudioSynthesizer"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

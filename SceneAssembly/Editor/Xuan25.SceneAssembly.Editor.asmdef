@@ -1,0 +1,17 @@
+{
+    "name": "Xuan25.SceneAssembly.Editor",
+    "rootNamespace": "",
+    "references": [
+        "Xuan25.SceneAssembly",
+        "UdonSharp.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
