@@ -15,17 +15,6 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [
-        {
-            "name": "net.kwxxw.yama-stream",
-            "expression": "",
-            "define": "YAMASTREAM"
-        },
-        {
-            "name": "idv.jlchntoz.vvmw",
-            "expression": "",
-            "define": "VIZVID"
-        }
-    ],
+    "versionDefines": [],
     "noEngineReferences": false
 }
