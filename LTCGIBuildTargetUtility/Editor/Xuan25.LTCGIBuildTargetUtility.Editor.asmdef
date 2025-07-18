@@ -2,8 +2,8 @@
     "name": "Xuan25.LTCGIBuildTargetUtility.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:06a4aa581d95abd4ab6d29df61c7b059",
-        "GUID:d3802d62b65ae4848a923cbbdd4653e9"
+        "Xuan25.LTCGIBuildTargetUtility",
+        "at.pimaker.ltcgi.Editor"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
