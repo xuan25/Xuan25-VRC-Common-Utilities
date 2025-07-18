@@ -18,8 +18,8 @@ namespace BangumiPanel
 
         public VRCUrl mainUrl;
 
-#if USHARP_VIDEO_PLAYER
-        public USharpVideoPlayer videoPlayer;
+#if USHARP_VIDEO
+        public USharpVideoPlayer uSharpPlayer;
 #endif
 #if VIZVID
         public JLChnToZ.VRC.VVMW.Core vizvidCore;
@@ -186,10 +186,10 @@ namespace BangumiPanel
             VRCUrl url = urlPool.Urls[urlId];
 
 #if USHARP_VIDEO_PLAYER
-            videoPlayer.PlayVideo(url);
+            uSharpPlayer.PlayVideo(url);
 #endif
 #if VIZVID
-            videoPlayerCore.PlayUrl(url, videoPlayerType);
+            vizvidCore.PlayUrl(url, videoPlayerType);
 #endif
 #if YAMASTREAM
             yamaController.TakeOwnership();

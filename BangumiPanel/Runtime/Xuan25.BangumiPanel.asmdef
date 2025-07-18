@@ -6,7 +6,9 @@
         "Unity.TextMeshPro",
         "Xuan25.UrlPool",
         "Yamadev.YamaStream.Runtime",
-        "VRC.Udon.Serialization.OdinSerializer"
+        "VRC.Udon.Serialization.OdinSerializer",
+        "JLChnToZ.VVMW",
+        "JLChnToZ.VRC.Foundation"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -20,6 +22,11 @@
             "name": "net.kwxxw.yama-stream",
             "expression": "",
             "define": "YAMASTREAM"
+        },
+        {
+            "name": "idv.jlchntoz.vvmw",
+            "expression": "",
+            "define": "VIZVID"
         }
     ],
     "noEngineReferences": false

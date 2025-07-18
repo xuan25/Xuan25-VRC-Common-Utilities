@@ -1,13 +1,7 @@
 {
-    "name": "Xuan25.BangumiPanel.Editor",
+    "name": "Xuan25.SymbolConfigurator.Editor",
     "rootNamespace": "",
-    "references": [
-        "Xuan25.BangumiPanel",
-        "Yamadev.YamaStream.Runtime",
-        "UdonSharp.Runtime",
-        "JLChnToZ.VVMW",
-        "JLChnToZ.VRC.Foundation"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
@@ -17,14 +11,14 @@
     "defineConstraints": [],
     "versionDefines": [
         {
-            "name": "net.kwxxw.yama-stream",
-            "expression": "",
-            "define": "YAMASTREAM"
-        },
-        {
             "name": "idv.jlchntoz.vvmw",
             "expression": "",
             "define": "VIZVID"
+        },
+        {
+            "name": "Yamadev.YamaStream.Runtime",
+            "expression": "",
+            "define": "YAMASTREAM"
         }
     ],
     "noEngineReferences": false
