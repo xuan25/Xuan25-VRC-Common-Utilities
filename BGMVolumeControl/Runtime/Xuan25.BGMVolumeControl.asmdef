@@ -12,12 +12,6 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [
-        {
-            "name": "net.kwxxw.yama-stream",
-            "expression": "",
-            "define": "YAMASTREAM"
-        }
-    ],
+    "versionDefines": [],
     "noEngineReferences": false
 }

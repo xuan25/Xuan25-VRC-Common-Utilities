@@ -17,12 +17,6 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [
-        {
-            "name": "idv.jlchntoz.vvmw",
-            "expression": "",
-            "define": "VIZVID"
-        }
-    ],
+    "versionDefines": [],
     "noEngineReferences": false
 }

@@ -12,12 +12,6 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [
-        {
-            "name": "at.pimaker.ltcgi",
-            "expression": "",
-            "define": "LTCGI_INCLUDED"
-        }
-    ],
+    "versionDefines": [],
     "noEngineReferences": false
 }
