@@ -14,7 +14,7 @@ namespace LTCGIBuildTargetUtility
 
     public class LTCGIBuildTargetHook : IActiveBuildTargetChanged, IProcessSceneWithReport
     {
-        public int callbackOrder => 0;
+        public int callbackOrder => -1000;
         
         public void OnActiveBuildTargetChanged(BuildTarget previousTarget, BuildTarget newTarget)
         {

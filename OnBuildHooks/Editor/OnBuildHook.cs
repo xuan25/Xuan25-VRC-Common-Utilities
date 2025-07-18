@@ -8,7 +8,7 @@ namespace OnBuildHookUtility
 
     public class OnBuildHook : IProcessSceneWithReport
     {
-        public int callbackOrder => 0;
+        public int callbackOrder => -1000;
 
         public void OnProcessScene(UnityEngine.SceneManagement.Scene scene, BuildReport report)
         {
