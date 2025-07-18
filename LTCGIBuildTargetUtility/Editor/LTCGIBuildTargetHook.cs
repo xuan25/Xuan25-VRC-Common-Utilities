@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 #if LTCGI_INCLUDED
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +8,6 @@ using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using VRC.SDKBase.Editor.BuildPipeline;
 
 namespace LTCGIBuildTargetUtility
 {
@@ -64,4 +64,5 @@ namespace LTCGIBuildTargetUtility
         }
     }
 }
+#endif
 #endif
