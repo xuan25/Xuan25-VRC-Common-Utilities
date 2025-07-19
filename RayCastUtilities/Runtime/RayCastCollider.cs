@@ -7,11 +7,9 @@ using VRC.Udon;
 namespace RayCastUtils {
 
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
-    public class RayCastHelper : UdonSharpBehaviour
+    public class RayCastCollider : UdonSharpBehaviour
     {
         public Collider targetCollider;
-
-        public LayerMask layerMask;
 
         public float maxDistance = 10f;
 
@@ -19,20 +17,15 @@ namespace RayCastUtils {
 
         void Start()
         {
-
+            if (targetCollider == null)
+            {
+                targetCollider = GetComponent<Collider>();
+            }
         }
 
-        public bool RayTest(Vector3 origin, Vector3 direction, float distance)
+        public bool RayTest(Vector3 origin, Vector3 direction, float maxDistance)
         {
-            RaycastHit hit;
-            if (!Physics.Raycast(origin, direction, out hit, distance, layerMask.value, queryTriggerInteraction))
-                return false;
-
-            if (hit.collider != targetCollider)
-                return false;
-
-            Debug.Log($"[RayCastHelper] Raycast hit {hit.collider.name} at {hit.point}");
-            return true;
+            return targetCollider.Raycast(new Ray(origin, direction), out RaycastHit hitInfo, maxDistance);
         }
 
         public bool RayTestFromTracking(VRCPlayerApi.TrackingDataType trackingDataType, Vector3 rayVector)

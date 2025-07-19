@@ -1,5 +1,5 @@
 {
-    "name": "Xuan25.RayCasrHelper",
+    "name": "Xuan25.RayCastUtilities",
     "rootNamespace": "",
     "references": [
         "UdonSharp.Runtime"

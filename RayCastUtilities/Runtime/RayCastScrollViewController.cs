@@ -10,65 +10,32 @@ using VRC.Udon;
 namespace RayCastUtils {
 
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
-    public class RayCastScrollViewHelper : UdonSharpBehaviour
+    public class RayCastScrollViewController : RayCastControllerBase
     {
-
         public ScrollRect scrollRect;
-        public RayCastHelper rayCastHelper;
-
-        public float scrollSensitivity = 100f;
-
-        public float mouseScrollScalar = 10f;
-
-        public float joystickScrollScalar = 10f;
-
-        public bool horizontal = false;
 
         private RectTransform scrollRectTransform;
 
-        private float currentRightVerticalValue = 0;
-
-        void Start()
+        public void Start()
         {
             scrollRectTransform = scrollRect.GetComponent<RectTransform>();
         }
 
-        public void FixedUpdate()
+        public override void FixedUpdate()
         {
             // Adjust the size of the collider to match the scroll view
-            
-            if (rayCastHelper.targetCollider.GetType() == typeof(BoxCollider))
+
+            if (rayCastCollider.targetCollider.GetType() == typeof(BoxCollider))
             {
-                BoxCollider boxCollider = (BoxCollider)rayCastHelper.targetCollider;
+                BoxCollider boxCollider = (BoxCollider)rayCastCollider.targetCollider;
                 boxCollider.size = scrollRectTransform.rect.size;
                 boxCollider.center = scrollRectTransform.rect.center;
             }
 
-            // Check for mouse scroll input and right hand joystick input
-
-            float mouseScrollDelta = Input.GetAxis("Mouse ScrollWheel");
-
-            if (mouseScrollDelta != 0)
-            {
-                if (rayCastHelper.RayTestFromViewPoint())
-                {
-                    Scroll(mouseScrollDelta * mouseScrollScalar);
-
-                    Debug.Log($"Mouse Scroll Delta: {mouseScrollDelta}");
-                }
-            }
-
-            if (currentRightVerticalValue != 0)
-            {
-                if (rayCastHelper.RayTestFromRightHand())
-                {
-                    Scroll(currentRightVerticalValue * joystickScrollScalar * Time.deltaTime);
-                    Debug.Log($"Right Hand Scroll Value: {currentRightVerticalValue}");
-                }
-            }
+            base.FixedUpdate();
         }
 
-        private void Scroll(float value)
+        public override void OnDelta(float value)
         {
             if (!horizontal)
             {
@@ -77,8 +44,9 @@ namespace RayCastUtils {
                 float newAbsPosition = currentAbsPosition + (value * scrollSensitivity);
                 float normalizedPosition = Mathf.Clamp01(newAbsPosition / contentHeight);
                 scrollRect.verticalNormalizedPosition = normalizedPosition;
-
+#if DEBUG
                 Debug.Log($"Vertical Scroll Value: {value}, Current Position: {currentAbsPosition}, New Position: {newAbsPosition}, Normalized Position: {normalizedPosition}");
+#endif
             }
             else
             {
@@ -87,20 +55,14 @@ namespace RayCastUtils {
                 float newAbsPosition = currentAbsPosition + (-value * scrollSensitivity);
                 float normalizedPosition = Mathf.Clamp01(newAbsPosition / contentWidth);
                 scrollRect.horizontalNormalizedPosition = normalizedPosition;
-
+#if DEBUG
                 Debug.Log($"Horizontal Scroll Value: {value}, Current Position: {currentAbsPosition}, New Position: {newAbsPosition}, Normalized Position: {normalizedPosition}");
+#endif
             }
         }
-
-        public override void InputLookVertical(float value, VRC.Udon.Common.UdonInputEventArgs args)
+        
+        public override void OnReset()
         {
-            if (InputManager.IsUsingHandController())
-            {
-                if (args.handType == VRC.Udon.Common.HandType.RIGHT)
-                    currentRightVerticalValue = value;
-            }
-            else
-                currentRightVerticalValue = 0;
         }
     }
 }
