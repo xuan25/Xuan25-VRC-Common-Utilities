@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: AudioStateInteractable
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 3110301d1d4de8445ad66aea15310252, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 60efd86a09c216a4d8e26d35ac4853a8, type: 3}
@@ -22,7 +21,6 @@ MonoBehaviour:
   hasInteractEvent: 1
   scriptID: -4499741906835602750
   serializationData:
-    SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 

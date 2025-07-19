@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: HintDisplayScroll
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 29dcad908699d5446bf32b76ebf98794, type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 0f51f471f66beee4d8ae492d6a997476, type: 3}
@@ -22,7 +21,6 @@ MonoBehaviour:
   hasInteractEvent: 1
   scriptID: -383066505486933691
   serializationData:
-    SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 

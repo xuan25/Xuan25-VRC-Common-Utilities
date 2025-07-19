@@ -1,0 +1,4 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+*.prefab filter=usharp diff=usharp merge=unityyamlmerge eol=lf text
+*.asset filter=usharp diff=usharp merge=unityyamlmerge eol=lf text

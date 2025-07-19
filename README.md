@@ -21,3 +21,18 @@ This is intended to **reduce the world’s download size**, especially for mobil
 
 There is currently **no built-in way to disable** this functionality.  
 To prevent it from running, you must **delete the `DynamicTMPFontAtlasClearer` module** from the package manually.
+
+
+### Setup Git for Unity and U# (For Windows)
+
+Requirement: Python Runtime
+
+```sh
+git config filter.usharp.clean "python .gitscripts/filter_usharp.py"
+git config merge.unityyamlmerge.name "Unity Smart Merge"
+git config merge.unityyamlmerge.driver '"C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/Tools/UnityYAMLMerge.exe" merge -p %O %A %B %A'
+
+git config --get filter.usharp.clean
+git config --get merge.unityyamlmerge.name
+git config --get merge.unityyamlmerge.driver
+```
