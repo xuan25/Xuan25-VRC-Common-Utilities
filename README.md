@@ -59,13 +59,21 @@ The U# compiler makes extensive GUID changes to scene, prefab, and asset files t
 git config filter.usharp.clean "python .gitscripts/filter_usharp.py""
 ```
 
+#### Renormalized the repository
+
+**<span style="color:red">Note: Whenever the clean filter is changed, the repo should be renormalized. See：[Git - attributes Documentation](https://git-scm.com/docs/gitattributes#:~:text=Note:%20Whenever%20the%20clean%20filter%20is%20changed,%20the%20repo%20should%20be%20renormalized)</span>**
+
+```sh
+git add --renormalize .
+```
+
 ### 2. Configure Git for Unity (Optional)
 
 You can optionally use Unity’s YAML merge tool to handle potential Git merge conflicts (see: [Unity Docs](https://docs.unity3d.com/2022.3/Documentation/Manual/SmartMerge.html)). This tool allows Git to:
 
 > merge scene and prefab and prefab files in a semantically correct way.
 
-<span style="color:red">**⚠ Warning: This tool only guarantees semantic correctness in YAML, not correctness of the actual merged content. You are still responsible for verifying the final result.**</span>
+**<span style="color:red">⚠ Warning: This tool only guarantees semantic correctness in YAML, not correctness of the actual merged content. You are still responsible for verifying the final result.</span>**
 
 If you understand and require this feature, use the following Git configuration command:
 

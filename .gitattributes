@@ -2,3 +2,4 @@
 * text=auto
 *.prefab filter=usharp diff=usharp merge=unityyamlmerge eol=lf text
 *.asset filter=usharp diff=usharp merge=unityyamlmerge eol=lf text
+*.unity filter=usharp diff=usharp merge=unityyamlmerge eol=lf text
