@@ -914,14 +914,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a9da1d9d7988323418865bc69b4bf9ff, type: 2}
-    - target: {fileID: 4704447642909205875, guid: 4fc7858979aae804d9b3625f4b5f0bb6, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 4704447642909205875, guid: 4fc7858979aae804d9b3625f4b5f0bb6, type: 3}
-    - target: {fileID: 7062432117136781247, guid: 4fc7858979aae804d9b3625f4b5f0bb6, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 7062432117136781247, guid: 4fc7858979aae804d9b3625f4b5f0bb6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -999,14 +991,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 398ac0f27ea063340bb44c503d62e803, type: 2}
-    - target: {fileID: 4704447642909205875, guid: 4fc7858979aae804d9b3625f4b5f0bb6, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 4704447642909205875, guid: 4fc7858979aae804d9b3625f4b5f0bb6, type: 3}
-    - target: {fileID: 7062432117136781247, guid: 4fc7858979aae804d9b3625f4b5f0bb6, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 7062432117136781247, guid: 4fc7858979aae804d9b3625f4b5f0bb6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1080,14 +1064,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4704447642909205875, guid: 4fc7858979aae804d9b3625f4b5f0bb6, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 4704447642909205875, guid: 4fc7858979aae804d9b3625f4b5f0bb6, type: 3}
-    - target: {fileID: 7062432117136781247, guid: 4fc7858979aae804d9b3625f4b5f0bb6, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 7062432117136781247, guid: 4fc7858979aae804d9b3625f4b5f0bb6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

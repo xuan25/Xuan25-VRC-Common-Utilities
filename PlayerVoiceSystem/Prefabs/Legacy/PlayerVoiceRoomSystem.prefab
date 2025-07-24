@@ -47,10 +47,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 398ac0f27ea063340bb44c503d62e803, type: 2}
-    - target: {fileID: 3019181047877316003, guid: 7e8d41ec9ab96de40aeb1e55da22e9c4, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 3019181047877316003, guid: 7e8d41ec9ab96de40aeb1e55da22e9c4, type: 3}
     - target: {fileID: 6589888311805174259, guid: 7e8d41ec9ab96de40aeb1e55da22e9c4, type: 3}
       propertyPath: m_LocalScale.x
       value: 7
@@ -133,10 +129,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 5957727794410211296}
     m_Modifications:
     - target: {fileID: 691639330086767595, guid: 92c7ee8cba380184bbf5890a7c0395d8, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 691639330086767595, guid: 92c7ee8cba380184bbf5890a7c0395d8, type: 3}
-    - target: {fileID: 691639330086767595, guid: 92c7ee8cba380184bbf5890a7c0395d8, type: 3}
       propertyPath: playerVoiceRooms.Array.data[0]
       value: 
       objectReference: {fileID: 5247024922149293839}
@@ -214,10 +206,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a9da1d9d7988323418865bc69b4bf9ff, type: 2}
-    - target: {fileID: 3019181047877316003, guid: 7e8d41ec9ab96de40aeb1e55da22e9c4, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 3019181047877316003, guid: 7e8d41ec9ab96de40aeb1e55da22e9c4, type: 3}
     - target: {fileID: 6589888311805174259, guid: 7e8d41ec9ab96de40aeb1e55da22e9c4, type: 3}
       propertyPath: m_LocalScale.x
       value: 7
@@ -299,10 +287,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5957727794410211296}
     m_Modifications:
-    - target: {fileID: 3019181047877316003, guid: 7e8d41ec9ab96de40aeb1e55da22e9c4, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 3019181047877316003, guid: 7e8d41ec9ab96de40aeb1e55da22e9c4, type: 3}
     - target: {fileID: 6589888311805174259, guid: 7e8d41ec9ab96de40aeb1e55da22e9c4, type: 3}
       propertyPath: m_LocalScale.x
       value: 7

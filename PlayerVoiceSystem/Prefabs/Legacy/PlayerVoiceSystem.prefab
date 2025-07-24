@@ -45,14 +45,6 @@ PrefabInstance:
       propertyPath: _syncMethod
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2818130762117871944, guid: 05b36c092ce296e4cafecbb32d44a7c6, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 2818130762117871944, guid: 05b36c092ce296e4cafecbb32d44a7c6, type: 3}
-    - target: {fileID: 3041601613200821122, guid: 05b36c092ce296e4cafecbb32d44a7c6, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 3041601613200821122, guid: 05b36c092ce296e4cafecbb32d44a7c6, type: 3}
     - target: {fileID: 3877062099889313852, guid: 05b36c092ce296e4cafecbb32d44a7c6, type: 3}
       propertyPath: _syncMethod
       value: 1
@@ -61,10 +53,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerVoiceRoomSystem
       objectReference: {fileID: 0}
-    - target: {fileID: 5247024922149293839, guid: 05b36c092ce296e4cafecbb32d44a7c6, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 5247024922149293839, guid: 05b36c092ce296e4cafecbb32d44a7c6, type: 3}
     - target: {fileID: 5697137902215187224, guid: 05b36c092ce296e4cafecbb32d44a7c6, type: 3}
       propertyPath: _syncMethod
       value: 1
@@ -113,10 +101,6 @@ PrefabInstance:
       propertyPath: _syncMethod
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7123506401457895508, guid: 05b36c092ce296e4cafecbb32d44a7c6, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 7123506401457895508, guid: 05b36c092ce296e4cafecbb32d44a7c6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -135,26 +119,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2255744818958709011}
     m_Modifications:
-    - target: {fileID: 1764501028275775877, guid: 1bfc32a19b280674094b0a3181adf1f1, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 1764501028275775877, guid: 1bfc32a19b280674094b0a3181adf1f1, type: 3}
-    - target: {fileID: 1919040932803181580, guid: 1bfc32a19b280674094b0a3181adf1f1, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 1919040932803181580, guid: 1bfc32a19b280674094b0a3181adf1f1, type: 3}
-    - target: {fileID: 4173305426824361664, guid: 1bfc32a19b280674094b0a3181adf1f1, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 4173305426824361664, guid: 1bfc32a19b280674094b0a3181adf1f1, type: 3}
-    - target: {fileID: 4267027558782591817, guid: 1bfc32a19b280674094b0a3181adf1f1, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 4267027558782591817, guid: 1bfc32a19b280674094b0a3181adf1f1, type: 3}
-    - target: {fileID: 4727908851353630651, guid: 1bfc32a19b280674094b0a3181adf1f1, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 4727908851353630651, guid: 1bfc32a19b280674094b0a3181adf1f1, type: 3}
     - target: {fileID: 5185655517894824697, guid: 1bfc32a19b280674094b0a3181adf1f1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2
@@ -199,10 +163,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerVoiceMicSystem
       objectReference: {fileID: 0}
-    - target: {fileID: 7122349007986376055, guid: 1bfc32a19b280674094b0a3181adf1f1, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 7122349007986376055, guid: 1bfc32a19b280674094b0a3181adf1f1, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

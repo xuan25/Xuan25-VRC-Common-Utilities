@@ -252,10 +252,6 @@ PrefabInstance:
       propertyPath: m_fontColor.r
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6299400408983861634, guid: b61210dd8f5e52f4687929ce9193b29e, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 6299400408983861634, guid: b61210dd8f5e52f4687929ce9193b29e, type: 3}
     - target: {fileID: 7683179167526536503, guid: b61210dd8f5e52f4687929ce9193b29e, type: 3}
       propertyPath: m_fontColor.b
       value: 1
