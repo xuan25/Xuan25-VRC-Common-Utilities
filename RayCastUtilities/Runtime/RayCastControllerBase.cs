@@ -5,23 +5,15 @@ using VRC.SDKBase;
 using VRC.Udon;
 
 
-namespace RayCastUtils {
+namespace Xuan25.RayCastUtilities {
 
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public abstract class RayCastControllerBase : UdonSharpBehaviour
     {
         public RayCastCollider rayCastCollider;
-
-        public float scrollSensitivity = 100f;
-
         public float mouseScrollScalar = 10f;
-
         public float joystickScrollScalar = 10f;
-
-        public bool horizontal = false;
-
         private float currentRightVerticalValue = 0;
-
         private bool reset = true;
 
         public virtual void OnDelta(float value)

@@ -7,14 +7,15 @@ using UnityEngine.UIElements;
 using VRC.SDKBase;
 using VRC.Udon;
 
-namespace RayCastUtils {
+namespace Xuan25.RayCastUtilities {
 
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class RayCastScrollViewController : RayCastControllerBase
     {
         public ScrollRect scrollRect;
-
         private RectTransform scrollRectTransform;
+        public float scrollSensitivity = 100f;
+        public bool horizontal = false;
 
         public void Start()
         {

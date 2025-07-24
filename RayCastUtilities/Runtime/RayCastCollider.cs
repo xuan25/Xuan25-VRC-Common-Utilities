@@ -4,7 +4,7 @@ using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
 
-namespace RayCastUtils {
+namespace Xuan25.RayCastUtilities {
 
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class RayCastCollider : UdonSharpBehaviour
