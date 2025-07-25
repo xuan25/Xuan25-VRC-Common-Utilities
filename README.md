@@ -56,7 +56,7 @@ The U# compiler makes extensive GUID changes to scene, prefab, and asset files t
 #### Option 1) Using Python runtime
 
 ```sh
-git config filter.usharp.clean "python .gitscripts/filter_usharp.py""
+git config filter.usharp.process "python .gitscripts/filter_usharp_process.py""
 ```
 
 #### Renormalized the repository
