@@ -26,7 +26,7 @@ namespace Xuan25.RayCastUtilities {
             Debug.Log("RayCastControllerBase Reset");
         }
 
-        public virtual void FixedUpdate()
+        public virtual void Update()
         {
             float mouseScrollDelta = Input.GetAxis("Mouse ScrollWheel");
 

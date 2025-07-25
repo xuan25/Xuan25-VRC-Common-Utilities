@@ -22,7 +22,7 @@ namespace Xuan25.RayCastUtilities {
             scrollRectTransform = scrollRect.GetComponent<RectTransform>();
         }
 
-        public override void FixedUpdate()
+        public override void Update()
         {
             // Adjust the size of the collider to match the scroll view
 
@@ -33,7 +33,7 @@ namespace Xuan25.RayCastUtilities {
                 boxCollider.center = scrollRectTransform.rect.center;
             }
 
-            base.FixedUpdate();
+            base.Update();
         }
 
         public override void OnDelta(float value)
