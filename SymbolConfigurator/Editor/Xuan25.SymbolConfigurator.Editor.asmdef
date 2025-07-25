@@ -16,7 +16,7 @@
             "define": "VIZVID"
         },
         {
-            "name": "Yamadev.YamaStream.Runtime",
+            "name": "net.kwxxw.yama-stream",
             "expression": "",
             "define": "YAMASTREAM"
         }
