@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
-  m_Name: DebuggingPanel
+  m_Name: RoomDebuggingPanel
   m_EditorClassIdentifier: 
   udonAssembly: 
   assemblyError: 
@@ -19,7 +19,7 @@ MonoBehaviour:
   compiledVersion: 2
   behaviourSyncMode: 1
   hasInteractEvent: 0
-  scriptID: -3885528252775734151
+  scriptID: -115778025720215492
   serializationData:
     SerializedBytes: 
     ReferencedUnityObjects: []
@@ -59,7 +59,7 @@ MonoBehaviour:
       Data: 3|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: PlayerVoiceSystem.PlayerVoiceRoomController, Xuan25.PlayerVoiceSystem
+      Data: Xuan25.PlayerVoiceSystem.PlayerVoiceRoomController, Xuan25.PlayerVoiceSystem
     - Name: 
       Entry: 8
       Data: 
@@ -221,7 +221,7 @@ MonoBehaviour:
       Data: 12|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: PlayerVoiceSystem.Debugging.DebuggingRow[], Xuan25.PlayerVoiceSystem.Debug
+      Data: Xuan25.PlayerVoiceSystem.Debugging.RoomDebuggingRow[], Xuan25.PlayerVoiceSystem.Debug
     - Name: 
       Entry: 8
       Data: 

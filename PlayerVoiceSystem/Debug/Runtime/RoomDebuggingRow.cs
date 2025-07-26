@@ -6,11 +6,11 @@ using VRC.SDKBase;
 using VRC.Udon;
 
 
-namespace PlayerVoiceSystem.Debugging
+namespace Xuan25.PlayerVoiceSystem.Debugging
 {
 
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
-    public class DebuggingRow : UdonSharpBehaviour
+    public class RoomDebuggingRow : UdonSharpBehaviour
     {
         public TextMeshProUGUI textUsername;
 
@@ -57,7 +57,7 @@ namespace PlayerVoiceSystem.Debugging
 
         public void SetMask(int mask, int roomValidityMask)
         {
-            Debug.Log($"[{GetUdonTypeName()}] SetMask called with mask: {mask}, roomValidityMask: {roomValidityMask}; Indicators count: {indicators.Length}");
+            // Debug.Log($"[{GetUdonTypeName()}] SetMask called with mask: {mask}, roomValidityMask: {roomValidityMask}; Indicators count: {indicators.Length}");
             for (int i = 0; i < roomCountMax; i++)
             {
                 bool isValidRoom = (roomValidityMask & (1 << i)) != 0;

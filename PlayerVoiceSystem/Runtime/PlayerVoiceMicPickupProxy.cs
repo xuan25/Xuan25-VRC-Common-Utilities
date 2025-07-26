@@ -4,7 +4,7 @@ using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
 
-namespace PlayerVoiceSystem
+namespace Xuan25.PlayerVoiceSystem
 {
 
     [UdonBehaviourSyncMode(BehaviourSyncMode.Continuous)]

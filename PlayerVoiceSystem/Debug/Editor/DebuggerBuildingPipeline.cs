@@ -5,14 +5,14 @@ using UnityEditor.Build.Reporting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace PlayerVoiceSystem.Debugging {
+namespace Xuan25.PlayerVoiceSystem.Debugging {
     
     public class DebuggerBuildingPipeline : IProcessSceneWithReport
     {
         public int callbackOrder => 0;
 
-        private DebuggingPanel[] GetDeguggingPanels() {
-            DebuggingPanel[] debuggingPanels = FindComponentGlobal<DebuggingPanel>();
+        private RoomDebuggingPanel[] GetRoomDebuggingPanels() {
+            RoomDebuggingPanel[] debuggingPanels = FindComponentGlobal<RoomDebuggingPanel>();
             if (debuggingPanels == null)
             {
                 Debug.LogWarning("[DebuggerBuildingPipeline] No debugging panel found in scene.");
@@ -23,8 +23,22 @@ namespace PlayerVoiceSystem.Debugging {
 
             return debuggingPanels;
         }
+        
+        private TriggerDebuggingPanel[] GetTriggerDebuggingPanels() {
+            TriggerDebuggingPanel[] debuggingPanels = FindComponentGlobal<TriggerDebuggingPanel>();
+            if (debuggingPanels == null)
+            {
+                Debug.LogWarning("[DebuggerBuildingPipeline] No trigger debugging panel found in scene.");
+                return null;
+            }
 
-        private PlayerVoiceRoomController BindController(DebuggingPanel debuggingPanel) {
+            Debug.Log($"[DebuggerBuildingPipeline] Found {debuggingPanels.Length} trigger debugging panels in scene.");
+
+            return debuggingPanels;
+        }
+
+        private PlayerVoiceRoomController BindController(RoomDebuggingPanel debuggingPanel)
+        {
 
             PlayerVoiceRoomController playerVoiceRoomController = debuggingPanel.playerVoiceRoomController;
 
@@ -37,23 +51,49 @@ namespace PlayerVoiceSystem.Debugging {
                     return null;
                 }
             }
-            
+
             debuggingPanel.playerVoiceRoomController = playerVoiceRoomController;
             playerVoiceRoomController._AddListener(debuggingPanel);
 
             return playerVoiceRoomController;
         }
 
+        private PlayerVoiceTrigger BindController(TriggerDebuggingPanel debuggingPanel)
+        {
+            PlayerVoiceTrigger playerVoiceTrigger = debuggingPanel.playerVoiceTrigger;
+
+            if (playerVoiceTrigger == null)
+            {
+                playerVoiceTrigger = FindComponentGlobalFirst<PlayerVoiceTrigger>();
+                if (playerVoiceTrigger == null)
+                {
+                    Debug.LogError("[DebuggerBuildingPipeline] No PlayerVoiceTrigger found in scene.");
+                    return null;
+                }
+            }
+
+            debuggingPanel.playerVoiceTrigger = playerVoiceTrigger;
+            playerVoiceTrigger._AddListener(debuggingPanel);
+
+            return playerVoiceTrigger;
+        }
+
         public void OnProcessScene(Scene scene, BuildReport report)
         {
             Debug.Log("[DebuggerBuildingPipeline] Processing scene: " + scene.name);
 
-            DebuggingPanel[] debuggingPanels = GetDeguggingPanels();
-            if (debuggingPanels == null) return;
+            RoomDebuggingPanel[] roomDebuggingPanels = GetRoomDebuggingPanels();
+            if (roomDebuggingPanels == null) return;
 
-            foreach (DebuggingPanel debuggingPanel in debuggingPanels)
+            foreach (RoomDebuggingPanel roomDebuggingPanel in roomDebuggingPanels)
             {
-                PlayerVoiceRoomController playerVoiceRoomController = BindController(debuggingPanel);
+                PlayerVoiceRoomController playerVoiceRoomController = BindController(roomDebuggingPanel);
+            }
+
+            TriggerDebuggingPanel[] triggerDebuggingPanels = GetTriggerDebuggingPanels();
+            foreach (TriggerDebuggingPanel triggerDebuggingPanel in triggerDebuggingPanels)
+            {
+                PlayerVoiceTrigger playerVoiceTrigger = BindController(triggerDebuggingPanel);
             }
         }
 

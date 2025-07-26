@@ -4,18 +4,19 @@ using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
 
-namespace PlayerVoiceSystem
+namespace Xuan25.PlayerVoiceSystem
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public abstract class PlayerVoiceScaler : UdonSharpBehaviour
     {
+        
         internal PlayerVoiceController playerVoiceController;
 
-        public void Setup(PlayerVoiceController controller)
+        public virtual void Setup(PlayerVoiceController controller)
         {
             playerVoiceController = controller;
         }
 
-        public abstract void GetPlayerVoiceScaler(VRCPlayerApi player, out float gainScaler, out float distanceNearScaler, out float distanceFarScaler, out float volumetricRadiusScaler, out bool lowpassDisable);
+        public abstract void GetPlayerVoiceScaler(VRCPlayerApi player, out float gainScaler, out float distanceNearScaler, out float distanceFarScaler, out float volumetricRadiusScaler, out bool lowpassDisable, out bool scalerOverride);
     }
 }

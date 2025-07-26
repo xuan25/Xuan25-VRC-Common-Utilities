@@ -4,10 +4,45 @@ using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
 
-namespace PlayerVoiceSystem {
+namespace Xuan25.PlayerVoiceSystem
+{
 
     public class PlayerVoiceController : UdonSharpBehaviour
     {
+        #region Player Cache Management
+
+        private VRCPlayerApi[] playersCache;
+
+        private bool playersCacheInvalid = true;
+
+        private VRCPlayerApi[] GetPlayerList()
+        {
+            if (playersCacheInvalid || playersCache == null || playersCache.Length != VRCPlayerApi.GetPlayerCount())
+            {
+                playersCache = new VRCPlayerApi[VRCPlayerApi.GetPlayerCount()];
+                VRCPlayerApi.GetPlayers(playersCache);
+                playersCacheInvalid = false;
+            }
+            return playersCache;
+        }
+
+        private void InvalidatePlayerCache()
+        {
+            playersCacheInvalid = true;
+        }
+
+        public override void OnPlayerLeft(VRCPlayerApi player)
+        {
+            InvalidatePlayerCache();
+        }
+
+        public override void OnPlayerJoined(VRCPlayerApi player)
+        {
+            InvalidatePlayerCache();
+        }
+
+        #endregion
+
         public PlayerVoiceScaler[] playerVoiceScalers;
 
         public float defaultGain = 15.0f;
@@ -26,10 +61,10 @@ namespace PlayerVoiceSystem {
                 }
             }
         }
-        
+
         public void UpdatePlayerVoice(VRCPlayerApi player)
         {
-            if (player == null) return;
+            if (!Utilities.IsValid(player)) return;
 
             float gainScaler = 1.0f;
             float distanceNearScaler = 1.0f;
@@ -39,7 +74,17 @@ namespace PlayerVoiceSystem {
 
             for (int i = 0; i < playerVoiceScalers.Length; i++)
             {
-                playerVoiceScalers[i].GetPlayerVoiceScaler(player, out float gainScalerLocal, out float distanceNearScalerLocal, out float distanceFarScalerLocal, out float volumetricRadiusScalerLocal, out bool lowpassDisableMaskLocal);
+                playerVoiceScalers[i].GetPlayerVoiceScaler(player, out float gainScalerLocal, out float distanceNearScalerLocal, out float distanceFarScalerLocal, out float volumetricRadiusScalerLocal, out bool lowpassDisableMaskLocal, out bool scalerOverrideLocal);
+
+                if (scalerOverrideLocal)
+                {
+                    gainScaler = gainScalerLocal;
+                    distanceNearScaler = distanceNearScalerLocal;
+                    distanceFarScaler = distanceFarScalerLocal;
+                    volumetricRadiusScaler = volumetricRadiusScalerLocal;
+                    lowpassDisableMask = lowpassDisableMaskLocal;
+                    continue;
+                }
 
                 gainScaler *= gainScalerLocal;
                 distanceNearScaler *= distanceNearScalerLocal;
@@ -60,23 +105,24 @@ namespace PlayerVoiceSystem {
             player.SetVoiceVolumetricRadius(volumetricRadius);
             player.SetVoiceLowpass(!lowpassDisable);
 
+#if DEBUG
             Debug.Log($"[PlayerVoiceController] Player: {player.displayName}, Gain: {gain}, DistanceNear: {distanceNear}, DistanceFar: {distanceFar}, VolumetricRadius: {volumetricRadius}, LowpassDisable: {lowpassDisable}");
-
+#endif
         }
 
         public void UpdateAllPlayerVoice()
         {
-            for (int i = 0; i < playerVoiceScalers.Length; i++)
+            VRCPlayerApi[] players = GetPlayerList();
+            for (int i = 0; i < players.Length; i++)
             {
-                VRCPlayerApi player = VRCPlayerApi.GetPlayerById(i);
-                if (player != null)
+                VRCPlayerApi player = players[i];
+                if (Utilities.IsValid(player) && !player.isLocal)
                 {
                     UpdatePlayerVoice(player);
                 }
             }
         }
-    }
-    
-}
 
+    }
+}
 

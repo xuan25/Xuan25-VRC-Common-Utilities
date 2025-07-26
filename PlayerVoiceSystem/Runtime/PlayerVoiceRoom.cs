@@ -5,12 +5,38 @@ using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
 
-namespace PlayerVoiceSystem
+namespace Xuan25.PlayerVoiceSystem
 {
 
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class PlayerVoiceRoom : UdonSharpBehaviour
     {
+
+        #region Player Cache Management
+
+        private VRCPlayerApi[] playersCache;
+
+        private bool playersCacheInvalid = true;
+
+        private VRCPlayerApi[] GetPlayerList()
+        {
+            if (playersCacheInvalid || playersCache == null || playersCache.Length != VRCPlayerApi.GetPlayerCount())
+            {
+                playersCache = new VRCPlayerApi[VRCPlayerApi.GetPlayerCount()];
+                VRCPlayerApi.GetPlayers(playersCache);
+                playersCacheInvalid = false;
+            }
+            return playersCache;
+        }
+
+        private void InvalidatePlayerCache()
+        {
+            playersCacheInvalid = true;
+        }
+
+        #endregion
+
+        #region Room Management
 
         private int roomID;
 
@@ -28,16 +54,13 @@ namespace PlayerVoiceSystem
             this.playerVoiceRoomController = controller;
             this.roomID = roomID;
 
-            if (activeUpdate)
+            playerMask = new bool[controller.playerVoiceRoomMask.Length];
+            for (int i = 0; i < playerMask.Length; i++)
             {
-                playerMask = new bool[controller.playerVoiceRoomMask.Length];
-                for (int i = 0; i < playerMask.Length; i++)
-                {
-                    playerMask[i] = false;
-                }
-                playerMaskDirty = new bool[controller.playerVoiceRoomMask.Length];
-                Array.Copy(playerMask, playerMaskDirty, playerMask.Length);
+                playerMask[i] = false;
             }
+            playerMaskDirty = new bool[controller.playerVoiceRoomMask.Length];
+            Array.Copy(playerMask, playerMaskDirty, playerMask.Length);
         }
 
         void Start()
@@ -48,17 +71,12 @@ namespace PlayerVoiceSystem
         public override void OnPlayerTriggerEnter(VRCPlayerApi player)
         {
             if (activeUpdate) return;
-            if (player == null) return;
+            if (!Utilities.IsValid(player)) return;
 
             if (playerVoiceRoomController == null)
             {
                 Debug.LogError("[PlayerVoiceRoom] PlayerVoiceRoomController is not set up correctly.");
                 return;
-            }
-
-            if (activeUpdate)
-            {
-                playerMask[player.playerId] = true;
             }
 
             playerVoiceRoomController.OnPlayerRoomEnter(player, roomID);
@@ -68,17 +86,12 @@ namespace PlayerVoiceSystem
         public override void OnPlayerTriggerExit(VRCPlayerApi player)
         {
             if (activeUpdate) return;
-            if (player == null) return;
+            if (!Utilities.IsValid(player)) return;
 
             if (playerVoiceRoomController == null)
             {
                 Debug.LogError("[PlayerVoiceRoom] PlayerVoiceRoomController is not set up correctly.");
                 return;
-            }
-
-            if (activeUpdate)
-            {
-                playerMask[player.playerId] = false;
             }
 
             playerVoiceRoomController.OnPlayerRoomLeave(player, roomID);
@@ -86,7 +99,8 @@ namespace PlayerVoiceSystem
 
         public override void OnPlayerTriggerStay(VRCPlayerApi player)
         {
-            if (player == null) return;
+            if (!activeUpdate) return;
+            if (!Utilities.IsValid(player)) return;
 
             if (playerVoiceRoomController == null)
             {
@@ -94,57 +108,61 @@ namespace PlayerVoiceSystem
                 return;
             }
 
-            if (activeUpdate)
-            {
-                playerMaskDirty[player.playerId] = true;
-            }
+            playerMaskDirty[player.playerId] = true;
         }
 
         public override void OnPlayerJoined(VRCPlayerApi player)
         {
             if (!activeUpdate) return;
-            if (player == null) return;
+            if (!Utilities.IsValid(player)) return;
 
             playerMask[player.playerId] = false;
             playerMaskDirty[player.playerId] = false;
+
+            InvalidatePlayerCache();
         }
 
         public override void OnPlayerLeft(VRCPlayerApi player)
         {
             if (!activeUpdate) return;
-            if (player == null) return;
+            if (!Utilities.IsValid(player)) return;
 
             playerMask[player.playerId] = false;
             playerMaskDirty[player.playerId] = false;
+
+            InvalidatePlayerCache();
         }
 
         void FixedUpdate()
         {
             if (!activeUpdate) return;
 
-            VRCPlayerApi[] vRCPlayerApis = new VRCPlayerApi[VRCPlayerApi.GetPlayerCount()];
-            VRCPlayerApi.GetPlayers(vRCPlayerApis);
-
+            VRCPlayerApi[] vRCPlayerApis = GetPlayerList();
             for (int i = 0; i < vRCPlayerApis.Length; i++)
             {
                 VRCPlayerApi player = vRCPlayerApis[i];
+                if (!Utilities.IsValid(player))
+                    continue;
                 int playerId = player.playerId;
                 if (playerMaskDirty[playerId] != playerMask[playerId])
                 {
                     if (playerMaskDirty[playerId])
                     {
-                        playerVoiceRoomController.OnPlayerRoomEnter(player, roomID);
                         playerMask[playerId] = true;
+                        playerVoiceRoomController.OnPlayerRoomEnter(player, roomID);
                     }
                     else
                     {
-                        playerVoiceRoomController.OnPlayerRoomLeave(player, roomID);
                         playerMask[playerId] = false;
+                        playerVoiceRoomController.OnPlayerRoomLeave(player, roomID);
                     }
                 }
+                // Reset dirty state after processing, awaiting next FixedUpdate to set it again
                 playerMaskDirty[playerId] = false;
             }
         }
+
+        #endregion
     }
 
 }

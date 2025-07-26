@@ -19,7 +19,7 @@ MonoBehaviour:
   compiledVersion: 2
   behaviourSyncMode: 3
   hasInteractEvent: 0
-  scriptID: -7484499804059475954
+  scriptID: -4139937037471329754
   serializationData:
     SerializedBytes: 
     ReferencedUnityObjects: []
@@ -59,7 +59,7 @@ MonoBehaviour:
       Data: 3|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: PlayerVoiceSystem.PlayerVoiceMic, Xuan25.PlayerVoiceSystem
+      Data: Xuan25.PlayerVoiceSystem.PlayerVoiceMic, Xuan25.PlayerVoiceSystem
     - Name: 
       Entry: 8
       Data: 

@@ -3,12 +3,13 @@ using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
 
-namespace PlayerVoiceSystem
+namespace Xuan25.PlayerVoiceSystem
 {
 
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
     public class PlayerVoiceMic : PlayerVoiceScaler
     {
+        public bool scalerOverrideIfHeld = false;
         public float gainScaler = 1.5f;
         public float distanceNearScaler = 1.0f;
         public float distanceFarScaler = 5.0f;
@@ -83,16 +84,18 @@ namespace PlayerVoiceSystem
             OnStateChanged();
         }
 
-        public override void GetPlayerVoiceScaler(VRCPlayerApi player, out float gainScaler, out float distanceNearScaler, out float distanceFarScaler, out float volumetricRadiusScaler, out bool lowpassDisable)
+        public override void GetPlayerVoiceScaler(VRCPlayerApi player, out float gainScaler, out float distanceNearScaler, out float distanceFarScaler, out float volumetricRadiusScaler, out bool lowpassDisable, out bool scalerOverride)
         {
             VRCPlayerApi ownerPlayer = Networking.GetOwner(this.gameObject);
-            if (!isEnabledLocal || !isHeld || ownerPlayer.playerId != player.playerId) {
+            if (!isEnabledLocal || !isHeld || ownerPlayer.playerId != player.playerId)
+            {
                 // Mic is not enabled, not held, or not owned by the player
                 gainScaler = 1.0f;
                 distanceNearScaler = 1.0f;
                 distanceFarScaler = 1.0f;
                 volumetricRadiusScaler = 1.0f;
                 lowpassDisable = false;
+                scalerOverride = false;
                 return;
             }
 
@@ -102,6 +105,7 @@ namespace PlayerVoiceSystem
             distanceFarScaler = this.distanceFarScaler;
             volumetricRadiusScaler = this.volumetricRadiusScaler;
             lowpassDisable = this.lowpassDisable;
+            scalerOverride = this.scalerOverrideIfHeld;
         }
 
     }

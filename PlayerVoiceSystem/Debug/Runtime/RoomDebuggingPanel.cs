@@ -1,15 +1,13 @@
-﻿
-using PlayerVoiceSystem;
-using UdonSharp;
+﻿using UdonSharp;
 using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
 
-namespace PlayerVoiceSystem.Debugging
+namespace Xuan25.PlayerVoiceSystem.Debugging
 {
     
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
-    public class DebuggingPanel : UdonSharpBehaviour
+    public class RoomDebuggingPanel : UdonSharpBehaviour
     {
         public PlayerVoiceRoomController playerVoiceRoomController;
 
@@ -17,7 +15,7 @@ namespace PlayerVoiceSystem.Debugging
 
         public GameObject rowContainer;
 
-        private DebuggingRow[] rows;
+        private RoomDebuggingRow[] rows;
 
         private int roomValidityMask;
 
@@ -43,12 +41,12 @@ namespace PlayerVoiceSystem.Debugging
             }
 
             playerCountMax = playerVoiceRoomController.playerVoiceRoomMask.Length;
-            rows = new DebuggingRow[playerCountMax];
+            rows = new RoomDebuggingRow[playerCountMax];
             for (int i = 0; i < playerCountMax; i++)
             {
                 GameObject rowObject = Instantiate(rowPrefab, rowContainer.transform);
                 rowObject.SetActive(false); // Initially hide the row
-                DebuggingRow row = rowObject.GetComponent<DebuggingRow>();
+                RoomDebuggingRow row = rowObject.GetComponent<RoomDebuggingRow>();
                 row.Setup(roomCountMax);
                 rows[i] = row;
             }
@@ -58,7 +56,7 @@ namespace PlayerVoiceSystem.Debugging
 
         public void OnPlayerListChanged()
         {
-            Debug.Log($"[{GetUdonTypeName()}] OnPlayerListChanged called. Updating player rows...");
+            // Debug.Log($"[{GetUdonTypeName()}] OnPlayerListChanged called. Updating player rows...");
             for (int i = 0; i < playerCountMax; i++)
             {
                 VRCPlayerApi player = VRCPlayerApi.GetPlayerById(i);
@@ -77,14 +75,14 @@ namespace PlayerVoiceSystem.Debugging
 
         public void OnPlayerStateChanged()
         {
-            Debug.Log($"[{GetUdonTypeName()}] OnPlayerStateChanged called. Updating player masks...");
+            // Debug.Log($"[{GetUdonTypeName()}] OnPlayerStateChanged called. Updating player masks...");
             for (int i = 0; i < playerCountMax; i++)
             {
                 VRCPlayerApi player = VRCPlayerApi.GetPlayerById(i);
                 if (player == null) continue;
 
                 rows[i].SetMask(playerVoiceRoomController.playerVoiceRoomMask[i], roomValidityMask);
-                Debug.Log($"[{GetUdonTypeName()}] Updated mask for player {player.displayName} (ID: {i}) with mask: {playerVoiceRoomController.playerVoiceRoomMask[i]} and room validity mask: {roomValidityMask}");
+                // Debug.Log($"[{GetUdonTypeName()}] Updated mask for player {player.displayName} (ID: {i}) with mask: {playerVoiceRoomController.playerVoiceRoomMask[i]} and room validity mask: {roomValidityMask}");
             }
         }
 
