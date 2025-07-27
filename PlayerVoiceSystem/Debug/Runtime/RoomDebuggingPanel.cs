@@ -1,11 +1,12 @@
 ﻿using UdonSharp;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using VRC.SDKBase;
 using VRC.Udon;
 
 namespace Xuan25.PlayerVoiceSystem.Debugging
 {
-    
+
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class RoomDebuggingPanel : UdonSharpBehaviour
     {
@@ -57,6 +58,11 @@ namespace Xuan25.PlayerVoiceSystem.Debugging
         public void OnPlayerListChanged()
         {
             // Debug.Log($"[{GetUdonTypeName()}] OnPlayerListChanged called. Updating player rows...");
+            SendCustomEventDelayedFrames(nameof(UpdatePlayerList), 1);
+        }
+
+        public void UpdatePlayerList()
+        {
             for (int i = 0; i < playerCountMax; i++)
             {
                 VRCPlayerApi player = VRCPlayerApi.GetPlayerById(i);
@@ -70,12 +76,17 @@ namespace Xuan25.PlayerVoiceSystem.Debugging
                 rows[i].SetUserName(player.displayName);
             }
 
-            OnPlayerStateChanged();
+            UpdatePlayerState();
         }
 
         public void OnPlayerStateChanged()
         {
             // Debug.Log($"[{GetUdonTypeName()}] OnPlayerStateChanged called. Updating player masks...");
+            UpdatePlayerState();
+        }
+        
+        public void UpdatePlayerState()
+        {
             for (int i = 0; i < playerCountMax; i++)
             {
                 VRCPlayerApi player = VRCPlayerApi.GetPlayerById(i);
