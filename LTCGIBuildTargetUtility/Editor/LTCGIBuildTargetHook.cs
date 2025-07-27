@@ -15,7 +15,14 @@ namespace LTCGIBuildTargetUtility
     public class LTCGIBuildTargetHook : IActiveBuildTargetChanged, IProcessSceneWithReport
     {
         public int callbackOrder => -1000;
-        
+
+        [MenuItem("Tools/LTCGI/Force Update Build Target")]
+        public static void ForceUpdateLTCGIComponents()
+        {
+            LTCGIBuildTargetHook hook = new LTCGIBuildTargetHook();
+            hook.Process(false);
+        }
+
         public void OnActiveBuildTargetChanged(BuildTarget previousTarget, BuildTarget newTarget)
         {
             Process(false);
