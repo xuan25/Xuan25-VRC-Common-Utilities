@@ -20,6 +20,8 @@ namespace OnBuildHookUtility
             ProcessRemoveOnBuild();
             ProcessInactivateOnBuild();
 #if LTCGI_INCLUDED
+            if (pi.LTCGI.LTCGI_Controller.Singleton == null)
+                return;
             pi.LTCGI.LTCGI_Controller.Singleton.UpdateMaterials(false, null, true);
 #endif
         }
