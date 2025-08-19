@@ -18,6 +18,7 @@ These utilities are meant to be reused across multiple worlds or projects. Expec
 - **KaraokePlaylist**: Karaoke playlist system.
 - **LTCGIBuildTargetUtility**: Configures LTCGI screen/emitter for different build targets. Supports auto-activation/inactivation of components on build target change and auto-removal on build for certain targets.
 - **OnBuildHooks**: Automatically inactivates or removes GameObjects on build.
+- **ParallaxModifier**: A lightweight toolset for crafting stunning 3D animated skyboxes without extensive clip space requirements. Comes with GCINC for shader modifications and the ORL shader module for configurable shaders.
 - **PlayerObjectSystem**: Activates GameObjects based on certain groups of players in the instance or for specific players.
 - **PlayerVoiceSystem**: Provides isolation zones and microphones for player voice.
 - **RandomHintDisplay (-Examples)**: Displays a random hint from a pool, synced or local, with animations. Examples include Hint Generator and Truth or Dare.

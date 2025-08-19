@@ -1,0 +1,26 @@
+%Properties()
+{
+    UI_ViewTransformedHeader("# ParallaxModifier", Int) = 0
+    _ViewScaling ("Distance Feel (bigger = farther)", Float) = 1.0
+    _ViewTransformAnchorBlend ("Anchor Blend (0=Scale from World, 1=Scale from Model)", Range(0,1)) = 1.0
+}
+
+%ShaderTags()
+{
+    "Queue"="Background+50"
+}
+
+%Variables()
+{
+    float  _ViewScaling;
+    float  _ViewTransformAnchorBlend;
+}
+
+%Vertex("ParallaxModifierVertex")
+{
+    #include "Includes/ParallaxModifier.cginc"
+    void ParallaxModifierVertex(inout VertexData v, inout FragmentData o)
+    {
+        v.vertex = ParallaxModifier(v.vertex, _ViewScaling, _ViewTransformAnchorBlend);
+    }
+}
