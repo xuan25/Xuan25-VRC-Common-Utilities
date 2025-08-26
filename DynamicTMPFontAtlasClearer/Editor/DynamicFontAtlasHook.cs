@@ -11,14 +11,20 @@ public class DynamicFontAtlasHook : IPreprocessBuildWithReport
     public int callbackOrder => 999999;
     public void OnPreprocessBuild(BuildReport report)
     {
+        ClearAllDynamicFontAtlas();
+    }
+    
+    [MenuItem("Tools/Xuan25/Clear All Dynamic TMP Font Atlas")]
+    public static void ClearAllDynamicFontAtlas()
+    {
         string type = $"t:TMP_FontAsset";
         string[] assets = AssetDatabase.FindAssets(type);
-        foreach(string asset in assets)
+        foreach (string asset in assets)
         {
             string path = AssetDatabase.GUIDToAssetPath(asset);
             TMPro.TMP_FontAsset font = AssetDatabase.LoadAssetAtPath<TMPro.TMP_FontAsset>(path);
 
-            if(font.atlasPopulationMode == TMPro.AtlasPopulationMode.Dynamic)
+            if (font.atlasPopulationMode == TMPro.AtlasPopulationMode.Dynamic)
                 font.ClearFontAssetData(setAtlasSizeToZero: true);
         }
     }
