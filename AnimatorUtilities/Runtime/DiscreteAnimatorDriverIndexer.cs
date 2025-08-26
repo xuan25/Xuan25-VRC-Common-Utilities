@@ -20,10 +20,5 @@ namespace AnimatorUtilities
                 target.SetParameter(index);
             }
         }
-
-        public override void Interact()
-        {
-            SetParameter();
-        }
     }
 }

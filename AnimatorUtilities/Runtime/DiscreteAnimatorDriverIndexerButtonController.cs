@@ -1,17 +1,20 @@
-﻿
-using AnimatorUtilities;
-using UdonSharp;
+﻿using UdonSharp;
 using UnityEngine;
 using UnityEngine.UI;
 using VRC.SDKBase;
 using VRC.Udon;
 
-public class DiscreteAnimatorDriverIndexerButtonController : DiscreteAnimatorDriverIndexer
+namespace AnimatorUtilities
 {
-    [SerializeField] public Button[] buttons;
-
-    public void OnButtonClicked()
+    [UdonBehaviourSyncMode(BehaviourSyncMode.NoVariableSync)]
+    public class DiscreteAnimatorDriverIndexerButtonController : DiscreteAnimatorDriverIndexer
     {
-        SetParameter();
+        [SerializeField] public Button[] buttons;
+
+        public void OnButtonClicked()
+        {
+            SetParameter();
+        }
     }
+
 }

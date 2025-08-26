@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
-  m_Name: DiscreteAnimatorDriverIndexer
+  m_Name: DiscreteAnimatorDriverIndexerInteractable
   m_EditorClassIdentifier: 
   udonAssembly: 
   assemblyError: 
-  sourceCsScript: {fileID: 11500000, guid: 6ff73a59df62a4d43afd2a6d2f61678d, type: 3}
+  sourceCsScript: {fileID: 11500000, guid: c7228630e9c81924b8a0f403655085a9, type: 3}
   scriptVersion: 2
   compiledVersion: 2
   behaviourSyncMode: 2
-  hasInteractEvent: 0
-  scriptID: 4407855473129811340
+  hasInteractEvent: 1
+  scriptID: 1438216777667347256
   serializationData:
     SerializedBytes: 
     ReferencedUnityObjects: []

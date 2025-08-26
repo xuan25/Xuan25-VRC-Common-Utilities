@@ -18,8 +18,8 @@ MonoBehaviour:
   scriptVersion: 2
   compiledVersion: 2
   behaviourSyncMode: 2
-  hasInteractEvent: 1
-  scriptID: 3532507665641040708
+  hasInteractEvent: 0
+  scriptID: -2908802033537237896
   serializationData:
     SerializedBytes: 
     ReferencedUnityObjects: []
