@@ -42,10 +42,8 @@ namespace AnimatorUtilities {
             UnityEventTools.AddStringPersistentListener(button.onClick, UdonSharpEditorUtility.GetBackingUdonBehaviour(target).SendCustomEvent, methodName);
         }
 
-        public void OnProcessScene(Scene scene, BuildReport report)
+        private void ProcessSliders()
         {
-            Debug.Log($"[{GetType()}] Processing scene: " + scene.name);
-
             ContinuousAnimatorDriverSliderController[] targets = GetSliderControllers();
             if (targets == null) return;
 
@@ -54,15 +52,26 @@ namespace AnimatorUtilities {
                 foreach (Slider slider in target.sliders)
                     BindSliderEventsToUdonBehaviours(target, slider, nameof(ContinuousAnimatorDriverSliderController.OnSliderValueChanged));
             }
-            
-            DiscreteAnimatorDriverIndexerButtonController[] buttonTargets = GetButtonControllers();
-            if (buttonTargets == null) return;
+        }
 
-            foreach (DiscreteAnimatorDriverIndexerButtonController target in buttonTargets)
+        private void ProcessButtons()
+        {
+            DiscreteAnimatorDriverIndexerButtonController[] targets = GetButtonControllers();
+            if (targets == null) return;
+
+            foreach (DiscreteAnimatorDriverIndexerButtonController target in targets)
             {
                 foreach (Button button in target.buttons)
                     BindButtonEventsToUdonBehaviours(target, button, nameof(DiscreteAnimatorDriverIndexerButtonController.OnButtonClicked));
             }
+        }
+
+        public void OnProcessScene(Scene scene, BuildReport report)
+        {
+            Debug.Log($"[{GetType()}] Processing scene: " + scene.name);
+
+            ProcessSliders();
+            ProcessButtons();
         }
 
         public T FindComponentGlobalFirst<T>() where T : Component
