@@ -2,7 +2,8 @@
     "name": "Xuan25.DynamicTMPFontAtlasClearer.Editor",
     "rootNamespace": "",
     "references": [
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "Xuan25.DynamicTMPFontAtlasClearer"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

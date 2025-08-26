@@ -11,9 +11,17 @@ public class DynamicFontAtlasHook : IPreprocessBuildWithReport
     public int callbackOrder => 999999;
     public void OnPreprocessBuild(BuildReport report)
     {
+        ClearFontAtlasOnBuild[] clearFontAtlasOnBuilds = FindComponentGlobal<ClearFontAtlasOnBuild>();
+        if (clearFontAtlasOnBuilds == null) return;
+
+        foreach (ClearFontAtlasOnBuild clearFontAtlas in clearFontAtlasOnBuilds)
+        {
+            GameObject.Destroy(clearFontAtlas.gameObject);
+        }
+
         ClearAllDynamicFontAtlas();
     }
-    
+
     [MenuItem("Tools/Xuan25/Clear All Dynamic TMP Font Atlas")]
     public static void ClearAllDynamicFontAtlas()
     {
@@ -27,6 +35,30 @@ public class DynamicFontAtlasHook : IPreprocessBuildWithReport
             if (font.atlasPopulationMode == TMPro.AtlasPopulationMode.Dynamic)
                 font.ClearFontAssetData(setAtlasSizeToZero: true);
         }
+    }
+    
+    public T FindComponentGlobalFirst<T>() where T : Component
+    {
+        T[] components = FindComponentGlobal<T>();
+        if (components == null)
+        {
+            return null;
+        }
+        return components[0];
+    }
+
+    public T[] FindComponentGlobal<T>() where T : Component
+    {
+        T[] components = Object.FindObjectsOfType<T>(true);
+        if (components.Length == 0)
+        {
+            Debug.LogWarning($"[{nameof(DynamicFontAtlasHook)}] No {typeof(T).Name} found in scene.");
+            return null;
+        }
+
+        Debug.Log($"[{nameof(DynamicFontAtlasHook)}] Found {components.Length} {typeof(T).Name} in scene.");
+
+        return components;
     }
 }
 #endif
