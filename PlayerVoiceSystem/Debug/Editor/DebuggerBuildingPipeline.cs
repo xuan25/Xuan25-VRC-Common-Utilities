@@ -15,11 +15,8 @@ namespace Xuan25.PlayerVoiceSystem.Debugging {
             RoomDebuggingPanel[] debuggingPanels = FindComponentGlobal<RoomDebuggingPanel>();
             if (debuggingPanels == null)
             {
-                Debug.LogWarning("[DebuggerBuildingPipeline] No debugging panel found in scene.");
                 return null;
             }
-
-            Debug.Log($"[DebuggerBuildingPipeline] Found {debuggingPanels.Length} debugging panels in scene.");
 
             return debuggingPanels;
         }
@@ -28,11 +25,8 @@ namespace Xuan25.PlayerVoiceSystem.Debugging {
             TriggerDebuggingPanel[] debuggingPanels = FindComponentGlobal<TriggerDebuggingPanel>();
             if (debuggingPanels == null)
             {
-                Debug.LogWarning("[DebuggerBuildingPipeline] No trigger debugging panel found in scene.");
                 return null;
             }
-
-            Debug.Log($"[DebuggerBuildingPipeline] Found {debuggingPanels.Length} trigger debugging panels in scene.");
 
             return debuggingPanels;
         }
@@ -47,7 +41,7 @@ namespace Xuan25.PlayerVoiceSystem.Debugging {
                 playerVoiceRoomController = FindComponentGlobalFirst<PlayerVoiceRoomController>();
                 if (playerVoiceRoomController == null)
                 {
-                    Debug.LogError("[DebuggerBuildingPipeline] No PlayerVoiceRoomController found in scene.");
+                    Debug.LogError($"[{GetType()}] No PlayerVoiceRoomController found in scene.");
                     return null;
                 }
             }
@@ -67,7 +61,7 @@ namespace Xuan25.PlayerVoiceSystem.Debugging {
                 playerVoiceTrigger = FindComponentGlobalFirst<PlayerVoiceTrigger>();
                 if (playerVoiceTrigger == null)
                 {
-                    Debug.LogError("[DebuggerBuildingPipeline] No PlayerVoiceTrigger found in scene.");
+                    Debug.LogError($"[{GetType()}] No PlayerVoiceTrigger found in scene.");
                     return null;
                 }
             }
@@ -80,7 +74,7 @@ namespace Xuan25.PlayerVoiceSystem.Debugging {
 
         public void OnProcessScene(Scene scene, BuildReport report)
         {
-            Debug.Log("[DebuggerBuildingPipeline] Processing scene: " + scene.name);
+            Debug.Log($"[{GetType()}] Processing scene: " + scene.name);
 
             RoomDebuggingPanel[] roomDebuggingPanels = GetRoomDebuggingPanels();
             if (roomDebuggingPanels == null) return;
@@ -112,9 +106,11 @@ namespace Xuan25.PlayerVoiceSystem.Debugging {
             T[] components = Object.FindObjectsOfType<T>(true);
             if (components.Length == 0)
             {
-                Debug.LogWarning($"[DebuggerBuildingPipeline] No {typeof(T).Name} found in scene.");
+                Debug.Log($"[{GetType()}] No {typeof(T).Name} found in scene.");
                 return null;
             }
+
+            Debug.Log($"[{GetType()}] Found {components.Length} {typeof(T).Name} in scene.");
 
             return components;
         }

@@ -18,8 +18,15 @@ public class VRCUrlTemplateSetterBuildingPipeline : IProcessSceneWithReport
 
     public void OnProcessScene(Scene scene, BuildReport report)
     {
-        Debug.Log("VRCUrlTemplateSetterBuildingPipeline Processing scene: " + scene.name);
+        Debug.Log($"[{GetType()}] Processing scene: " + scene.name);
         VRCUrlTemplateSetter[] urlTemplateSetters = scene.GetRootGameObjects().SelectMany(go => go.GetComponentsInChildren<VRCUrlTemplateSetter>()).ToArray();
+
+        if (urlTemplateSetters == null || urlTemplateSetters.Length == 0)
+        {
+            Debug.LogWarning($"[{GetType()}] No {typeof(VRCUrlTemplateSetter).Name} found in scene.");
+            return;
+        }
+        Debug.Log($"[{GetType()}] Found {urlTemplateSetters.Length} {typeof(VRCUrlTemplateSetter).Name} in scene.");
 
         foreach (VRCUrlTemplateSetter urlTemplateSetter in urlTemplateSetters)
         {

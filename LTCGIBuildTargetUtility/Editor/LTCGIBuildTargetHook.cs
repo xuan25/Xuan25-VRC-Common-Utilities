@@ -38,11 +38,8 @@ namespace LTCGIBuildTargetUtility
             LTCGIBuildTargetConfig[] lTCGIBuildTargetConfigs = FindComponentGlobal<LTCGIBuildTargetConfig>();
             if (lTCGIBuildTargetConfigs == null || lTCGIBuildTargetConfigs.Length == 0)
             {
-                Debug.LogWarning($"[{GetType()}] No LTCGI build target configs found in scene.");
                 return;
             }
-
-            Debug.Log($"[{GetType()}] Found {lTCGIBuildTargetConfigs.Length} LTCGI build target configs in scene.");
 
             foreach (LTCGIBuildTargetConfig lTCGIBuildTargetConfig in lTCGIBuildTargetConfigs)
             {
@@ -57,7 +54,7 @@ namespace LTCGIBuildTargetUtility
         public T FindComponentGlobalFirst<T>() where T : Component
         {
             T[] components = FindComponentGlobal<T>();
-            if (components == null || components.Length == 0)
+            if (components == null)
             {
                 return null;
             }
@@ -66,7 +63,15 @@ namespace LTCGIBuildTargetUtility
 
         public T[] FindComponentGlobal<T>() where T : Component
         {
-            T[] components = Object.FindObjectsByType<T>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            T[] components = Object.FindObjectsOfType<T>(true);
+            if (components.Length == 0)
+            {
+                Debug.Log($"[{GetType()}] No {typeof(T).Name} found in scene.");
+                return null;
+            }
+
+            Debug.Log($"[{GetType()}] Found {components.Length} {typeof(T).Name} in scene.");
+
             return components;
         }
     }

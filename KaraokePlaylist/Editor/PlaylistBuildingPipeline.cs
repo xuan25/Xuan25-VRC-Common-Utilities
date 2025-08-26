@@ -22,11 +22,8 @@ namespace Playlist {
             PlaylistController[] playlistControllers = FindComponentGlobal<PlaylistController>();
             if (playlistControllers == null)
             {
-                Debug.LogWarning("[PlaylistBuildingPipeline] No playlist controller found in scene.");
                 return null;
             }
-
-            Debug.Log($"[PlaylistBuildingPipeline] Found {playlistControllers.Length} playlist controllers in scene.");
 
             return playlistControllers;
         }
@@ -43,7 +40,6 @@ namespace Playlist {
                 playerCore = FindComponentGlobalFirst<JLChnToZ.VRC.VVMW.Core>();
                 if (playerCore == null)
                 {
-                    Debug.LogError("[PlaylistBuildingPipeline] No player core found in scene.");
                     return null;
                 }
             }
@@ -61,7 +57,7 @@ namespace Playlist {
             Button button = playlistController.GetComponentsInChildren<Button>(true).FirstOrDefault(x => x.name == buttonName);
             if (button == null)
             {
-                throw new System.Exception($"[PlaylistBuildingPipeline] No button found in scene with name {buttonName}. Please ensure only one exists.");
+                throw new System.Exception($"[{GetType()}] No button found in scene with name {buttonName}. Please ensure only one exists.");
             }
 
             UnityEventTools.AddStringPersistentListener(button.onClick, UdonSharpEditorUtility.GetBackingUdonBehaviour(audioStateController).SendCustomEvent, eventAction.Method.Name);
@@ -70,7 +66,7 @@ namespace Playlist {
 
         public void OnProcessScene(Scene scene, BuildReport report)
         {
-            Debug.Log("[PlaylistBuildingPipeline] Processing scene: " + scene.name);
+            Debug.Log($"[{GetType()}] Processing scene: " + scene.name);
 
             PlaylistController[] playlistControllers = GetPlaylistControllers();
             if (playlistControllers == null) return;
@@ -90,7 +86,7 @@ namespace Playlist {
                     audioStateController = FindComponentGlobalFirst<AudioStateController>();
                     if (audioStateController == null)
                     {
-                        Debug.LogError("[PlaylistBuildingPipeline] No audio state controller found in scene.");
+                        Debug.LogWarning($"[{GetType()}] No audio state controller found in scene.");
                         continue;
                     }
                 }
@@ -115,9 +111,11 @@ namespace Playlist {
             T[] components = Object.FindObjectsOfType<T>(true);
             if (components.Length == 0)
             {
-                Debug.LogWarning($"[PlaylistBuildingPipeline] No {typeof(T).Name} found in scene.");
+                Debug.Log($"[{GetType()}] No {typeof(T).Name} found in scene.");
                 return null;
             }
+
+            Debug.Log($"[{GetType()}] Found {components.Length} {typeof(T).Name} in scene.");
 
             return components;
         }

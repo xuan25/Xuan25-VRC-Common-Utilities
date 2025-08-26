@@ -31,10 +31,8 @@ namespace OnBuildHookUtility
             RemoveOnBuild[] removeOnBuilds = FindComponentGlobal<RemoveOnBuild>();
             if (removeOnBuilds == null || removeOnBuilds.Length == 0)
             {
-                Debug.LogWarning($"[{GetType()}] No RemoveOnBuild components found in scene.");
                 return;
             }
-            Debug.Log($"[{GetType()}] Found {removeOnBuilds.Length} RemoveOnBuild components in scene.");
             for (int i = 0; i < removeOnBuilds.Length; i++)
             {
                 RemoveOnBuild removeOnBuild = removeOnBuilds[i];
@@ -50,10 +48,8 @@ namespace OnBuildHookUtility
             InactivateOnBuild[] inactivateOnBuilds = FindComponentGlobal<InactivateOnBuild>();
             if (inactivateOnBuilds == null || inactivateOnBuilds.Length == 0)
             {
-                Debug.LogWarning($"[{GetType()}] No InactivateOnBuild components found in scene.");
                 return;
             }
-            Debug.Log($"[{GetType()}] Found {inactivateOnBuilds.Length} InactivateOnBuild components in scene.");
             for (int i = 0; i < inactivateOnBuilds.Length; i++)
             {
                 InactivateOnBuild inactivateOnBuild = inactivateOnBuilds[i];
@@ -67,7 +63,7 @@ namespace OnBuildHookUtility
         public T FindComponentGlobalFirst<T>() where T : Component
         {
             T[] components = FindComponentGlobal<T>();
-            if (components == null || components.Length == 0)
+            if (components == null)
             {
                 return null;
             }
@@ -77,6 +73,14 @@ namespace OnBuildHookUtility
         public T[] FindComponentGlobal<T>() where T : Component
         {
             T[] components = Object.FindObjectsOfType<T>(true);
+            if (components.Length == 0)
+            {
+                Debug.Log($"[{GetType()}] No {typeof(T).Name} found in scene.");
+                return null;
+            }
+
+            Debug.Log($"[{GetType()}] Found {components.Length} {typeof(T).Name} in scene.");
+
             return components;
         }
     }

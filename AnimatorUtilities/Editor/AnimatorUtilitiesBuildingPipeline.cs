@@ -26,7 +26,7 @@ namespace AnimatorUtilities {
         {
             if (slider == null)
             {
-                Debug.LogError($"[{nameof(AnimatorUtilitiesBuildingPipeline)}] {target.name} has a null {nameof(Slider)}. Please ensure all sliders are assigned.");
+                Debug.LogError($"[{GetType()}] {target.name} has a null {nameof(Slider)}. Please ensure all sliders are assigned.");
                 return;
             }
             UnityEventTools.AddStringPersistentListener(slider.onValueChanged, UdonSharpEditorUtility.GetBackingUdonBehaviour(target).SendCustomEvent, methodName);
@@ -36,7 +36,7 @@ namespace AnimatorUtilities {
         {
             if (button == null)
             {
-                Debug.LogError($"[{nameof(AnimatorUtilitiesBuildingPipeline)}] {target.name} has a null {nameof(Button)}. Please ensure all buttons are assigned.");
+                Debug.LogError($"[{GetType()}] {target.name} has a null {nameof(Button)}. Please ensure all buttons are assigned.");
                 return;
             }
             UnityEventTools.AddStringPersistentListener(button.onClick, UdonSharpEditorUtility.GetBackingUdonBehaviour(target).SendCustomEvent, methodName);
@@ -44,7 +44,7 @@ namespace AnimatorUtilities {
 
         public void OnProcessScene(Scene scene, BuildReport report)
         {
-            Debug.Log($"[{nameof(AnimatorUtilitiesBuildingPipeline)}] Processing scene: " + scene.name);
+            Debug.Log($"[{GetType()}] Processing scene: " + scene.name);
 
             ContinuousAnimatorDriverSliderController[] targets = GetSliderControllers();
             if (targets == null) return;
@@ -80,11 +80,11 @@ namespace AnimatorUtilities {
             T[] components = Object.FindObjectsOfType<T>(true);
             if (components.Length == 0)
             {
-                Debug.LogWarning($"[{nameof(AnimatorUtilitiesBuildingPipeline)}] No {typeof(T).Name} found in scene.");
+                Debug.Log($"[{GetType()}] No {typeof(T).Name} found in scene.");
                 return null;
             }
 
-            Debug.Log($"[{nameof(AnimatorUtilitiesBuildingPipeline)}] Found {components.Length} {typeof(T).Name} in scene.");
+            Debug.Log($"[{GetType()}] Found {components.Length} {typeof(T).Name} in scene.");
 
             return components;
         }

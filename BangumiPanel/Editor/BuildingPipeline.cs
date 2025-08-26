@@ -19,13 +19,12 @@ namespace BangumiPanel {
             PlaylistManager[] playlistControllers = FindComponentGlobal<PlaylistManager>();
             if (playlistControllers == null)
             {
-                Debug.LogWarning("[PlaylistBuildingPipeline] No playlist controller found in scene.");
                 return null;
             }
 
             if (playlistControllers.Length > 1)
             {
-                throw new System.Exception("[PlaylistBuildingPipeline] More than one playlist controller found in scene. Please ensure only one exists.");
+                throw new System.Exception($"[{GetType()}] More than one playlist controller found in scene. Please ensure only one exists.");
             }
 
             return playlistControllers[0];
@@ -42,7 +41,6 @@ namespace BangumiPanel {
                 vizvidCore = FindComponentGlobalFirst<JLChnToZ.VRC.VVMW.Core>();
                 if (vizvidCore == null)
                 {
-                    Debug.LogError("[PlaylistBuildingPipeline] No player core found in scene.");
                     return null;
                 }
             }
@@ -64,7 +62,6 @@ namespace BangumiPanel {
                 yamaController = FindComponentGlobalFirst<Yamadev.YamaStream.Controller>();
                 if (yamaController == null)
                 {
-                    Debug.LogError("[PlaylistBuildingPipeline] No player core found in scene.");
                     return null;
                 }
             }
@@ -77,7 +74,7 @@ namespace BangumiPanel {
 
         public void OnProcessScene(Scene scene, BuildReport report)
         {
-            Debug.Log("[PlaylistBuildingPipeline] Processing scene: " + scene.name);
+            Debug.Log($"[{GetType()}] Processing scene: " + scene.name);
 
             PlaylistManager playlistController = GetPlaylistController();
             if (playlistController == null) return;
@@ -105,9 +102,11 @@ namespace BangumiPanel {
             T[] components = Object.FindObjectsOfType<T>(true);
             if (components.Length == 0)
             {
-                Debug.LogWarning($"[PlaylistBuildingPipeline] No {typeof(T).Name} found in scene.");
+                Debug.Log($"[{GetType()}] No {typeof(T).Name} found in scene.");
                 return null;
             }
+
+            Debug.Log($"[{GetType()}] Found {components.Length} {typeof(T).Name} in scene.");
 
             return components;
         }

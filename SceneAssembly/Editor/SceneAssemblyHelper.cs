@@ -18,11 +18,8 @@ namespace SceneAssembly
             ScenePart[] sceneParts = Object.FindObjectsOfType<ScenePart>(true);
             if (sceneParts == null || sceneParts.Length == 0)
             {
-                Debug.LogWarning($"{GetType()} No SceneAssembly found in scene.");
                 return;
             }
-
-            Debug.Log($"{GetType()} Found {sceneParts.Length} SceneAssembly(s) in scene.");
 
             for (int i = 0; i < sceneParts.Length; i++)
             {
@@ -49,9 +46,11 @@ namespace SceneAssembly
             T[] components = Object.FindObjectsOfType<T>(true);
             if (components.Length == 0)
             {
-                Debug.LogError($"{GetType()} No {typeof(T).Name} found in scene.");
+                Debug.Log($"[{GetType()}] No {typeof(T).Name} found in scene.");
                 return null;
             }
+
+            Debug.Log($"[{GetType()}] Found {components.Length} {typeof(T).Name} in scene.");
 
             return components;
         }
