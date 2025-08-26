@@ -8,6 +8,7 @@ These utilities are meant to be reused across multiple worlds or projects. Expec
 
 ## Modules
 
+- **AnimatorUtilities**: Helpers to drive animator parameters via pickups, UI elements, or interacts — supports global or local control.
 - **AudioSynthesizer**: Udon-programmable audio source with filters. Includes example implementations of an `Oscillator` and an `IIRFilter`. CPU-intensive due to the low efficiency of UdonVM.
 - **BangumiPanel**: Displays a list of seasonal Bangumi to play. Supported players: VizVid, YamaPlayer.
 - **BGMVolumeControl**: Fades out background music when a video starts playing. Implemented for YamaPlayer.
@@ -23,6 +24,7 @@ These utilities are meant to be reused across multiple worlds or projects. Expec
 - **PlayerVoiceSystem**: Provides isolation zones and microphones for player voice.
 - **RandomHintDisplay (-Examples)**: Displays a random hint from a pool, synced or local, with animations. Examples include Hint Generator and Truth or Dare.
 - **RayCastUtilities**: Enables raycast detection for PC cursors and VR controllers. Includes implementation of ScrollView with VR joystick and mouse scroll control.
+- **ReverbSFX**: Adds reverb sound effect to the world with a slider to control intensity.
 - **SceneAssembly**: Aligns multiple scene trees (e.g., scene variants) on build.
 - **SymbolConfigurator**: Automatic configures compiler symbols for the Udon compiler. Supports VIZVID (VizVid Player) and YAMA_STREAM (Yama Player).
 - **Toggle**: Toggles GameObjects, either synced or local.
@@ -32,21 +34,22 @@ These utilities are meant to be reused across multiple worlds or projects. Expec
 - **VRCUrlTemplateSetter**: Automatically sets the URL prefix for `VRCUrlInput` on open.
 
 
-## ⚠️ Please Note: `DynamicTMPFontAtlasClearer`
+## DynamicTMPFontAtlasClearer
 
 The `DynamicTMPFontAtlasClearer` module includes a build-time pipeline that **clears the dynamic TMP font atlas** before publishing your VRChat world.  
 
 This is intended to **reduce the world’s download size**, especially for mobile platforms (such as Quest) where strict file size limits apply.
 
-### 🔍 Trade-offs
+### Trade-offs
 
-- ✅ **Pros:** Significantly reduces upload/download size.
-- ⚠️ **Cons:** The font atlas must be regenerated at runtime after the world loads, which can cause **unexpected frame drops** when text is first displayed.
+- **Pros:** Significantly reduces upload/download size.
+- **Cons:** The font atlas must be regenerated at runtime after the world loads, which can cause **unexpected frame drops** when text is first displayed.
 
-### 🚫 How to Disable
+### Current Behaviour
 
-There is currently **no built-in way to disable** this functionality.  
-To prevent it from running, you must **delete the `DynamicTMPFontAtlasClearer` module** from the package manually.
+- **Disabled by default**.  
+- To enable, place the prefab **`ClearFontAtlasOnBuild`** into your scene.
+- If the prefab is not present, nothing will run during build.
 
 ## Development
 
