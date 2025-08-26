@@ -12522,11 +12522,11 @@ MonoBehaviour:
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 7708585677685319448}
   rayCastCollider: {fileID: 5553060579002447578}
-  scrollSensitivity: 100
   mouseScrollScalar: 10
   joystickScrollScalar: 10
-  horizontal: 0
   scrollRect: {fileID: 6104930126217789577}
+  scrollSensitivity: 100
+  horizontal: 0
 --- !u!114 &7708585677685319448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12617,7 +12617,7 @@ MonoBehaviour:
   playerCore: {fileID: 0}
   audioStateController: {fileID: 0}
   playlistEndpoint:
-    url: https://api.xuan25.com/vrc-playlist
+    url: https://api.xuan25.com/vrc-karaoke-playlist
   urlPool: {fileID: 9024334492003016775}
   searchInputField: {fileID: 2706998230950784727}
   playlistItemContainer: {fileID: 5740625941111299097}
@@ -13035,11 +13035,11 @@ MonoBehaviour:
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 3130106332107584153}
   rayCastCollider: {fileID: 3962179122188634384}
-  scrollSensitivity: 100
   mouseScrollScalar: 10
   joystickScrollScalar: 10
-  horizontal: 0
   scrollRect: {fileID: 8809832675230651198}
+  scrollSensitivity: 100
+  horizontal: 0
 --- !u!114 &3130106332107584153
 MonoBehaviour:
   m_ObjectHideFlags: 0
