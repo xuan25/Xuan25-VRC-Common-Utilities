@@ -4,11 +4,11 @@ using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
 
-namespace ToggleUtility
+namespace ToggleUtilities
 {
     public class ToggleProxy : UdonSharpBehaviour
     {
-        public ToggleBase target;
+        public InteractToggleBase target;
 
         public override void Interact()
         {

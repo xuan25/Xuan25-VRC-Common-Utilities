@@ -5,10 +5,10 @@ using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
 
-namespace ToggleUtility
+namespace ToggleUtilities
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
-    public class Toggle : ToggleBase
+    public class BinaryToggle : InteractToggleBase
     {
         [SerializeField] private GameObject[] targets;
 

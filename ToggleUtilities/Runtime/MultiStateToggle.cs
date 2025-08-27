@@ -4,11 +4,11 @@ using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
 
-namespace ToggleUtility
+namespace ToggleUtilities
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
 
-    public class MultiStateToggle : ToggleBase
+    public class MultiStateToggle : InteractToggleBase
     {
         [SerializeField] private GameObject[] targets;
 

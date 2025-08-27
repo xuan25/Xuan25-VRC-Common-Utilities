@@ -1,5 +1,5 @@
 {
-    "name": "Xuan25.Toggle",
+    "name": "Xuan25.ToggleUtilities",
     "rootNamespace": "",
     "references": [
         "UdonSharp.Runtime"

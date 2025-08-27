@@ -4,7 +4,7 @@ using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
 
-namespace ToggleUtility
+namespace ToggleUtilities
 {
 
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]

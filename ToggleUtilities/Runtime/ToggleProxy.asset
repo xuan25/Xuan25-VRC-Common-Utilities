@@ -19,7 +19,7 @@ MonoBehaviour:
   compiledVersion: 2
   behaviourSyncMode: 0
   hasInteractEvent: 1
-  scriptID: -8912978685840384308
+  scriptID: -7534702156232690690
   serializationData:
     SerializedBytes: 
     ReferencedUnityObjects: []
@@ -59,7 +59,7 @@ MonoBehaviour:
       Data: 3|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: ToggleUtility.ToggleBase, Xuan25.Toggle
+      Data: ToggleUtilities.InteractToggleBase, Xuan25.ToggleUtilities
     - Name: 
       Entry: 8
       Data: 

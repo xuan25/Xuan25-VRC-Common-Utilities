@@ -5,9 +5,9 @@ using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
 
-namespace ToggleUtility
+namespace ToggleUtilities
 {
-    public abstract class ToggleBase : UdonSharpBehaviour
+    public abstract class InteractToggleBase : UdonSharpBehaviour
     {
         [SerializeField] protected bool isGlobal = false;
 

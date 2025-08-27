@@ -27,7 +27,7 @@ These utilities are meant to be reused across multiple worlds or projects. Expec
 - **ReverbSFX**: Adds reverb sound effect to the world with a slider to control intensity.
 - **SceneAssembly**: Aligns multiple scene trees (e.g., scene variants) on build.
 - **SymbolConfigurator**: Automatic configures compiler symbols for the Udon compiler. Supports VIZVID (VizVid Player) and YAMA_STREAM (Yama Player).
-- **Toggle**: Toggles GameObjects, either synced or local.
+- **ToggleUtilities**: Toggles GameObjects, either synced or local.
 - **UrlPool**: Pool for VRCURL with a batch generation window.
 - **VideoPlayer-7.1**: VizVid-based video player with 7.1-ready surrounding audio sources.
 - **VRCDebugClientLauncher**: Debug client launcher window with advanced configurable launch options.
