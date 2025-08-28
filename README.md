@@ -15,6 +15,7 @@ These utilities are meant to be reused across multiple worlds or projects. Expec
 - **DigiClock**: A simple digital clock.
 - **DynamicTMPFontAtlasClearer**: Automatically clears dynamic TextMeshPro font atlas on build to reduce download size.
 - **Fonts**: Font assets.
+- **HintController**: Display platform specific hints. Hide by interact and the state can be persisted.
 - **JoinNotification**: Plays audio and/or animation when a player joins or leaves an instance.
 - **KaraokePlaylist**: Karaoke playlist system.
 - **LTCGIBuildTargetUtility**: Configures LTCGI screen/emitter for different build targets. Supports auto-activation/inactivation of components on build target change and auto-removal on build for certain targets.
