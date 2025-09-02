@@ -11,7 +11,7 @@ public class UrlPoolSetup : EditorWindow {
     public static string urlTemplate = "http://127.0.0.1:5000/url/{0}";
     public static int numUrls = 32768;
 
-    [MenuItem("UrlPool/Setup")]
+    [MenuItem("Tools/Xuan25/UrlPool Setup")]
     public static void ShowWindow() => GetWindow<UrlPoolSetup>("UrlPool Setup");
 
     public static GUIContent poolObjContent = new GUIContent("PoolObj", "The GameObject that contains the UrlPool component.");
