@@ -38,7 +38,7 @@ namespace Xuan25.PlayerVoiceSystem
             Networking.SetOwner(Networking.LocalPlayer, this.gameObject);
             isHeld = true;
             if (animator != null) {
-                animator.SetBool(ANIMATOR_PARAM_HOLD_SELF, isHeld);
+                animator.SetBool(ANIMATOR_PARAM_HOLD_SELF, isEnabledLocal && isHeld);
             }
             RequestSerialization();
         }
@@ -48,17 +48,19 @@ namespace Xuan25.PlayerVoiceSystem
             Networking.SetOwner(Networking.LocalPlayer, this.gameObject);
             isHeld = false;
             if (animator != null) {
-                animator.SetBool(ANIMATOR_PARAM_HOLD_SELF, isHeld);
+                animator.SetBool(ANIMATOR_PARAM_HOLD_SELF, isEnabledLocal && isHeld);
             }
             RequestSerialization();
         }
 
         private void OnStateChanged()
         {
+            // triggered when remote player pick up or drop the mic, or local player enable or disable the mic
+            // local player pick up or drop the mic is handled in OnPickup and OnDrop and should not call UpdatePlayerVoice
             VRCPlayerApi ownerPlayer = Networking.GetOwner(this.gameObject);
             playerVoiceController.UpdatePlayerVoice(ownerPlayer);
             if (animator != null) {
-                animator.SetBool(ANIMATOR_PARAM_HOLD_OTHER, isHeld);
+                animator.SetBool(ANIMATOR_PARAM_HOLD_OTHER, isEnabledLocal && isHeld);
             }
         }
 
