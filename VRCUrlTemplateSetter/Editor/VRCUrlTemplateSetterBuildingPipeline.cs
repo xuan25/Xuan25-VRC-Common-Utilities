@@ -23,7 +23,7 @@ public class VRCUrlTemplateSetterBuildingPipeline : IProcessSceneWithReport
 
         if (urlTemplateSetters == null || urlTemplateSetters.Length == 0)
         {
-            Debug.LogWarning($"[{GetType()}] No {typeof(VRCUrlTemplateSetter).Name} found in scene.");
+            Debug.Log($"[{GetType()}] No {typeof(VRCUrlTemplateSetter).Name} found in scene.");
             return;
         }
         Debug.Log($"[{GetType()}] Found {urlTemplateSetters.Length} {typeof(VRCUrlTemplateSetter).Name} in scene.");

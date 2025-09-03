@@ -52,7 +52,7 @@ public class DynamicFontAtlasHook : IPreprocessBuildWithReport
         T[] components = Object.FindObjectsOfType<T>(true);
         if (components.Length == 0)
         {
-            Debug.LogWarning($"[{nameof(DynamicFontAtlasHook)}] No {typeof(T).Name} found in scene.");
+            Debug.Log($"[{nameof(DynamicFontAtlasHook)}] No {typeof(T).Name} found in scene.");
             return null;
         }
 
