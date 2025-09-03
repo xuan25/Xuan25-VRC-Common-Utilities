@@ -234,9 +234,9 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 8008472158239590728}
-  activeSet: 1
+  activeStateEnter: 1
   invertOnExit: 0
-  targetObjects:
+  targets:
   - {fileID: 1820177726480149726}
 --- !u!114 &8008472158239590728
 MonoBehaviour:
