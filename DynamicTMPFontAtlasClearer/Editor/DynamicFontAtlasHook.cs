@@ -5,19 +5,34 @@ using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class DynamicFontAtlasHook : IPreprocessBuildWithReport
+public class DynamicFontAtlasHook : IProcessSceneWithReport
 {
     public int callbackOrder => 999999;
-    public void OnPreprocessBuild(BuildReport report)
+    public void OnProcessScene(Scene scene, BuildReport report)
     {
         ClearFontAtlasOnBuild[] clearFontAtlasOnBuilds = FindComponentGlobal<ClearFontAtlasOnBuild>();
         if (clearFontAtlasOnBuilds == null) return;
+        
+        // check active build target
+        bool anyActive = false;
 
         foreach (ClearFontAtlasOnBuild clearFontAtlas in clearFontAtlasOnBuilds)
         {
-            GameObject.Destroy(clearFontAtlas.gameObject);
+            if (clearFontAtlas.gameObject.activeInHierarchy)
+            {
+                anyActive = true;
+                break;
+            }
         }
+
+        foreach (ClearFontAtlasOnBuild clearFontAtlas in clearFontAtlasOnBuilds)
+        {
+            Object.Destroy(clearFontAtlas.gameObject);
+        }
+
+        if (!anyActive) return;
 
         ClearAllDynamicFontAtlas();
     }
@@ -25,6 +40,7 @@ public class DynamicFontAtlasHook : IPreprocessBuildWithReport
     [MenuItem("Tools/Xuan25/Clear All Dynamic TMP Font Atlas")]
     public static void ClearAllDynamicFontAtlas()
     {
+        Debug.Log($"[{nameof(DynamicFontAtlasHook)}] Clearing all dynamic TMP font atlas...");
         string type = $"t:TMP_FontAsset";
         string[] assets = AssetDatabase.FindAssets(type);
         foreach (string asset in assets)
