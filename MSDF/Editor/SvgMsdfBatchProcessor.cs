@@ -348,22 +348,27 @@ public class SvgMsdfBatchProcessor : EditorWindow
         return path;
     }
 
-    // PathField-like control that commits only on Enter/focus-out.
-    // Returns true if the value changed (by typing or by clicking the browse button).
+    // PathField-like control that commits on Enter/focus-out,
+    // AND updates immediately when you click the browse button.
     private static bool DelayedPathField(string label, ref string path, bool isFolder,
                                         string panelTitle = null, string fileExtensionFilter = "")
     {
+        // Unique control name so we can manage focus reliably
+        string ctrlName = "PF_" + label.GetHashCode();
+
         EditorGUILayout.BeginHorizontal();
 
         EditorGUI.BeginChangeCheck();
+        GUI.SetNextControlName(ctrlName);
         string newPath = EditorGUILayout.DelayedTextField(label, path);
         bool changedByTyping = EditorGUI.EndChangeCheck();
 
         bool changedByButton = false;
         if (GUILayout.Button("...", GUILayout.Width(28)))
         {
-            string start = string.IsNullOrEmpty(path) ? Application.dataPath
-                                                    : (isFolder ? path : Path.GetDirectoryName(path));
+            string start = string.IsNullOrEmpty(path)
+                ? Application.dataPath
+                : (isFolder ? path : Path.GetDirectoryName(path));
 
             string picked = isFolder
                 ? EditorUtility.OpenFolderPanel(panelTitle ?? label, start, "")
@@ -373,19 +378,24 @@ public class SvgMsdfBatchProcessor : EditorWindow
             {
                 newPath = picked;
                 changedByButton = true;
-                // Ensure any in-flight DelayedTextField edit is committed next repaint
-                GUI.FocusControl(null);
+
+                // Force any pending DelayedTextField edit to commit
+                GUI.FocusControl(null);                 // break focus with the delayed field
+                GUIUtility.keyboardControl = 0;         // ensure no text field remains active
+                GUI.changed = true;                     // tell IMGUI something changed
+                EditorWindow.focusedWindow?.Repaint();  // show new value right away
             }
         }
 
         EditorGUILayout.EndHorizontal();
 
+        // sanitize + apply if changed
         newPath = SanitizePath(newPath);
         bool changed = changedByTyping || changedByButton;
         if (changed) path = newPath;
         return changed;
     }
-
+    
     private void DrawUsageHelp()
     {
         EditorGUILayout.LabelField("Notes", EditorStyles.boldLabel);
