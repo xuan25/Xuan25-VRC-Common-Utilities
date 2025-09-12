@@ -12,8 +12,29 @@ namespace SceneAssembly
     {
         public int callbackOrder => 0;
 
-
         public void OnProcessScene(UnityEngine.SceneManagement.Scene scene, BuildReport report)
+        {
+            ProcessSceneParts();
+            ProcessStaticBatchingGroups();
+        }
+
+        private void ProcessStaticBatchingGroups()
+        {
+            StaticBatchingGroup[] staticBatchingGroups = Object.FindObjectsOfType<StaticBatchingGroup>(true);
+            if (staticBatchingGroups == null || staticBatchingGroups.Length == 0)
+            {
+                return;
+            }
+
+            for (int i = 0; i < staticBatchingGroups.Length; i++)
+            {
+                StaticBatchingGroup staticBatchingGroup = staticBatchingGroups[i];
+                StaticBatchingUtility.Combine(staticBatchingGroup.gameObject);
+                Object.Destroy(staticBatchingGroup);
+            }
+        }
+
+        private void ProcessSceneParts()
         {
             ScenePart[] sceneParts = Object.FindObjectsOfType<ScenePart>(true);
             if (sceneParts == null || sceneParts.Length == 0)
@@ -24,6 +45,7 @@ namespace SceneAssembly
             for (int i = 0; i < sceneParts.Length; i++)
             {
                 ScenePart scenePart = sceneParts[i];
+
                 scenePart.transform.localPosition = Vector3.zero;
                 scenePart.transform.localRotation = Quaternion.identity;
                 scenePart.transform.localScale = Vector3.one;
