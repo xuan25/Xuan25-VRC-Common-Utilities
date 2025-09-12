@@ -101,7 +101,7 @@ public class VRCDebugClientLauncher : EditorWindow
 
 
     // Add menu item named "My Window" to the Window menu
-    [MenuItem("Window/VRCDebugClientLauncher")]
+    [MenuItem("Tools/Xuan25/VRC Debug Client Launcher")]
     public static void ShowWindow()
     {
         //Show existing window instance. If one doesn't exist, make one.
