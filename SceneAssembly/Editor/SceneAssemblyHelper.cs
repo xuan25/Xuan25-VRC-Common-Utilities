@@ -30,7 +30,7 @@ namespace SceneAssembly
             {
                 StaticBatchingGroup staticBatchingGroup = staticBatchingGroups[i];
                 StaticBatchingUtility.Combine(staticBatchingGroup.gameObject);
-                Object.Destroy(staticBatchingGroup);
+                Object.DestroyImmediate(staticBatchingGroup, false);
             }
         }
 

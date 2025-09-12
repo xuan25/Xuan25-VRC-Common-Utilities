@@ -20,6 +20,8 @@ namespace SceneAssembly
         }
     }
 
+#if UNITY_EDITOR
+
     [CustomEditor(typeof(ScenePart))]
     public class ScenePartEditor : Editor
     {
@@ -42,5 +44,7 @@ namespace SceneAssembly
             }
         }
     }
+
+#endif
 
 }

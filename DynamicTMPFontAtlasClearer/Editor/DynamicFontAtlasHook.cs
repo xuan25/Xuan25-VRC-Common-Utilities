@@ -29,7 +29,7 @@ public class DynamicFontAtlasHook : IProcessSceneWithReport
 
         foreach (ClearFontAtlasOnBuild clearFontAtlas in clearFontAtlasOnBuilds)
         {
-            Object.Destroy(clearFontAtlas.gameObject);
+            Object.DestroyImmediate(clearFontAtlas.gameObject, false);
         }
 
         if (!anyActive) return;
