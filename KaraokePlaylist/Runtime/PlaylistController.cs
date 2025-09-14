@@ -29,7 +29,7 @@ namespace Playlist {
         public GameObject overlayLoading;
         public GameObject overlayError;
         #if VIZVID
-        public VideoPlayerSyncHandler videoPlayerSyncHandler;
+        public VizVidTitleSync vizVidTitleSync;
         #endif
         public PlaylistIndexer playlistIndexer;
         public PlaylistHotReload playlistHotReload;
@@ -76,7 +76,7 @@ namespace Playlist {
 #endif
 #endif
 #if VIZVID
-            videoPlayerSyncHandler.Setup(this);
+            vizVidTitleSync.Setup(this);
 #endif
             playlistIndexer.Setup(this);
             playlistHotReload.Setup(this);
@@ -268,22 +268,22 @@ namespace Playlist {
             SendCustomEventDelayedFrames(nameof(PlayNext), 1, VRC.Udon.Common.Enums.EventTiming.LateUpdate);
         }
 
-        private void PlayByID(int playID)
+        private void PlayByID(int playID, string user)
         {
 #if VIZVID
             playerCore.PlayUrl(urlPool.Urls[playID], playerType);
-            videoPlayerSyncHandler.SetMetadata(playlistItemMetas[playID].Title, playlistItemMetas[playID].Artist);
+            vizVidTitleSync.SetMetadata($"[{user}] {playlistItemMetas[playID].Title}", $"{playlistItemMetas[playID].Artist}");
 #endif
 
             SendCustomNetworkEvent(NetworkEventTarget.All, nameof(OnPlayScheduled));
             isPlayerBusy = true;
         }
 
-        private void PlayByUrl(VRCUrl playUrl)
+        private void PlayByUrl(VRCUrl playUrl, string user)
         {
 #if VIZVID
             playerCore.PlayUrl(playUrl, playerType);
-            videoPlayerSyncHandler.SetMetadata(string.Empty, string.Empty);
+            vizVidTitleSync.SetMetadata($"[{user}]", string.Empty);
 #endif
 
             SendCustomNetworkEvent(NetworkEventTarget.All, nameof(OnPlayScheduled));
@@ -346,11 +346,11 @@ namespace Playlist {
             Debug.Log($"[Playlist] Play from queue: {playQueueItem.PlayID}");
             if (playQueueItem.PlayID < 0)
             {
-                PlayByUrl(playQueueItem.PlayUrl);
+                PlayByUrl(playQueueItem.PlayUrl, playQueueItem.User);
             }
             else
             {
-                PlayByID(playQueueItem.PlayID);
+                PlayByID(playQueueItem.PlayID, playQueueItem.User);
             }
             RemoveFromQueueSync(playQueueItem);
         }
@@ -361,7 +361,7 @@ namespace Playlist {
 
             if (playQueueItemContainer.childCount == 0 && !isPlayerBusy)
             {
-                PlayByUrl(playUrl);
+                PlayByUrl(playUrl, Networking.LocalPlayer.displayName);
                 return;
             }
 
@@ -395,7 +395,7 @@ namespace Playlist {
 
             if (playQueueItemContainer.childCount == 0 && !isPlayerBusy)
             {
-                PlayByID(playID);
+                PlayByID(playID, Networking.LocalPlayer.displayName);
                 return;
             }
 

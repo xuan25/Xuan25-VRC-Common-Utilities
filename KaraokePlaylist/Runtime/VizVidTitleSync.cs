@@ -7,7 +7,7 @@ using VRC.Udon;
 namespace Playlist {
 
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
-    public class VideoPlayerSyncHandler : UdonSharpBehaviour
+    public class VizVidTitleSync : UdonSharpBehaviour
     {
         private PlaylistController playlistController;
 

@@ -713,19 +713,19 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: videoPlayerSyncHandler
+      Data: vizVidTitleSync
     - Name: $v
       Entry: 7
       Data: 35|UdonSharp.Compiler.FieldDefinition, UdonSharp.Editor
     - Name: <Name>k__BackingField
       Entry: 1
-      Data: videoPlayerSyncHandler
+      Data: vizVidTitleSync
     - Name: <UserType>k__BackingField
       Entry: 7
       Data: 36|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: Playlist.VideoPlayerSyncHandler, Xuan25.KaraokePlaylist
+      Data: Playlist.VizVidTitleSync, Xuan25.KaraokePlaylist
     - Name: 
       Entry: 8
       Data: 
