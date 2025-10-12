@@ -1,8 +1,8 @@
 {
-    "name": "Xuan25.VRCUrlTemplateSetter.Editor",
+    "name": "Xuan25.TextUtilities.Editor",
     "rootNamespace": "",
     "references": [
-        "Xuan25.VRCUrlTemplateSetter",
+        "Xuan25.TextUtilities",
         "UdonSharp.Editor",
         "UdonSharp.Runtime",
         "VRC.Udon",

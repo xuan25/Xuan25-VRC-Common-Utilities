@@ -1,5 +1,5 @@
 {
-    "name": "Xuan25.VRCUrlTemplateSetter",
+    "name": "Xuan25.TextUtilities",
     "rootNamespace": "",
     "references": [
         "UdonSharp.Runtime",

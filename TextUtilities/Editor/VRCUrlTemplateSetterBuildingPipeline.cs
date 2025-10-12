@@ -10,9 +10,10 @@ using UnityEditor.Build.Reporting;
 using UnityEditor.Events;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using VRC.SDK3.Components;
 
-namespace VRCFieldTemplateSetter
+namespace TextUtilities
 {
 
     public class VRCUrlTemplateSetterBuildingPipeline : IProcessSceneWithReport
@@ -63,11 +64,32 @@ namespace VRCFieldTemplateSetter
             }
         }
 
+        public void ProcessSliderValueDisplayDriver(Scene scene)
+        {
+            SliderValueDisplayDriver[] sliderValueDisplayDrivers = scene.GetRootGameObjects().SelectMany(go => go.GetComponentsInChildren<SliderValueDisplayDriver>()).ToArray();
+            if (sliderValueDisplayDrivers == null || sliderValueDisplayDrivers.Length == 0)
+            {
+                Debug.Log($"[{GetType()}] No {typeof(SliderValueDisplayDriver).Name} found in scene.");
+                return;
+            }
+            Debug.Log($"[{GetType()}] Found {sliderValueDisplayDrivers.Length} {typeof(SliderValueDisplayDriver).Name} in scene.");
+
+            foreach (SliderValueDisplayDriver sliderValueDisplayDriver in sliderValueDisplayDrivers)
+            {
+                if (sliderValueDisplayDriver.slider == null)
+                {
+                    sliderValueDisplayDriver.slider = sliderValueDisplayDriver.GetComponent<Slider>();
+                }
+                UnityEventTools.AddStringPersistentListener(sliderValueDisplayDriver.slider.onValueChanged, UdonSharpEditorUtility.GetBackingUdonBehaviour(sliderValueDisplayDriver).SendCustomEvent, nameof(sliderValueDisplayDriver.OnSliderValueChanged));
+            }
+        }
+
         public void OnProcessScene(Scene scene, BuildReport report)
         {
             Debug.Log($"[{GetType()}] Processing scene: " + scene.name);
             ProcessUrlTemplateSetter(scene);
             ProcessInputTemplateSetter(scene);
+            ProcessSliderValueDisplayDriver(scene);
         }
     }
 

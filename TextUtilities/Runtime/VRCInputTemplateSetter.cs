@@ -4,7 +4,7 @@ using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
 
-namespace VRCFieldTemplateSetter
+namespace TextUtilities
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.NoVariableSync)]
     public class VRCInputTemplateSetter : UdonSharpBehaviour
