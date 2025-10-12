@@ -5,7 +5,8 @@
         "Xuan25.VRCUrlTemplateSetter",
         "UdonSharp.Editor",
         "UdonSharp.Runtime",
-        "VRC.Udon"
+        "VRC.Udon",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -2,7 +2,8 @@
     "name": "Xuan25.VRCUrlTemplateSetter",
     "rootNamespace": "",
     "references": [
-        "UdonSharp.Runtime"
+        "UdonSharp.Runtime",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
