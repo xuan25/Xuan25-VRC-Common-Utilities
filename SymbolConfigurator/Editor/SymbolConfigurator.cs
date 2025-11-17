@@ -36,17 +36,17 @@ public class SymbolConfigurator : IActiveBuildTargetChanged
 
     static void AddDefines()
     {
-#if USHARP_VIDEO
-        AddDefine("USHARP_VIDEO");
-#else
-        RemoveDefine("USHARP_VIDEO");
-#endif
-#if VIZVID
+// #if HINT_USHARP_VIDEO
+//         AddDefine("USHARP_VIDEO");
+// #else
+//         RemoveDefine("USHARP_VIDEO");
+// #endif
+#if HINT_VIZVID
         AddDefine("VIZVID");
 #else
         RemoveDefine("VIZVID");
 #endif
-#if YAMASTREAM
+#if HINT_YAMASTREAM
         AddDefine("YAMASTREAM");
 #else
         RemoveDefine("YAMASTREAM");

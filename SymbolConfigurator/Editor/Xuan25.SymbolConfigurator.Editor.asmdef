@@ -13,12 +13,12 @@
         {
             "name": "idv.jlchntoz.vvmw",
             "expression": "",
-            "define": "VIZVID"
+            "define": "HINT_VIZVID"
         },
         {
             "name": "net.kwxxw.yama-stream",
             "expression": "",
-            "define": "YAMASTREAM"
+            "define": "HINT_YAMASTREAM"
         }
     ],
     "noEngineReferences": false
