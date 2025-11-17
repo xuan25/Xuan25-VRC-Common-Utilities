@@ -1,4 +1,5 @@
-﻿using UdonSharp;
+﻿using System;
+using UdonSharp;
 using UnityEngine;
 using VRC.SDK3.Components.Video;
 using VRC.SDK3.Data;
@@ -157,21 +158,50 @@ namespace Playlist {
             }
             if (VRCJson.TryDeserializeFromJson(json, out DataToken result))
             {
+                int blacklistedCount = 0;
+
                 int count = (int)result.DataDictionary["COUNT"].Double;
                 playlistItemMetas = new PlaylistItemMeta[count];
+
+                DataList titles = result.DataDictionary["TITLE"].DataList;
+                DataList artists = result.DataDictionary["ARTIST"].DataList;
+                DataList titleAcronyms = result.DataDictionary["TITLE_ACRONYM"].DataList;
+                DataList artistAcronyms = result.DataDictionary["ARTIST_ACRONYM"].DataList;
+                DataList genres = result.DataDictionary["GENRE"].DataList;
+
+                bool hasBlacklist = result.DataDictionary.ContainsKey("BLACKLISTED");
+                DataList blacklistList = hasBlacklist ? result.DataDictionary["BLACKLISTED"].DataList : null;
+
                 for (int i = 0; i < count; i++)
                 {
+                    if (hasBlacklist)
+                    {
+                        if (blacklistList[i].Boolean)
+                        {
+                            blacklistedCount++;
+                            continue;
+                        }
+                    }
                     GameObject playlistItemMeta = Instantiate(playlistItemMetaTemplate, playlistItemMetaContainer);
+
                     playlistItemMeta.GetComponentInChildren<PlaylistItemMeta>().Setup(this, i,
-                        result.DataDictionary["TITLE"].DataList[i].String,
-                        result.DataDictionary["ARTIST"].DataList[i].String,
-                        result.DataDictionary["TITLE_ACRONYM"].DataList[i].String,
-                        result.DataDictionary["ARTIST_ACRONYM"].DataList[i].String,
-                        result.DataDictionary["GENRE"].DataList[i].String
+                        titles[i].String,
+                        artists[i].String,
+                        titleAcronyms[i].String,
+                        artistAcronyms[i].String,
+                        genres[i].String
                     );
 
                     playlistItemMetas[i] = playlistItemMeta.GetComponentInChildren<PlaylistItemMeta>();
                 }
+
+                Debug.Log($"[Playlist] Blacklisted {blacklistedCount} items");
+
+                // reseize playlistItemMetas to exclude blacklisted items
+                count = count - blacklistedCount;
+                PlaylistItemMeta[] resizedPlaylistItemMetas = new PlaylistItemMeta[count];
+                Array.Copy(playlistItemMetas, resizedPlaylistItemMetas, count);
+                playlistItemMetas = resizedPlaylistItemMetas;
 
                 int version = (int)result.DataDictionary["VERSION"].Double;
                 playlistHotReload.SetLocalVersion(version);
