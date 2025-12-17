@@ -12,13 +12,15 @@ namespace Playlist
     {
         public TMPro.TextMeshProUGUI versionText;
 
+        public GameObject reloadButton;
+
+        public bool allowAutoReload = false;
+
         private PlaylistController controller;
-        private int localVersion = -1;
+        private long localVersion = -1;
 
         [UdonSynced]
-        private int globalVersion = -1;
-
-        private bool isLoading = true;
+        private long globalVersion = -1;
 
         void Start()
         {
@@ -29,14 +31,13 @@ namespace Playlist
             this.controller = controller;
         }
 
-        public void SetLocalVersion(int version) {
+        public void SetLocalVersion(long version) {
             localVersion = version;
             if (localVersion > globalVersion) {
                 RequestGlobalReload();
             }
             if (versionText != null)
                 versionText.text = localVersion.ToString();
-            isLoading = false;
         }
 
         private void RequestGlobalReload() {
@@ -49,17 +50,34 @@ namespace Playlist
         public override void OnDeserialization()
         {
             if (localVersion < globalVersion) {
-                LocalReload();
+                if (allowAutoReload) {
+                    LocalReload();
+                    return;
+                }
+                if (reloadButton != null) {
+                    reloadButton.SetActive(true);
+                }
             }
+        }
+
+        public void OnReloadButtonPressed() {
+            if (!this.controller.GetIsPlaylistLoaded()) {
+                return;
+            }
+
+            if (reloadButton != null) {
+                reloadButton.SetActive(false);
+            }
+            
+            controller.LoadPlaylist();
         }
 
         private void LocalReload()
         {
-            if (isLoading) {
+            if (!this.controller.GetIsPlaylistLoaded()) {
                 return;
             }
 
-            isLoading = true;
             controller.LoadPlaylist();
         }
     }

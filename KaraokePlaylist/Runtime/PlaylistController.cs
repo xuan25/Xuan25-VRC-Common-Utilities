@@ -35,7 +35,9 @@ namespace Playlist {
         public PlaylistIndexer playlistIndexer;
         public PlaylistHotReload playlistHotReload;
 
-        protected PlaylistItemMeta[] playlistItemMetas;
+        public PlaylistItemMeta[] playlistItemMetas;
+
+        public int[] playIDCompactIdxMap;
 
         public PlaylistItemMeta[] GetPlaylistItemMetas()
         {
@@ -67,6 +69,11 @@ namespace Playlist {
         #endif
 
         private bool isPlaylistLoaded = false;
+
+        public bool GetIsPlaylistLoaded()
+        {
+            return isPlaylistLoaded;
+        }
 
         void Start()
         {
@@ -116,6 +123,7 @@ namespace Playlist {
 
         public void LoadPlaylist()
         {
+            isPlaylistLoaded = false;
             Debug.Log($"[Playlist] LoadPlaylist: {playlistEndpoint}");
             playlistIndexer.StopOngoingTask();
             overlayLoading.SetActive(true);
@@ -156,62 +164,62 @@ namespace Playlist {
             {
                 Destroy(child.gameObject);
             }
-            if (VRCJson.TryDeserializeFromJson(json, out DataToken result))
-            {
-                int blacklistedCount = 0;
 
-                int count = (int)result.DataDictionary["COUNT"].Double;
-                playlistItemMetas = new PlaylistItemMeta[count];
-
-                DataList titles = result.DataDictionary["TITLE"].DataList;
-                DataList artists = result.DataDictionary["ARTIST"].DataList;
-                DataList titleAcronyms = result.DataDictionary["TITLE_ACRONYM"].DataList;
-                DataList artistAcronyms = result.DataDictionary["ARTIST_ACRONYM"].DataList;
-                DataList genres = result.DataDictionary["GENRE"].DataList;
-
-                bool hasBlacklist = result.DataDictionary.ContainsKey("BLACKLISTED");
-                DataList blacklistList = hasBlacklist ? result.DataDictionary["BLACKLISTED"].DataList : null;
-
-                for (int i = 0; i < count; i++)
-                {
-                    if (hasBlacklist)
-                    {
-                        if (blacklistList[i].Boolean)
-                        {
-                            blacklistedCount++;
-                            continue;
-                        }
-                    }
-                    GameObject playlistItemMeta = Instantiate(playlistItemMetaTemplate, playlistItemMetaContainer);
-
-                    playlistItemMeta.GetComponentInChildren<PlaylistItemMeta>().Setup(this, i,
-                        titles[i].String,
-                        artists[i].String,
-                        titleAcronyms[i].String,
-                        artistAcronyms[i].String,
-                        genres[i].String
-                    );
-
-                    playlistItemMetas[i] = playlistItemMeta.GetComponentInChildren<PlaylistItemMeta>();
-                }
-
-                Debug.Log($"[Playlist] Blacklisted {blacklistedCount} items");
-
-                // reseize playlistItemMetas to exclude blacklisted items
-                count = count - blacklistedCount;
-                PlaylistItemMeta[] resizedPlaylistItemMetas = new PlaylistItemMeta[count];
-                Array.Copy(playlistItemMetas, resizedPlaylistItemMetas, count);
-                playlistItemMetas = resizedPlaylistItemMetas;
-
-                int version = (int)result.DataDictionary["VERSION"].Double;
-                playlistHotReload.SetLocalVersion(version);
-
-                Debug.Log($"[Playlist] Loaded {count} playlist items");
-            }
-            else
+            if (!VRCJson.TryDeserializeFromJson(json, out DataToken result))
             {
                 Debug.Log($"[Playlist] Failed to Deserialize json {json} - {result}");
+                return;
             }
+
+            int count = (int)result.DataDictionary["COUNT"].Double;
+
+            bool hasIsInUse = result.DataDictionary.ContainsKey("IS_IN_USE") && result.DataDictionary.ContainsKey("NUM_IN_USE");
+            DataList isInUse = hasIsInUse ? result.DataDictionary["IS_IN_USE"].DataList : null;
+            int numInUse = hasIsInUse ? (int)result.DataDictionary["NUM_IN_USE"].Double : count;
+
+            playlistItemMetas = new PlaylistItemMeta[numInUse];
+            playIDCompactIdxMap = new int[count];
+
+            DataList titles = result.DataDictionary["TITLE"].DataList;
+            DataList artists = result.DataDictionary["ARTIST"].DataList;
+            DataList titleAcronyms = result.DataDictionary["TITLE_ACRONYM"].DataList;
+            DataList artistAcronyms = result.DataDictionary["ARTIST_ACRONYM"].DataList;
+            DataList genres = result.DataDictionary["GENRE"].DataList;
+
+            int compactIdx = 0;
+
+            for (int playID = 0; playID < count; playID++)
+            {
+                if (hasIsInUse)
+                {
+                    if (!isInUse[playID].Boolean)
+                    {
+                        playIDCompactIdxMap[playID] = -1;
+                        Debug.Log($"[Playlist] Skipping unused playlist item {playID} {titles[playID].String}");
+                        continue;
+                    }
+                }
+                GameObject playlistItemMetaObject = Instantiate(playlistItemMetaTemplate, playlistItemMetaContainer);
+                PlaylistItemMeta playlistItemMeta = playlistItemMetaObject.GetComponentInChildren<PlaylistItemMeta>();
+
+                playlistItemMeta.Setup(this, playID,
+                    titles[playID].String,
+                    artists[playID].String,
+                    titleAcronyms[playID].String,
+                    artistAcronyms[playID].String,
+                    genres[playID].String
+                );
+
+                playlistItemMetas[compactIdx] = playlistItemMeta;
+                playIDCompactIdxMap[playID] = compactIdx;
+
+                compactIdx++;
+            }
+
+            long version = (long)result.DataDictionary["VERSION"].Double;
+            playlistHotReload.SetLocalVersion(version);
+
+            Debug.Log($"[Playlist] Loaded {numInUse} out of {count} playlist items");
         }
 
         public void OnSearch()
@@ -302,7 +310,14 @@ namespace Playlist {
         {
 #if VIZVID
             playerCore.PlayUrl(urlPool.Urls[playID], playerType);
-            vizVidTitleSync.SetMetadata($"[{user}] {playlistItemMetas[playID].Title}", $"{playlistItemMetas[playID].Artist}");
+            int compactIdx = playIDCompactIdxMap[playID];
+            if (compactIdx < 0)
+            {
+                Debug.LogError($"[Playlist] PlayByID: playID {playID} is not in use.");
+                vizVidTitleSync.SetMetadata($"[{user}] Unknown Title", "Unknown Artist");
+                return;
+            }
+            vizVidTitleSync.SetMetadata($"[{user}] {playlistItemMetas[compactIdx].Title}", $"{playlistItemMetas[compactIdx].Artist}");
 #endif
 
             SendCustomNetworkEvent(NetworkEventTarget.All, nameof(OnPlayScheduled));
@@ -430,7 +445,15 @@ namespace Playlist {
             }
 
             GameObject playlistItem = Instantiate(playQueueItemTemplate, playQueueItemContainer);
-            playlistItem.GetComponent<PlayQueueItem>().Setup(this, playID, playlistItemMetas[playID].Title, playlistItemMetas[playID].Artist, playlistItemMetas[playID].Genre, Networking.LocalPlayer.displayName);
+            int compactIdx = playIDCompactIdxMap[playID];
+            if (compactIdx < 0)
+            {
+                Debug.LogError($"[Playlist] AddToQueueSync: playID {playID} is not in use.");
+                playlistItem.GetComponent<PlayQueueItem>().Setup(this, playID, "Unknown Title", "Unknown Artist", "Unknown Genre", Networking.LocalPlayer.displayName);
+                SyncQueue();
+                return;
+            }
+            playlistItem.GetComponent<PlayQueueItem>().Setup(this, playID, playlistItemMetas[compactIdx].Title, playlistItemMetas[compactIdx].Artist, playlistItemMetas[compactIdx].Genre, Networking.LocalPlayer.displayName);
 
             SyncQueue();
         }
@@ -502,7 +525,14 @@ namespace Playlist {
                 }
                 else
                 {
-                    playlistItem.GetComponent<PlayQueueItem>().Setup(this, playID, playlistItemMetas[playID].Title, playlistItemMetas[playID].Artist, playlistItemMetas[playID].Genre, user);
+                    int compactIdx = playIDCompactIdxMap[playID];
+                    if (compactIdx < 0)
+                    {
+                        Debug.LogError($"[Playlist] RebuildQueueDisplay: playID {playID} is not in use.");
+                        playlistItem.GetComponent<PlayQueueItem>().Setup(this, playID, "Unknown Title", "Unknown Artist", "Unknown Genre", user);
+                        continue;
+                    }
+                    playlistItem.GetComponent<PlayQueueItem>().Setup(this, playID, playlistItemMetas[compactIdx].Title, playlistItemMetas[compactIdx].Artist, playlistItemMetas[compactIdx].Genre, user);
                 }
             }
         }
