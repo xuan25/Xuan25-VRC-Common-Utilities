@@ -58,6 +58,9 @@ public class UrlPoolSetup : EditorWindow {
             return;
         }
 
+        // create undo checkpoint
+        Undo.RecordObject(poolObj, "UrlPool Setup");
+
         // get UrlPool component
         UrlPool urlPool = poolObj.GetComponent<UrlPool>();
         
@@ -68,6 +71,9 @@ public class UrlPoolSetup : EditorWindow {
             urlPool.Urls[i] = new VRCUrl(string.Format(urlTemplate, urlId++));
 
         Debug.Log($"Created {numUrls} URLs under {poolObj.name}");
+
+        // mark the UrlPool as dirty
+        EditorUtility.SetDirty(urlPool);
     }
 }
 
