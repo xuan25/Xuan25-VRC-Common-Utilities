@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 363014802201747401, guid: d5b9c047416e58f49944d99559c01b9b, type: 3}
       propertyPath: m_Name
-      value: PlayerStatusDisplay Variant-TMP
+      value: VideoPlayerStatusDisplay Variant-TMP
       objectReference: {fileID: 0}
     - target: {fileID: 1419992952495250100, guid: d5b9c047416e58f49944d99559c01b9b, type: 3}
       propertyPath: m_AnchorMax.x

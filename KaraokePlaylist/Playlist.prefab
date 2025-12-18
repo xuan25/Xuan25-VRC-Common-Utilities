@@ -12811,7 +12811,7 @@ MonoBehaviour:
   playerCore: {fileID: 0}
   audioStateController: {fileID: 0}
   playlistEndpoint:
-    url: https://api.xuan25.com/vrc-karaoke-playlist
+    url: https://api.xuan25.com/vrc-karaoke-playlist/index
   urlPool: {fileID: 9024334492003016775}
   searchInputField: {fileID: 2706998230950784727}
   playlistItemContainer: {fileID: 5740625941111299097}
