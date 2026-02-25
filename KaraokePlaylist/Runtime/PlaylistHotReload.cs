@@ -33,14 +33,28 @@ namespace Playlist
 
         public void SetLocalVersion(long version) {
             localVersion = version;
+
+            // Broadcast the new version to other clients if it's newer than the global version
             if (localVersion > globalVersion) {
                 RequestGlobalReload();
             }
+
+            // Update the version text for debugging purposes
             if (versionText != null)
                 versionText.text = localVersion.ToString();
+
+            // Set reload button visibility based on version comparison
+            if (reloadButton != null) {
+                if (localVersion < globalVersion) {
+                    reloadButton.SetActive(true);
+                } else {
+                    reloadButton.SetActive(false);
+                }
+            }
         }
 
         private void RequestGlobalReload() {
+            // Update the global version and request serialization to notify other clients
             Networking.SetOwner(Networking.LocalPlayer, gameObject);
             globalVersion = localVersion;
 
