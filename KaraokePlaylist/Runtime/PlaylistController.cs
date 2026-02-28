@@ -171,6 +171,9 @@ namespace Playlist {
                 return;
             }
 
+            // Assume the playlist is well-formed and all data lists are of the same length as COUNT.
+            // If IS_IN_USE and NUM_IN_USE are present, initialize playlist items based on IS_IN_USE.
+            // Otherwise, initialize all playlist items and assume all are in use.
             int count = (int)result.DataDictionary["COUNT"].Double;
 
             bool hasIsInUse = result.DataDictionary.ContainsKey("IS_IN_USE") && result.DataDictionary.ContainsKey("NUM_IN_USE");
@@ -186,10 +189,30 @@ namespace Playlist {
             DataList artistAcronyms = result.DataDictionary["ARTIST_ACRONYM"].DataList;
             DataList genres = result.DataDictionary["GENRE"].DataList;
 
-            int compactIdx = 0;
-
-            for (int playID = 0; playID < count; playID++)
+            // Generate playIDs and sort by order if ORDER data is available
+            int[] playIDs = new int[count];
+            for (int i = 0; i < count; i++) {
+                playIDs[i] = i;
+            }
+            if (result.DataDictionary.ContainsKey("ORDER"))
             {
+                DataList orderList = result.DataDictionary["ORDER"].DataList;
+                int[] orders = new int[count];
+                
+                for (int i = 0; i < count; i++) {
+                    orders[i] = (int)orderList[i].Double;
+                }
+
+                Array.Sort((Array)orders, playIDs);
+                Debug.Log($"[Playlist] Sorted playlist by order");
+            }
+
+            // Enum through playIDs in sorted order, and only generate playlist items for those in use if in use data is available.
+            // Map playID to compact index for later retrieval when playing.
+            int compactIdx = 0;
+            for (int i = 0; i < count; i++)
+            {
+                int playID = playIDs[i];
                 if (hasIsInUse)
                 {
                     if (!isInUse[playID].Boolean)
@@ -216,6 +239,8 @@ namespace Playlist {
                 compactIdx++;
             }
 
+            // Set the local version to the version in the playlist data, 
+            // so that hot reload can work correctly after the initial load.
             long version = (long)result.DataDictionary["VERSION"].Double;
             playlistHotReload.SetLocalVersion(version);
 
