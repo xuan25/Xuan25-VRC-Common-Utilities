@@ -45,9 +45,8 @@ namespace Xuan25.RayCastUtilities {
                 float newAbsPosition = currentAbsPosition + (value * scrollSensitivity);
                 float normalizedPosition = Mathf.Clamp01(newAbsPosition / contentHeight);
                 scrollRect.verticalNormalizedPosition = normalizedPosition;
-#if DEBUG
-                Debug.Log($"Vertical Scroll Value: {value}, Current Position: {currentAbsPosition}, New Position: {newAbsPosition}, Normalized Position: {normalizedPosition}");
-#endif
+
+                // Debug.Log($"Vertical Scroll Value: {value}, Current Position: {currentAbsPosition}, New Position: {newAbsPosition}, Normalized Position: {normalizedPosition}");
             }
             else
             {
@@ -56,9 +55,8 @@ namespace Xuan25.RayCastUtilities {
                 float newAbsPosition = currentAbsPosition + (-value * scrollSensitivity);
                 float normalizedPosition = Mathf.Clamp01(newAbsPosition / contentWidth);
                 scrollRect.horizontalNormalizedPosition = normalizedPosition;
-#if DEBUG
-                Debug.Log($"Horizontal Scroll Value: {value}, Current Position: {currentAbsPosition}, New Position: {newAbsPosition}, Normalized Position: {normalizedPosition}");
-#endif
+
+                // Debug.Log($"Horizontal Scroll Value: {value}, Current Position: {currentAbsPosition}, New Position: {newAbsPosition}, Normalized Position: {normalizedPosition}");
             }
         }
         
