@@ -29,8 +29,43 @@ public class VRCDebugClientLauncher : EditorWindow
             {
                 return VRCDebugClientLauncherSetting.ClientInstallPath;
             }
+#if UNITY_EDITOR_WIN
             // Try to load from registry if not set in settings
             return VRC.Core.SDKClientUtilities.LoadRegistryVRCInstallPath();
+#elif UNITY_EDITOR_LINUX
+            // Try to set as default steam path if not set in settings
+            string homePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile);
+            return homePath + "/.steam/steam/steamapps/common/VRChat/VRChat.exe";
+#else
+            throw new PlatformNotSupportedException("Unsupported platform");
+#endif
+        }
+    }
+
+    public static string WinePrefixLinux
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(VRCDebugClientLauncherSetting.WinePrefixLinux))
+            {
+                return VRCDebugClientLauncherSetting.WinePrefixLinux;
+            }
+            // Try to set as default wine prefix path if not set in settings
+            string homePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile);
+            return homePath + "/.steam/steam/steamapps/compatdata/438100/pfx/";
+        }
+    }
+
+    public static string ProtonPathLinux
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(VRCDebugClientLauncherSetting.ProtonPathLinux))
+            {
+                return VRCDebugClientLauncherSetting.ProtonPathLinux;
+            }
+            // Try to set as default proton path if not set in settings
+            return "/usr/share/steam/compatibilitytools.d/proton-ge-custom";
         }
     }
 
@@ -62,7 +97,7 @@ public class VRCDebugClientLauncher : EditorWindow
         }
     }
 
-    public static string BuiltPathParsed
+    public static string BuildPathParsed
     {
         get
         {
@@ -70,7 +105,21 @@ public class VRCDebugClientLauncher : EditorWindow
                 return VRCDebugClientLauncherSetting.BuildPathParsed;
 
             // Try to load from EditorPrefs if not set in settings
+#if UNITY_EDITOR_WIN
             return EditorPrefs.GetString("lastVRCPath", string.Empty);
+#elif UNITY_EDITOR_LINUX
+            string pathInLinux = EditorPrefs.GetString("lastVRCPath", string.Empty);
+
+            // Replace Linux path with windows-alike path
+            // e.g. /home/username/.local/share/ replace with C:\users\username\AppData\LocalLow\
+            string userName = System.Environment.UserName;
+            string windowsPath = pathInLinux.Replace("/home/" + userName + "/.local/share/", "C:/users/" + userName + "/AppData/LocalLow/");
+
+            // Replace forward slashes with backslashes
+            return windowsPath;
+#else
+            throw new PlatformNotSupportedException("Unsupported platform");
+#endif
         }
     }
 
@@ -78,12 +127,12 @@ public class VRCDebugClientLauncher : EditorWindow
     {
         get
         {
-            if (string.IsNullOrEmpty(BuiltPathParsed))
+            if (string.IsNullOrEmpty(BuildPathParsed))
             {
                 return null;
             }
 
-            string text = UnityWebRequest.EscapeURL(BuiltPathParsed).Replace("+", "%20");
+            string text = UnityWebRequest.EscapeURL(BuildPathParsed).Replace("+", "%20");
 
             return string.Concat("vrchat://create?roomId=" + RoomID, "&url=file:///", text);
 
@@ -113,6 +162,17 @@ public class VRCDebugClientLauncher : EditorWindow
     void OnGUI()
     {
         scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
+
+#if UNITY_EDITOR_LINUX
+        string winePrefixLinux = EditorGUILayout.TextField("Wine Prefix Linux", WinePrefixLinux);
+        if (winePrefixLinux != WinePrefixLinux)
+            VRCDebugClientLauncherSetting.WinePrefixLinux = winePrefixLinux;
+
+        string protonPathLinux = EditorGUILayout.TextField("Proton Path Linux", ProtonPathLinux);
+        if (protonPathLinux != ProtonPathLinux)
+            VRCDebugClientLauncherSetting.ProtonPathLinux = protonPathLinux;
+#endif
+
 
         string clientInstallPath = EditorGUILayout.TextField("Client Install Path", ClientInstallPath);
         if (clientInstallPath != ClientInstallPath)
@@ -237,7 +297,23 @@ public class VRCDebugClientLauncher : EditorWindow
 
         if (GUILayout.Button("Launch VRChat Debugging Client", GUILayout.Height(40)))
         {
+#if UNITY_EDITOR_WIN
             System.Diagnostics.Process.Start(ClientInstallPath, launchArgs);
+#endif
+#if UNITY_EDITOR_LINUX
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+
+            startInfo.EnvironmentVariables["WINEPREFIX"] = WinePrefixLinux;
+            startInfo.EnvironmentVariables["GAMEID"] = "umu-default";
+            startInfo.EnvironmentVariables["STORE"] = "none";
+            startInfo.EnvironmentVariables["PROTONPATH"] = ProtonPathLinux;
+            startInfo.EnvironmentVariables["PROTON_VERB"] = "runinprefix";
+            startInfo.FileName = "umu-run";
+            startInfo.Arguments = $"{ClientInstallPath} {launchArgs}";
+            startInfo.UseShellExecute = false;
+
+            System.Diagnostics.Process.Start(startInfo);
+#endif
         }
 
     }

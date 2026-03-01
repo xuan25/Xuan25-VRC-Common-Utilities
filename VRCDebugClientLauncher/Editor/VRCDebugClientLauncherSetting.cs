@@ -8,10 +8,40 @@ using UnityEngine;
 public class VRCDebugClientLauncherSetting : ScriptableObject
 {
     [SerializeField]
-    public string ClientInstallPath;
+    public string ClientInstallPathWindows;
+
+    [SerializeField]
+    public string ClientInstallPathLinux;
+
+    public string ClientInstallPath
+    {
+        get
+        {
+#if UNITY_EDITOR_WIN
+            return ClientInstallPathWindows;
+#elif UNITY_EDITOR_LINUX
+            return ClientInstallPathLinux;
+#else
+            throw new PlatformNotSupportedException("Unsupported platform");
+#endif
+        }
+
+        set
+        {
+#if UNITY_EDITOR_WIN
+            ClientInstallPathWindows = value;
+#elif UNITY_EDITOR_LINUX
+            ClientInstallPathLinux = value;
+#else
+            throw new PlatformNotSupportedException("Unsupported platform");
+#endif
+        }
+    }
 
     [SerializeField]
     public string BuildPath;
+
+#if UNITY_EDITOR_WIN
 
     [System.Runtime.InteropServices.DllImport("shell32.dll")]
     static extern int SHGetKnownFolderPath( [System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.LPStruct)] Guid rfid, uint dwFlags, IntPtr hToken, out IntPtr pszPath);
@@ -35,10 +65,13 @@ public class VRCDebugClientLauncherSetting : ScriptableObject
 
     private string vrcDataPath;
 
+#endif
+
     private string VRCDataPath
     {
         get
         {
+#if UNITY_EDITOR_WIN
             if (!string.IsNullOrEmpty(vrcDataPath))
             {
                 return vrcDataPath;
@@ -47,6 +80,11 @@ public class VRCDebugClientLauncherSetting : ScriptableObject
             string localLowPath = GetKnownFolderPath(localLowId);
             vrcDataPath = Path.Combine(localLowPath, "VRChat", "VRChat");
             return vrcDataPath;
+#elif UNITY_EDITOR_LINUX
+            return "C:\\users\\steamuser\\AppData\\LocalLow\\VRChat\\VRChat";
+#else
+            throw new PlatformNotSupportedException("Unsupported platform");
+#endif
         }
     }
 
@@ -61,6 +99,14 @@ public class VRCDebugClientLauncherSetting : ScriptableObject
             return BuildPath.Replace("${VRCDataPath}", VRCDataPath);
         }
     }
+
+    
+    [SerializeField]
+    public string WinePrefixLinux;
+
+    [SerializeField]
+    public string ProtonPathLinux;
+
 
     [SerializeField]
     public string RoomID;
