@@ -303,11 +303,12 @@ public class VRCDebugClientLauncher : EditorWindow
 #if UNITY_EDITOR_LINUX
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
 
+            startInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(ClientInstallPath);
             startInfo.EnvironmentVariables["WINEPREFIX"] = WinePrefixLinux;
             startInfo.EnvironmentVariables["GAMEID"] = "umu-default";
             startInfo.EnvironmentVariables["STORE"] = "none";
             startInfo.EnvironmentVariables["PROTONPATH"] = ProtonPathLinux;
-            startInfo.EnvironmentVariables["PROTON_VERB"] = "runinprefix";
+            startInfo.EnvironmentVariables["PROTON_VERB"] = "run";
             startInfo.FileName = "umu-run";
             startInfo.Arguments = $"{ClientInstallPath} {launchArgs}";
             startInfo.UseShellExecute = false;
