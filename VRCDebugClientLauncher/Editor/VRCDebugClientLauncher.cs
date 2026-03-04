@@ -298,11 +298,12 @@ public class VRCDebugClientLauncher : EditorWindow
         if (GUILayout.Button("Launch VRChat Debugging Client", GUILayout.Height(40)))
         {
 #if UNITY_EDITOR_WIN
-            System.Diagnostics.Process.Start(ClientInstallPath, launchArgs);
-#endif
-#if UNITY_EDITOR_LINUX
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-
+            startInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(ClientInstallPath);
+            startInfo.FileName = ClientInstallPath;
+            startInfo.Arguments = launchArgs;
+#elif UNITY_EDITOR_LINUX
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(ClientInstallPath);
             startInfo.EnvironmentVariables["WINEPREFIX"] = WinePrefixLinux;
             startInfo.EnvironmentVariables["GAMEID"] = "umu-default";
@@ -311,12 +312,25 @@ public class VRCDebugClientLauncher : EditorWindow
             startInfo.EnvironmentVariables["PROTON_VERB"] = "run";
             startInfo.FileName = "umu-run";
             startInfo.Arguments = $"{ClientInstallPath} {launchArgs}";
-            startInfo.UseShellExecute = false;
-
-            System.Diagnostics.Process.Start(startInfo);
+            Debug.Log($"Using Wine Prefix: {WinePrefixLinux} with Proton Path: {ProtonPathLinux}");
+#else
+            throw new PlatformNotSupportedException("Unsupported platform");
 #endif
-        }
+            startInfo.UseShellExecute = false;
+            startInfo.RedirectStandardOutput = true;
+            startInfo.RedirectStandardError = true;
 
+            Debug.Log($"Launching VRChat Debug Client with command: {startInfo.FileName} {startInfo.Arguments}");
+
+            System.Diagnostics.Process process = System.Diagnostics.Process.Start(startInfo);
+
+            process.OutputDataReceived += (sender, args) => Debug.Log($"[VRCDebugClient] ({process.Id}) {args.Data}");
+            process.ErrorDataReceived += (sender, args) => Debug.Log($"[VRCDebugClient] ({process.Id}) {args.Data}");
+            process.Exited += (sender, args) => Debug.Log($"[VRCDebugClient] ({process.Id}) Process exited with code " + process.ExitCode);
+
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+        }
     }
 }
 #endif
