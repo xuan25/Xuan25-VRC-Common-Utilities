@@ -536,7 +536,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 7532813344490600463}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.5666666
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6387,7 +6387,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4543267805409322191}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.5166666
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7124,7 +7124,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 7399676438363104026}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -12811,7 +12811,7 @@ MonoBehaviour:
   playerCore: {fileID: 0}
   audioStateController: {fileID: 0}
   playlistEndpoint:
-    url: https://api.xuan25.com/vrc-karaoke-playlist/index
+    url: https://vrc-karaoke.xuan25.com/index
   urlPool: {fileID: 9024334492003016775}
   searchInputField: {fileID: 2706998230950784727}
   playlistItemContainer: {fileID: 5740625941111299097}
@@ -14769,7 +14769,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 5887445492001565095}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
