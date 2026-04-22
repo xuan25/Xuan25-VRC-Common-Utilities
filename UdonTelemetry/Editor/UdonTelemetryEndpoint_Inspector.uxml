@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" x="Xuan25.UdonTelemetry" editor-extension-mode="True">
+    <ui:VisualElement style="flex-grow: 1; padding-top: 18px; padding-right: 18px; padding-bottom: 18px; padding-left: 18px;">
+        <ui:Label tabindex="-1" text="Udon Telemetry Endpoint" parse-escape-sequences="true" display-tooltip-when-elided="true" style="white-space: normal; font-size: 16px;" />
+        <ui:VisualElement style="margin-top: 5px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px;" />
+        <ui:Label text="Please populate with Tools &gt; Xuan25 &gt; UdonTelemetry &gt; Endpoint Setup" display-tooltip-when-elided="true" parse-escape-sequences="true" tabindex="-1" style="white-space: normal;" />
+        <ui:VisualElement style="margin-top: 5px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px;" />
+        <ui:Label text="Summary" display-tooltip-when-elided="true" parse-escape-sequences="true" tabindex="-1" style="white-space: normal; font-size: 16px;" />
+        <ui:VisualElement style="margin-top: 5px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px;" />
+        <Xuan25.UdonTelemetry.ArraySummaryDisplay binding-path="urls" name="ArraySummaryDisplay" head-count="5" tail-count="5" />
+    </ui:VisualElement>
+</ui:UXML>

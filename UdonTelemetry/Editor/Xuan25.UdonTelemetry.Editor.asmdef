@@ -1,0 +1,17 @@
+{
+    "name": "Xuan25.UdonTelemetry.Editor",
+    "rootNamespace": "",
+    "references": [
+        "UdonSharp.Runtime",
+        "Xuan25.UdonTelemetry"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

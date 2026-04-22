@@ -1,0 +1,17 @@
+{
+    "name": "Xuan25.UdonTelemetry",
+    "rootNamespace": "",
+    "references": [
+        "UdonSharp.Lib",
+        "UdonSharp.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:VisualElement name="array-summary-root" class="array-summary-root">
+        <ui:Label name="count-label" class="array-summary-count" />
+        <ui:VisualElement style="flex-grow: 1; margin-top: 4px; margin-right: 4px; margin-bottom: 4px; margin-left: 4px;" />
+        <ui:Foldout name="sample-foldout" text="Sample" class="array-summary-foldout">
+            <ui:VisualElement name="sample-list" class="array-summary-sample-list" />
+        </ui:Foldout>
+    </ui:VisualElement>
+</ui:UXML>
