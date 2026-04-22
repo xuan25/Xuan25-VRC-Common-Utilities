@@ -10,6 +10,7 @@ These utilities are meant to be reused across multiple worlds or projects. Expec
 
 - **AnimatorUtilities**: Helpers to drive animator parameters via pickups, UI elements, or interacts — supports global or local control.
 - **AudioSynthesizer**: Udon-programmable audio source with filters. Includes example implementations of an `Oscillator` and an `IIRFilter`. CPU-intensive due to the low efficiency of UdonVM.
+- **AvatarAdmin**: Provides mechanisms to force certain players to use a specific avatar.
 - **BangumiPanel**: Displays a list of seasonal Bangumi to play. Supported players: VizVid, YamaPlayer.
 - **BGMVolumeControl**: Fades out background music when a video starts playing. Implemented for YamaPlayer.
 - **DigiClock**: A simple digital clock.
@@ -30,6 +31,7 @@ These utilities are meant to be reused across multiple worlds or projects. Expec
 - **SymbolConfigurator**: Automatic configures compiler symbols for the Udon compiler. Supports VIZVID (VizVid Player) and YAMA_STREAM (Yama Player).
 - **TextUtilities**: Automatically sets the URL prefix for `VRCUrlInput` on open.
 - **ToggleUtilities**: Toggles GameObjects, either synced or local.
+- **UdonTelemetry**: Sends anonymous player locational data to a configured telemetry endpoint for analytics purposes. (Use with [vrc-telemetry-collector](https://github.com/xuan25/vrc-telemetry-collector))
 - **UrlPool**: Pool for VRCURL with a batch generation window.
 - **VideoPlayer-7.1**: VizVid-based video player with 7.1-ready surrounding audio sources.
 - **VRCDebugClientLauncher**: Debug client launcher window with advanced configurable launch options.
