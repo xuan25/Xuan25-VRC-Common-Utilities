@@ -1,10 +1,5 @@
-﻿
-using System.Collections.Generic;
-using UdonSharp;
-using Unity.VisualScripting;
+﻿using UdonSharp;
 using UnityEngine;
-using VRC.Core;
-using VRC.SDK3.Components;
 using VRC.SDKBase;
 using VRC.Udon;
 
