@@ -9,7 +9,8 @@ namespace Xuan25.UdonTelemetry
     public class UdonTelemetryEndpointSetup : EditorWindow {
         public static UdonTelemetryEndpoint endpointObj;
 
-        public static string endpointPrefix = "http://127.0.0.1:3000/demo/telemetry";
+        public static string endpointPrefix = "http://127.0.0.1:3000";
+        public static string endpointPath = "demo/telemetry";
 
         public enum DataType
         {
@@ -21,22 +22,26 @@ namespace Xuan25.UdonTelemetry
         [MenuItem("Tools/Xuan25/UdonTelemetry/Endpoint Setup")]
         public static void ShowWindow() => GetWindow<UdonTelemetryEndpointSetup>("Endpoint Setup");
 
-        public static GUIContent poolObjContent = new GUIContent("PoolObj", "The GameObject that contains the UrlPool component.");
-        public static GUIContent urlTemplateContent = new GUIContent("URL Template", "The template for the URLs to create. Use {0} as a placeholder for the URL ID.");
-        public static GUIContent numUrlsContent = new GUIContent("Number of URLs", "The number of URLs to create.");
+        public static GUIContent endpointObjLabel = new GUIContent("Telemetry Endpoint", "The GameObject that contains the TelemetryEndpoint component.");
+        public static GUIContent endpointPrefixLabel = new GUIContent("Endpoint Prefix", "The URL prefix for the telemetry endpoint.");
+        public static GUIContent endpointPathLabel = new GUIContent("Endpoint Path", "The path for the telemetry endpoint.");
+        public static GUIContent dataTypeLabel = new GUIContent("Data Type", "The type of data to be sent to the telemetry endpoint.");
 
         public void OnGUI()
         {
             EditorGUIUtility.labelWidth = 90;
 
             using (new GUILayout.HorizontalScope(GUI.skin.box))
-                endpointObj = (UdonTelemetryEndpoint)EditorGUILayout.ObjectField(poolObjContent, endpointObj, typeof(UdonTelemetryEndpoint), true);
+                endpointObj = (UdonTelemetryEndpoint)EditorGUILayout.ObjectField(endpointObjLabel, endpointObj, typeof(UdonTelemetryEndpoint), true);
 
             using (new GUILayout.HorizontalScope(GUI.skin.box))
-                endpointPrefix = EditorGUILayout.TextField(urlTemplateContent, endpointPrefix);
+                endpointPrefix = EditorGUILayout.TextField(endpointPrefixLabel, endpointPrefix);
 
             using (new GUILayout.HorizontalScope(GUI.skin.box))
-                dataType = (DataType)EditorGUILayout.EnumPopup("Data Type", dataType);
+                endpointPath = EditorGUILayout.TextField(endpointPathLabel, endpointPath);
+
+            using (new GUILayout.HorizontalScope(GUI.skin.box))
+                dataType = (DataType)EditorGUILayout.EnumPopup(dataTypeLabel, dataType);
 
             using (new GUILayout.HorizontalScope())
             {
@@ -96,8 +101,7 @@ namespace Xuan25.UdonTelemetry
                 {
                     string hexString = GetHexString(i, hexDigits);
 
-                    // Path.Combine 不适合 URL，Windows 下会变成反斜杠
-                    string url = $"{endpointPrefix.TrimEnd('/')}/{dataTypeDesc}/{hexString}";
+                    string url = $"{endpointPrefix.Trim('/')}/{endpointPath.Trim('/')}/{dataTypeDesc}/{hexString}";
 
                     endpoint.urls[i] = new VRCUrl(url);
 
