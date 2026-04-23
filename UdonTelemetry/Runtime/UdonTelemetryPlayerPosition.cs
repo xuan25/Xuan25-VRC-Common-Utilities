@@ -142,6 +142,7 @@ namespace Xuan25.UdonTelemetry
 #endif
         }
 
+#if UNITY_EDITOR
         void OnDrawGizmosSelected()
         {
             // Convert the local coordinate values into world
@@ -152,7 +153,27 @@ namespace Xuan25.UdonTelemetry
             Gizmos.DrawWireCube(Vector3.zero, new Vector3(xRangeMeter * 2, 0.1f, zRangeMeter * 2));
             Gizmos.color = new Color(0.75f, 0.0f, 0.25f, 0.25f);
             Gizmos.DrawCube(Vector3.zero, new Vector3(xRangeMeter * 2, 0.1f, zRangeMeter * 2));
+
+            // Draw sample points
+
+            float samplingResolution = 1 << ENCODE_BIT; // e.g. 256 for 8 bits encoding
+            float xStep = xRangeMeter * 2 / samplingResolution;
+            float zStep = zRangeMeter * 2 / samplingResolution;
+
+            // Draw sampling resolution
+
+            Vector3 rayNormal = Vector3.up * 0.1f * 0.5f;
+            for (int x = 0; x <= samplingResolution; x++)
+            {
+                for (int z = 0; z <= samplingResolution; z++)
+                {
+                    Vector3 samplePos = new Vector3(-xRangeMeter + x * xStep, 0, -zRangeMeter + z * zStep);
+                    Gizmos.DrawLine(samplePos + rayNormal, samplePos - rayNormal);
+                }   
+            }
+            
         }
     }
+#endif
 
 }
