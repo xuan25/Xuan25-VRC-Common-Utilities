@@ -173,7 +173,7 @@ namespace Xuan25.UdonTelemetry
             }
             
         }
-    }
 #endif
 
+    }
 }
