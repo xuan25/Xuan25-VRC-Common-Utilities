@@ -19,7 +19,7 @@ MonoBehaviour:
   compiledVersion: 2
   behaviourSyncMode: 2
   hasInteractEvent: 0
-  scriptID: 4407855473129811340
+  scriptID: -3902814866963961487
   serializationData:
     SerializedBytes: 
     ReferencedUnityObjects: []
@@ -59,7 +59,7 @@ MonoBehaviour:
       Data: 3|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: AnimatorUtilities.DiscreteAnimatorDriver, Xuan25.AnimatorUtilities
+      Data: Xuan25.AnimatorUtilities.DiscreteAnimatorDriver, Xuan25.AnimatorUtilities
     - Name: 
       Entry: 8
       Data: 

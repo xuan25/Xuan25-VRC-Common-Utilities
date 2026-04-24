@@ -13,7 +13,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace AnimatorUtilities {
+namespace Xuan25.AnimatorUtilities {
 
     public class AnimatorUtilitiesBuildingPipeline : IProcessSceneWithReport
     {

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using VRC.SDKBase;
 using VRC.Udon;
 
-namespace AnimatorUtilities
+namespace Xuan25.AnimatorUtilities
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.NoVariableSync)]
     public class DiscreteAnimatorDriverIndexerButtonController : DiscreteAnimatorDriverIndexer

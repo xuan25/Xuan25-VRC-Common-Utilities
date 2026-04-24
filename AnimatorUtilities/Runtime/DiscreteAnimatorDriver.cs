@@ -4,7 +4,7 @@ using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
 
-namespace AnimatorUtilities
+namespace Xuan25.AnimatorUtilities
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
     public class DiscreteAnimatorDriver : UdonSharpBehaviour
