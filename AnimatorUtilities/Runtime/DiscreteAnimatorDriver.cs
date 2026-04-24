@@ -15,11 +15,26 @@ namespace AnimatorUtilities
         [SerializeField] private float[] parameterFloatValue;
         [SerializeField] private int[] parameterIntValue;
         [SerializeField] private bool[] parameterBoolValue;
-
+        [SerializeField] private bool resetOnStart = true;
         [SerializeField] private bool global;
 
         [UdonSynced]
         private int index = -1;
+
+        void Start()
+        {
+            ResetOnStartIfNeeded();
+        }
+
+        private void ResetOnStartIfNeeded()
+        {
+            // Do nothing if not global, or if we are the owner (in a global synced setup))
+            if (global && !Networking.IsOwner(gameObject)) return;
+            // Do nothing if we are not supposed to reset on start
+            if (!resetOnStart) return;
+            // Reset to initial state (index 0)
+            SetParameter(0);
+        }
 
         private int GetParameterArrayLength()
         {
