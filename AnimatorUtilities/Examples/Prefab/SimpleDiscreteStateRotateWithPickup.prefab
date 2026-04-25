@@ -93,7 +93,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1819505165666258836, guid: 8abb947042dfee42ea7c095d4b34f424, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.37
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1819505165666258836, guid: 8abb947042dfee42ea7c095d4b34f424, type: 3}
       propertyPath: m_LocalPosition.y
@@ -133,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1847688952307318905, guid: 8abb947042dfee42ea7c095d4b34f424, type: 3}
       propertyPath: m_Name
-      value: SimpleDiscreteStateRotateWithPickupable
+      value: SimpleDiscreteStateRotateWithPickup
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
