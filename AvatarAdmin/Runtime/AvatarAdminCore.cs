@@ -27,6 +27,8 @@ namespace Xuan25.AvatarAdmin
 
         private AvatarAdminPanel[] adminPanels;
 
+        private uint currentLocalAvatarIdx = IDX_UNSET;
+
 #region Unity lifecycle
 
         void Start()
@@ -100,27 +102,29 @@ namespace Xuan25.AvatarAdmin
 
 #region Local avatar admin
 
-        private void RefreshLocalAvatar()
+        private void RefreshLocalAvatar(bool forceReApply = false)
         {
             // update change local avatar if the flag corresponding to local player is set
             int localPlayerId = Networking.LocalPlayer.playerId;
             uint avatarIndex = GetPlayerAvatarIndex(localPlayerId);
             if (avatarIndex == IDX_UNSET || avatarIndex == IDX_UNINITIALIZED) return; // No change
+            if (!forceReApply && currentLocalAvatarIdx == avatarIndex) return; // Already using the correct avatar
 
             AvatarAdminAvatarOption option = avatarOptions[avatarIndex];
             option.SetAvatarUse();
+            currentLocalAvatarIdx = avatarIndex;
         }
 
         public override void OnDeserialization()
         {
             UpdateUI();
-            RefreshLocalAvatar();
+            RefreshLocalAvatar(false);
         }
 
         public override void OnAvatarChanged(VRCPlayerApi player)
         {
             if (Networking.LocalPlayer.playerId != player.playerId) return;
-            RefreshLocalAvatar();
+            RefreshLocalAvatar(true);
         }
 
 #endregion

@@ -1073,7 +1073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launchedFromSDKPipeline: 0
   completedSDKPipeline: 0
-  blueprintId: wrld_c71234c8-819d-4c44-b07d-8dc96ef671d5
+  blueprintId: wrld_defd41f9-5789-488a-8725-ef81534bd63c
   contentType: 1
   assetBundleUnityVersion: 
   fallbackStatus: 0
@@ -1190,6 +1190,7 @@ MonoBehaviour:
   useAssignedLayers: 0
   DynamicPrefabs: []
   DynamicMaterials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 2100000, guid: fd20e45036ef323459e8286e9c23c02c, type: 2}
   LightMapsNear: []
   LightMapsFar: []
