@@ -36,10 +36,24 @@ namespace OnBuildHookUtility
             for (int i = 0; i < removeOnBuilds.Length; i++)
             {
                 RemoveOnBuild removeOnBuild = removeOnBuilds[i];
-                if (removeOnBuild != null)
-                {
-                    Object.DestroyImmediate(removeOnBuild.gameObject);
-                }
+                if (removeOnBuild == null) continue;
+
+#if UNITY_STANDALONE_OSX || UNITY_STANDALONE_WIN || UNITY_STANDALONE_LINUX
+                bool remove = removeOnBuild.onDesktop;
+#elif UNITY_ANDROID
+                bool remove = removeOnBuild.onAndroid;
+#elif UNITY_IOS
+                bool remove = removeOnBuild.onIOS;
+#elif UNITY_VISIONOS
+                bool remove = removeOnBuild.onVisionOS;
+#else
+                bool remove = false;
+                Debug.LogWarning($"[{GetType()}] Unsupported platform for RemoveOnBuild component: {Application.platform}. Defaulting to keep.");
+#endif
+
+                if (!remove) continue;
+
+                Object.DestroyImmediate(removeOnBuild.gameObject);
             }
         }
 
@@ -53,10 +67,23 @@ namespace OnBuildHookUtility
             for (int i = 0; i < inactivateOnBuilds.Length; i++)
             {
                 InactivateOnBuild inactivateOnBuild = inactivateOnBuilds[i];
-                if (inactivateOnBuild != null)
-                {
-                    inactivateOnBuild.gameObject.SetActive(false);
-                }
+
+                if (inactivateOnBuild == null) continue;
+
+#if UNITY_STANDALONE_OSX || UNITY_STANDALONE_WIN || UNITY_STANDALONE_LINUX
+                bool inactive = inactivateOnBuild.onDesktop;
+#elif UNITY_ANDROID
+                bool inactive = inactivateOnBuild.onAndroid;
+#elif UNITY_IOS
+                bool inactive = inactivateOnBuild.onIOS;
+#elif UNITY_VISIONOS
+                bool inactive = inactivateOnBuild.onVisionOS;
+#else
+                bool inactive = false;
+                Debug.LogWarning($"[{GetType()}] Unsupported platform for InactivateOnBuild component: {Application.platform}. Defaulting to activate.");
+#endif
+
+                inactivateOnBuild.gameObject.SetActive(!inactive);
             }
         }
 
