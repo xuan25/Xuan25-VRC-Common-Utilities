@@ -1,4 +1,4 @@
-Shader "Xuan25/Skybox"
+Shader "Xuan25/ParallaxModifierSkybox"
 {
     Properties {
         _Tint ("Tint Color", Color) = (.5, .5, .5, .5)
