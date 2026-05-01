@@ -14,10 +14,13 @@ Shader "Xuan25/SphericalSkybox"
         [NoScaleOffset] _AltTex ("Alt Spherical (HDR)", 2D) = "grey" {}
         _AltOffsetAndTiling ("Alt Offset and Tiling", Vector) = (0, 0, 1, 1)
 
-        [KeywordEnum(Lerp, Superposition, ArgMax)] _BlendMode ("Blend Mode", Float) = 0
+        [KeywordEnum(Lerp, Superposition, ArgMax, Map)] _BlendMode ("Blend Mode", Float) = 0
         _BlendFactor ("Blend Factor", Range(0,1)) = 0
 
         _ArgMaxFeather ("ArgMax Feather", Range(0, 1)) = 0.3
+
+        _BlendMap ("Blend Map", 2D) = "white" {}
+        _BlendMapFeather ("Blend Map Feather", Range(0, 1)) = 0.05
 
         [Toggle(_ENABLE_LOD)] _EnableLOD ("Enable LOD", Float) = 0
     }
@@ -44,7 +47,7 @@ Shader "Xuan25/SphericalSkybox"
 
             #include "UnityCG.cginc"
 
-            #pragma shader_feature_local _BLENDMODE_LERP _BLENDMODE_SUPERPOSITION _BLENDMODE_ARGMAX
+            #pragma shader_feature_local _BLENDMODE_LERP _BLENDMODE_SUPERPOSITION _BLENDMODE_ARGMAX _BLENDMODE_MAP
             #pragma shader_feature_local _ENABLE_LOD
 
             sampler2D _MainTex;
@@ -68,6 +71,9 @@ Shader "Xuan25/SphericalSkybox"
             float _BlendFactor;
 
             float _ArgMaxFeather;
+
+            sampler2D _BlendMap;
+            float _BlendMapFeather;
 
             struct appdata
             {
@@ -310,6 +316,13 @@ Shader "Xuan25/SphericalSkybox"
                     float t = smoothstep(-feather, feather, diff);
 
                     float3 color = lerp(mainColor, altColor, t);
+#elif _BLENDMODE_MAP
+                    float blendThreshold = tex2Dlod(_BlendMap, float4(mainUV, 0, 0)).r;
+                    float diff = _BlendFactor - blendThreshold;
+                    float feather = _BlendMapFeather;
+                    float t = smoothstep(-feather, feather, diff);
+                    float3 color = lerp(mainColor, altColor, t);
+                    
 #else
                     float3 color = mainColor;
 #endif
