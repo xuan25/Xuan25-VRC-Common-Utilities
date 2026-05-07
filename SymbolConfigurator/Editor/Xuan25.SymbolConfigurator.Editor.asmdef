@@ -19,6 +19,16 @@
             "name": "net.kwxxw.yama-stream",
             "expression": "",
             "define": "HINT_YAMASTREAM"
+        },
+        {
+            "name": "net.kwxxw.yama-stream",
+            "expression": "[1,2.0.0-beta.1)",
+            "define": "HINT_YAMASTREAM_V1"
+        },
+        {
+            "name": "net.kwxxw.yama-stream",
+            "expression": "[2.0.0-beta.1,3)",
+            "define": "HINT_YAMASTREAM_V2"
         }
     ],
     "noEngineReferences": false

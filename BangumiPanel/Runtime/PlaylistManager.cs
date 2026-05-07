@@ -191,9 +191,15 @@ namespace BangumiPanel
 #if VIZVID
             vizvidCore.PlayUrl(url, videoPlayerType);
 #endif
-#if YAMASTREAM
+#if YAMASTREAM_V1
             yamaController.TakeOwnership();
             yamaController.PlayTrack(Yamadev.YamaStream.Track.New(Yamadev.YamaStream.VideoPlayerType.AVProVideoPlayer, $"{bangumiName} - {epName} ({sourceName})", url));
+#endif
+#if YAMASTREAM_V2
+            yamaController.TakeOwnership();
+            yamaController.PlayTrack(
+                Yamadev.YamaStream.TrackUtils.NewTrack(Yamadev.YamaStream.VideoPlayerType.AVProVideoPlayer, $"{bangumiName} - {epName} ({sourceName})", url)
+            );
 #endif
         }
 

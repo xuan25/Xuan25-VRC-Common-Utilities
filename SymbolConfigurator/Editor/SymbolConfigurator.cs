@@ -51,6 +51,16 @@ public class SymbolConfigurator : IActiveBuildTargetChanged
 #else
         RemoveDefine("YAMASTREAM");
 #endif
+#if HINT_YAMASTREAM_V1
+        AddDefine("YAMASTREAM_V1");
+#else
+        RemoveDefine("YAMASTREAM_V1");
+#endif
+#if HINT_YAMASTREAM_V2
+        AddDefine("YAMASTREAM_V2");
+#else
+        RemoveDefine("YAMASTREAM_V2");
+#endif
     }
 
     static SymbolConfigurator()
