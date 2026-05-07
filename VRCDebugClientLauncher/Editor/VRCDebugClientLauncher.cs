@@ -158,6 +158,7 @@ public class VRCDebugClientLauncher : EditorWindow
     }
 
     Vector2 scrollPos;
+    bool expandLaunchArgs = false;
 
     void OnGUI()
     {
@@ -287,13 +288,17 @@ public class VRCDebugClientLauncher : EditorWindow
 
         EditorGUILayout.EndScrollView();
 
-        GUIStyle style = new GUIStyle(EditorStyles.label);
-        style.wordWrap = true;
-
-        // EditorGUILayout.LabelField("Built Url", BuiltUrl, style);
-
         string launchArgs = LaunchArgs;
-        EditorGUILayout.LabelField("Launch Arguments", launchArgs, style);
+        
+        expandLaunchArgs = EditorGUILayout.BeginFoldoutHeaderGroup(expandLaunchArgs, "Launch Arguments");
+        if (expandLaunchArgs)
+        {
+            GUIStyle style = new GUIStyle(EditorStyles.label);
+            style.wordWrap = true;
+            EditorGUILayout.TextArea(launchArgs, style);
+        }
+        EditorGUILayout.EndFoldoutHeaderGroup();
+
 
         if (GUILayout.Button("Launch VRChat Debugging Client", GUILayout.Height(40)))
         {
