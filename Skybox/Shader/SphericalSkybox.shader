@@ -5,14 +5,12 @@ Shader "Xuan25/SphericalSkybox"
         _Tint ("Tint Color", Color) = (.5, .5, .5, .5)
         [Gamma] _Exposure ("Exposure", Range(0, 8)) = 1.0
         _Rotation ("Rotation", Range(0, 360)) = 0
-        [NoScaleOffset] _MainTex ("Spherical  (HDR)", 2D) = "grey" {}
-        _OffsetAndTiling ("Offset and Tiling", Vector) = (0, 0, 1, 1)
+        _MainTex ("Spherical  (HDR)", 2D) = "grey" {}
 
         _AltTint ("Alt Tint Color", Color) = (.5, .5, .5, .5)
         [Gamma] _AltExposure ("Alt Exposure", Range(0, 8)) = 1.0
         _AltRotation ("Alt Rotation", Range(0, 360)) = 0
-        [NoScaleOffset] _AltTex ("Alt Spherical (HDR)", 2D) = "grey" {}
-        _AltOffsetAndTiling ("Alt Offset and Tiling", Vector) = (0, 0, 1, 1)
+        _AltTex ("Alt Spherical (HDR)", 2D) = "grey" {}
 
         [KeywordEnum(Lerp, Superposition, ArgMax, Map)] _BlendMode ("Blend Mode", Float) = 0
         _BlendFactor ("Blend Factor", Range(0,1)) = 0
@@ -52,27 +50,27 @@ Shader "Xuan25/SphericalSkybox"
 
             sampler2D _MainTex;
             float4 _MainTex_HDR;
-            float4 _MainTex_TexelSize;
+            float4 _MainTex_ST;
 
             half4 _Tint;
             half _Exposure;
             float _Rotation;
-            float4 _OffsetAndTiling;
 
             sampler2D _AltTex;
             float4 _AltTex_HDR;
-            float4 _AltTex_TexelSize;
+            float4 _AltTex_ST;
 
             half4 _AltTint;
             half _AltExposure;
             float _AltRotation;
-            float4 _AltOffsetAndTiling;
 
             float _BlendFactor;
 
             float _ArgMaxFeather;
 
             sampler2D _BlendMap;
+            float4 _BlendMap_ST;
+
             float _BlendMapFeather;
 
             struct appdata
@@ -100,6 +98,16 @@ Shader "Xuan25/SphericalSkybox"
                     dir.y,
                     dir.x * s + dir.z * c
                 );
+            }
+
+            float2 ApplyOffsetTiling(float2 uv, float4 offsetTiling)
+            {
+                uv = uv * offsetTiling.xy + offsetTiling.zw;
+
+                uv.x = frac(uv.x);
+                uv.y = saturate(uv.y);
+
+                return uv;
             }
 
 #if _ENABLE_LOD
@@ -160,9 +168,9 @@ Shader "Xuan25/SphericalSkybox"
                 out float2 uvDx,
                 out float2 uvDy)
             {
-                uv   = baseUV * offsetTiling.zw + offsetTiling.xy;
-                uvDx = baseDx * offsetTiling.zw;
-                uvDy = baseDy * offsetTiling.zw;
+                uv   = baseUV * offsetTiling.xy + offsetTiling.zw;
+                uvDx = baseDx * offsetTiling.xy;
+                uvDy = baseDy * offsetTiling.xy;
 
                 // U direction is the wrap-around direction
                 uv.x = frac(uv.x);
@@ -232,7 +240,7 @@ Shader "Xuan25/SphericalSkybox"
                     mainBaseUV,
                     mainBaseDx,
                     mainBaseDy,
-                    _OffsetAndTiling,
+                    _MainTex_ST,
                     mainUV,
                     mainDx,
                     mainDy
@@ -251,7 +259,7 @@ Shader "Xuan25/SphericalSkybox"
                     altBaseUV,
                     altBaseDx,
                     altBaseDy,
-                    _AltOffsetAndTiling,
+                    _AltTex_ST,
                     altUV,
                     altDx,
                     altDy
@@ -269,8 +277,8 @@ Shader "Xuan25/SphericalSkybox"
                 float2 mainUV = DirectionToSphericalUV(i.dir);
                 float2 altUV = DirectionToSphericalUV(i.altDir);
 
-                mainUV *= _OffsetAndTiling.zw + _OffsetAndTiling.xy;
-                altUV *= _AltOffsetAndTiling.zw + _AltOffsetAndTiling.xy;
+                mainUV = mainUV * _MainTex_ST.xy + _MainTex_ST.zw;
+                altUV = altUV * _AltTex_ST.xy + _AltTex_ST.zw;
 
                 half4 mainTex = tex2Dlod(_MainTex, float4(mainUV, 0, 0));
                 float3 mainColor = DecodeHDR(mainTex, _MainTex_HDR);
@@ -317,7 +325,9 @@ Shader "Xuan25/SphericalSkybox"
 
                     float3 color = lerp(mainColor, altColor, t);
 #elif _BLENDMODE_MAP
-                    float blendThreshold = tex2Dlod(_BlendMap, float4(mainUV, 0, 0)).r;
+                    maskUV = ApplyOffsetTiling(mainUV, _BlendMap_ST);
+                    
+                    float blendThreshold = tex2Dlod(_BlendMap, float4(maskUV, 0, 0)).r;
                     float diff = _BlendFactor - blendThreshold;
                     float feather = _BlendMapFeather;
                     float t = smoothstep(-feather, feather, diff);

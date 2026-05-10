@@ -18,7 +18,6 @@ Shader "Xuan25/CubemapSkybox"
         _ArgMaxFeather ("ArgMax Feather", Range(0, 1)) = 0.3
 
         _BlendMap ("Blend Map", 2D) = "white" {}
-        _OffsetAndTiling ("Blend Map Offset and Tiling", Vector) = (0, 0, 1, 1)
         _BlendMapFeather ("Blend Map Feather", Range(0, 1)) = 0.05
 
         [Toggle(_ENABLE_LOD)] _EnableLOD ("Enable LOD", Float) = 0
@@ -67,7 +66,7 @@ Shader "Xuan25/CubemapSkybox"
             float _ArgMaxFeather;
 
             sampler2D _BlendMap;
-            float4 _OffsetAndTiling;
+            float4 _BlendMap_ST;
             float _BlendMapFeather;
 
             struct appdata
@@ -113,7 +112,7 @@ Shader "Xuan25/CubemapSkybox"
 
             float2 ApplyOffsetTiling(float2 uv, float4 offsetTiling)
             {
-                uv = uv * offsetTiling.zw + offsetTiling.xy;
+                uv = uv * offsetTiling.xy + offsetTiling.zw;
 
                 uv.x = frac(uv.x);
                 uv.y = saturate(uv.y);
@@ -174,9 +173,9 @@ Shader "Xuan25/CubemapSkybox"
                 out float2 uvDx,
                 out float2 uvDy)
             {
-                uv = baseUV * offsetTiling.zw + offsetTiling.xy;
-                uvDx = baseDx * offsetTiling.zw;
-                uvDy = baseDy * offsetTiling.zw;
+                uv = baseUV * offsetTiling.xy + offsetTiling.zw;
+                uvDx = baseDx * offsetTiling.xy;
+                uvDy = baseDy * offsetTiling.xy;
 
                 uv.x = frac(uv.x);
                 uv.y = saturate(uv.y);
@@ -237,7 +236,7 @@ Shader "Xuan25/CubemapSkybox"
                     baseUV,
                     baseDx,
                     baseDy,
-                    _OffsetAndTiling,
+                    _BlendMap_ST,
                     uv,
                     dx,
                     dy
@@ -246,7 +245,7 @@ Shader "Xuan25/CubemapSkybox"
                 return tex2Dgrad(_BlendMap, uv, dx, dy).r;
 #else
                 float2 uv = DirectionToSphericalUV(dir);
-                uv = ApplyOffsetTiling(uv, _OffsetAndTiling);
+                uv = ApplyOffsetTiling(uv, _BlendMap_ST);
 
                 return tex2Dlod(_BlendMap, float4(uv, 0.0, 0.0)).r;
 #endif
