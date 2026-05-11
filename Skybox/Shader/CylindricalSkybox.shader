@@ -325,7 +325,7 @@ Shader "Xuan25/CylindricalSkybox"
 
                     float3 color = lerp(mainColor, altColor, t);
 #elif _BLENDMODE_MAP
-                    maskUV = ApplyOffsetTiling(mainUV, _BlendMap_ST);
+                    float2 maskUV = ApplyOffsetTiling(mainUV, _BlendMap_ST);
                     
                     float blendThreshold = tex2Dlod(_BlendMap, float4(maskUV, 0, 0)).r;
                     float diff = _BlendFactor - blendThreshold;
