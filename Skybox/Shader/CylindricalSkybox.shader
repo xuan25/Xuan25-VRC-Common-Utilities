@@ -1,16 +1,16 @@
-Shader "Xuan25/SphericalSkybox"
+Shader "Xuan25/CylindricalSkybox"
 {
     Properties
     {
         _Tint ("Tint Color", Color) = (.5, .5, .5, .5)
         [Gamma] _Exposure ("Exposure", Range(0, 8)) = 1.0
         _Rotation ("Rotation", Range(0, 360)) = 0
-        _MainTex ("Spherical  (HDR)", 2D) = "grey" {}
+        _MainTex ("Cylindrical (HDR)", 2D) = "grey" {}
 
         _AltTint ("Alt Tint Color", Color) = (.5, .5, .5, .5)
         [Gamma] _AltExposure ("Alt Exposure", Range(0, 8)) = 1.0
         _AltRotation ("Alt Rotation", Range(0, 360)) = 0
-        _AltTex ("Alt Spherical (HDR)", 2D) = "grey" {}
+        _AltTex ("Alt Cylindrical (HDR)", 2D) = "grey" {}
 
         [KeywordEnum(Lerp, Superposition, ArgMax, Map)] _BlendMode ("Blend Mode", Float) = 0
         _BlendFactor ("Blend Factor", Range(0,1)) = 0
