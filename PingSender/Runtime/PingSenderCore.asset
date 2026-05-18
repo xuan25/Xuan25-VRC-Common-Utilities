@@ -233,7 +233,7 @@ MonoBehaviour:
       Data: 14|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: Xuan25.PingSender.PingSenderPanel[], Assembly-CSharp
+      Data: Xuan25.PingSender.PingSenderPanel[], Xuan25.PingSender
     - Name: 
       Entry: 8
       Data: 
