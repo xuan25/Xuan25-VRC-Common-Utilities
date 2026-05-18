@@ -1,0 +1,34 @@
+# Example Portable Object file
+# Copyright (C) 2026 Xuan25.
+# This file is distributed under the same license as the Xuan25 Common Utilities package.
+# Xuan25 <xuan@xuan25.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Xuan25 Common Utilities\n"
+"POT-Creation-Date: 2026-01-01 00:00-0000\n"
+"PO-Revision-Date: 2026-01-01 00:00-0000\n"
+"Last-Translator: Xuan25 <xuan@xuan25.com>\n"
+"Language-Team: English <xuan@xuan25.com>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "HelloWorld"
+msgstr "Hello World"
+
+msgid "ExampleSimple"
+msgstr "Example Simple"
+
+msgid "ExampleWithLocaleOverride"
+msgstr "Example With Local Override"
+
+msgid "ExampleWithTextIDOverride"
+msgstr "Example With text ID Override"
+
+msgid "ExampleWithFallbackLocale"
+msgstr "Example With fallback locale"
+
+msgid "HintAlwaysFallbackToEN"
+msgstr "This component will always fallbacking to English due to the lack of other languages."
