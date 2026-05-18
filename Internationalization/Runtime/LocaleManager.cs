@@ -52,7 +52,7 @@ namespace Xuan25.Internationalization
             }
         }
         
-        public void UnregisterLocaleFile(LocaleHandle handle)
+        public void UnregisterLocaleHandle(LocaleHandle handle)
         {
             if (localeHandles == null)
             {

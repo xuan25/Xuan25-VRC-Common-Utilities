@@ -29,7 +29,7 @@ namespace Xuan25.Internationalization
                 Debug.LogError($"[{nameof(LocaleHandle)}] No LocaleManager found in the scene. GameObject: {gameObject.name}");
                 return;
             }
-            manager.UnregisterLocaleFile(this);
+            manager.UnregisterLocaleHandle(this);
         }
 
         public abstract bool GetText(string id, out string msg);
