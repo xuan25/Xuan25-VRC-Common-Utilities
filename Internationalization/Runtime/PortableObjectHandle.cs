@@ -141,5 +141,15 @@ namespace Xuan25.Internationalization
             EnsureHeaders();
             return true;
         }
+
+#if UNITY_EDITOR
+        public void ForceReload()
+        {
+            translationsLoaded = false;
+            headersLoaded = false;
+            translations = new VRC.SDK3.Data.DataDictionary();
+            headers = new VRC.SDK3.Data.DataDictionary();
+        }
+#endif
     }
 }
