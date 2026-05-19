@@ -9,26 +9,29 @@ msgstr ""
 "POT-Creation-Date: 2026-01-01 00:00-0000\n"
 "PO-Revision-Date: 2026-01-01 00:00-0000\n"
 "Last-Translator: Xuan25 <xuan@xuan25.com>\n"
-"Language-Team: Simplified Chinese <xuan@xuan25.com>\n"
-"Language: zh-CN\n"
+"Language-Team: English <xuan@xuan25.com>\n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "HelloWorld"
-msgstr "你好，世界"
+msgstr "Hello World!"
+
+msgid "HelloVars"
+msgstr "Hello {0}!"
 
 msgid "ExampleSimple"
-msgstr "简单示例"
+msgstr "Example Simple"
 
 msgid "ExampleWithLocaleOverride"
-msgstr "带语言环境覆盖的示例"
+msgstr "Example With Local Override"
 
 msgid "ExampleWithTextIDOverride"
-msgstr "带文本 ID 覆盖的示例"
+msgstr "Example With text ID Override"
 
 msgid "ExampleWithFallbackLocale"
-msgstr "带回退语言环境的示例"
+msgstr "Example With fallback locale"
 
 msgid "HintAlwaysFallbackToEN"
-msgstr "由于其他语言文件的缺失，这个组件将会永远备选到英文。"
+msgstr "This component will always fallbacking to English due to the lack of other languages."
