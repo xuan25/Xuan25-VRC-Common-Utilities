@@ -12,6 +12,17 @@ namespace Xuan25.Internationalization
         [Tooltip("The LocaleManager instance to register this locale file with.")]
         public LocaleManager manager;
 
+        public abstract bool GetText(string id, out string text);
+
+        public abstract bool GetLanguageID(out string language);
+
+        public abstract bool Bake();
+
+#if UNITY_EDITOR
+
+        public abstract void Reset();
+#endif
+
         public void OnEnable()
         {
             if (manager == null)
@@ -31,10 +42,6 @@ namespace Xuan25.Internationalization
             }
             manager.UnregisterLocaleHandle(this);
         }
-
-        public abstract bool GetText(string id, out string msg);
-
-        public abstract bool GetLanguageID(out string language);
 
     }
 }

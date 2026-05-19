@@ -142,30 +142,30 @@ namespace Xuan25.Internationalization
             componentLocale.manager = null;
         }
 
-        public bool GetText(string id, out string msg)
+        public bool GetText(string id, out string text)
         {
             if (localeHandles == null)
             {
                 Debug.LogError($"[{nameof(LocaleManager)}] No locale handles registered. GameObject: {gameObject.name}");
-                msg = id;
+                text = id;
                 return false;
             }
 
             if (currentLocaleHandle == null)
             {
                 Debug.LogError($"[{nameof(LocaleManager)}] No current locale handle set. GameObject: {gameObject.name}");
-                msg = id;
+                text = id;
                 return false;
             }
 
             if (!currentLocaleHandle.GetText(id, out string translation))
             {
                 Debug.LogWarning($"[{nameof(LocaleManager)}] No translation found for key: {id}. GameObject: {gameObject.name}");
-                msg = id;
+                text = id;
                 return false;
             }
 
-            msg = translation;
+            text = translation;
             return true;
         }
 

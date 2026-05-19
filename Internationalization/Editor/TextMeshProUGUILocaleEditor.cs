@@ -112,7 +112,7 @@ namespace Xuan25.Internationalization.Editor
         {
             if (handle is PortableObjectHandle portableObjectHandle)
             {
-                portableObjectHandle.ForceReload();
+                portableObjectHandle.Reset();
             }
 
             string languageLabel = "(unknown)";

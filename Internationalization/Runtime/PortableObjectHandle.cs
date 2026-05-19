@@ -27,23 +27,23 @@ namespace Xuan25.Internationalization
         bool translationsLoaded = false;
         bool headersLoaded = false;
 
-        public override bool GetText(string id, out string msg)
+        public override bool GetText(string id, out string text)
         {
             if (!EnsureTranslations())
             {
                 Debug.LogError($"[{nameof(PortableObjectHandle)}] Failed to load translations. GameObject: {gameObject.name}");
-                msg = id;
+                text = id;
                 return false;
             }
 
             if (!translations.TryGetValue(id, VRC.SDK3.Data.TokenType.String, out VRC.SDK3.Data.DataToken value))
             {
                 Debug.LogWarning($"[{nameof(PortableObjectHandle)}] No translation found for key: {id}. GameObject: {gameObject.name}");
-                msg = id;
+                text = id;
                 return false;
             }
 
-            msg = value.String;
+            text = value.String;
             return true;
         }
 
@@ -132,7 +132,7 @@ namespace Xuan25.Internationalization
             return true;
         }
 
-        public bool Bake()
+        public override bool Bake()
         {
             if (portableObjectFile == null)
                 return false;
@@ -143,7 +143,7 @@ namespace Xuan25.Internationalization
         }
 
 #if UNITY_EDITOR
-        public void ForceReload()
+        public override void Reset()
         {
             translationsLoaded = false;
             headersLoaded = false;
