@@ -13,6 +13,7 @@ namespace Xuan25.Internationalization.Editor
         private SerializedProperty localeManagerProp;
         private SerializedProperty textComponentProp;
         private SerializedProperty textIdProp;
+        private SerializedProperty variablesProp;
 
         private bool showPreview = true;
 
@@ -117,6 +118,13 @@ namespace Xuan25.Internationalization.Editor
                 textValue = resolvedText;
             }
 
+            string[] variables = new string[variablesProp.arraySize];
+            for (int i = 0; i < variables.Length; i++)
+            {
+                variables[i] = variablesProp.GetArrayElementAtIndex(i).stringValue;
+            }
+            textValue = string.Format(textValue, variables);
+
             using (new EditorGUILayout.VerticalScope("box"))
             {
                 using (new EditorGUILayout.HorizontalScope())
@@ -184,6 +192,7 @@ namespace Xuan25.Internationalization.Editor
             localeManagerProp = serializedObject.FindProperty("manager");
             textComponentProp = serializedObject.FindProperty("textComponent");
             textIdProp = serializedObject.FindProperty("textID");
+            variablesProp = serializedObject.FindProperty("variables");
         }
     }
 }

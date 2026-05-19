@@ -13,26 +13,16 @@ namespace Xuan25.Internationalization
         [SerializeField]
         [Tooltip("The TextMeshProUGUI component to update. If left empty, the script will attempt to find one on the same GameObject.")]
         public TMPro.TextMeshProUGUI textComponent;
-
-        [SerializeField]
-        [Tooltip("The text ID to look up in the locale file. If left empty, the component will use the current text as the text ID.")]
-        public string textID = "";
         
-        public override void OnLocaleUpdated()
+        public override void OnLocaleUpdated(string text)
         {
-            if (!EnsureInit())
+            if (!EnsureComponent())
             {
-                Debug.LogError($"[{nameof(TextMeshProUGUILocale)}] Failed to initialize. GameObject: {gameObject.name}");
+                Debug.LogError($"[{nameof(TextMeshProUGUILocale)}] No TextMeshProUGUI component found. GameObject: {gameObject.name}");
                 return;
             }
 
-            if (!manager.GetText(textID, out string msg))
-            {
-                Debug.LogError($"[{nameof(TextMeshProUGUILocale)}] Failed to get translation for text ID: {textID}. GameObject: {gameObject.name}");
-                return;
-            }
-
-            textComponent.text = msg;
+            textComponent.text = text;
         }
 
         public bool EnsureComponent()
@@ -50,7 +40,7 @@ namespace Xuan25.Internationalization
             return true;
         }
 
-        public bool EnsureTextID()
+        public override bool EnsureTextID()
         {
             if (textID != "")
             {
@@ -66,42 +56,6 @@ namespace Xuan25.Internationalization
             }
             textID = textComponent.text;
             return true;
-        }
-
-        public bool EnsureLocaleManager()
-        {
-            if (base.manager != null)
-            {
-                return true;
-            }
-            LocaleManager manager = GetComponent<LocaleManager>();
-            if (manager == null)
-            {
-                Debug.LogError($"[{nameof(TextMeshProUGUILocale)}] No LocaleManager found in the scene. GameObject: {gameObject.name}");
-                return false;
-            }
-            Register(manager);
-            return true;
-        }
-
-        public bool EnsureInit()
-        {
-            if (!EnsureComponent())
-                return false;
-
-            if (!EnsureTextID())
-                return false;
-
-            if (!EnsureLocaleManager())
-                return false;
-            
-            return true;
-        }
-
-        public void Register(LocaleManager localeManager)
-        {
-            this.manager = localeManager;
-            localeManager.RegisterComponentLocale(this);
         }
     }
 }
