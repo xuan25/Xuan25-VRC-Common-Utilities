@@ -46,6 +46,8 @@ namespace Xuan25.Internationalization
                 localeHandles = newLocaleHandles;
             }
 
+            handle.manager = this;
+
             if (currentLocale != null && handle.GetLanguageID(out string lang) && (lang == currentLocale || lang == fallbackLocale))
             {
                 InvalidateLocale();
@@ -79,6 +81,8 @@ namespace Xuan25.Internationalization
             }
             localeHandles = newLocaleHandles;
 
+            handle.manager = null;
+
             if (currentLocale != null && handle.GetLanguageID(out string lang) && (lang == currentLocale || lang == fallbackLocale))
             {
                 InvalidateLocale();
@@ -99,6 +103,8 @@ namespace Xuan25.Internationalization
                 newComponentLocales[length] = componentLocale;
                 componentLocales = newComponentLocales;
             }
+
+            componentLocale.localeManager = this;
 
             if (currentLocale != null)
             {
@@ -132,6 +138,8 @@ namespace Xuan25.Internationalization
                 Array.Copy(componentLocales, index + 1, newComponentLocales, index, length - index - 1);
             }
             componentLocales = newComponentLocales;
+
+            componentLocale.localeManager = null;
         }
 
         public bool GetText(string id, out string msg)
