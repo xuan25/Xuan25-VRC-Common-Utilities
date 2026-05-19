@@ -1,0 +1,39 @@
+# UdonTelemetry Locale file
+# Copyright (C) 2026 Xuan25.
+# This file is distributed under the same license as the Xuan25 Common Utilities package.
+# Xuan25 <xuan@xuan25.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: UdonTelemetry\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-01 00:00-0000\n"
+"PO-Revision-Date: 2026-01-01 00:00-0000\n"
+"Last-Translator: Xuan25 <xuan@xuan25.com>\n"
+"Language-Team: Vietnamese <xuan@xuan25.com>\n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "UdonTelemetryIncluded"
+msgstr "<size=50><b>Thế giới này bao gồm thành phần UdonTelemetry</b></size>"
+
+msgid "UdonTelemetryIncludedDescription"
+msgstr "<size=30>Thành phần này được dùng để thống kê phân bố nhiệt vị trí của người chơi trong thế giới, nhằm hỗ trợ người sáng tạo cải thiện thiết kế thế giới và tối ưu hóa nội dung.</size>"
+
+msgid "PrivacyNotice"
+msgstr "<size=40><b>Thông báo quyền riêng tư</b></size>"
+
+msgid "PrivacyNoticeDescription"
+msgstr "<size=30>Thế giới này thu thập ẩn danh thông tin vị trí của người chơi và truyền dữ liệu liên quan đến <i>{0}</i> để lưu trữ và quản lý.\n"
+"Dữ liệu này có thể được <i>{1}</i> sử dụng cho phân tích thống kê, nghiên cứu phân bố nhiệt và tối ưu hóa nội dung bản đồ.\n"
+"Chúng tôi không thu thập bất kỳ thông tin nào có thể được dùng để nhận dạng hoặc theo dõi cá nhân bạn.</size>"
+
+msgid "Accept"
+msgstr "<size=40>Cho phép</size>\n"
+"<size=20>thu thập dữ liệu ẩn danh</size>"
+
+msgid "Decline"
+msgstr "<size=40>Từ chối</size>"
+

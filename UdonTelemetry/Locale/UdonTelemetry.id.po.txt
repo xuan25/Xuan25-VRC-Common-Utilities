@@ -1,0 +1,39 @@
+# UdonTelemetry Locale file
+# Copyright (C) 2026 Xuan25.
+# This file is distributed under the same license as the Xuan25 Common Utilities package.
+# Xuan25 <xuan@xuan25.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: UdonTelemetry\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-01 00:00-0000\n"
+"PO-Revision-Date: 2026-01-01 00:00-0000\n"
+"Last-Translator: Xuan25 <xuan@xuan25.com>\n"
+"Language-Team: Indonesian <xuan@xuan25.com>\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "UdonTelemetryIncluded"
+msgstr "<size=50><b>Dunia ini menyertakan komponen UdonTelemetry</b></size>"
+
+msgid "UdonTelemetryIncludedDescription"
+msgstr "<size=30>Komponen ini digunakan untuk mengumpulkan statistik distribusi panas posisi pemain di dalam dunia, guna membantu kreator memperbaiki desain dunia dan kontennya.</size>"
+
+msgid "PrivacyNotice"
+msgstr "<size=40><b>Pemberitahuan privasi</b></size>"
+
+msgid "PrivacyNoticeDescription"
+msgstr "<size=30>Dunia ini mengumpulkan informasi posisi pemain secara anonim dan mengirimkan data terkait ke <i>{0}</i> untuk penyimpanan dan pengelolaan.\n"
+"Data ini dapat digunakan oleh <i>{1}</i> untuk analisis statistik, penelitian distribusi panas, dan optimalisasi konten peta.\n"
+"Kami tidak mengumpulkan informasi apa pun yang dapat digunakan untuk mengidentifikasi atau melacak Anda secara pribadi.</size>"
+
+msgid "Accept"
+msgstr "<size=40>Izinkan</size>\n"
+"<size=20>pengumpulan data anonim</size>"
+
+msgid "Decline"
+msgstr "<size=40>Tolak</size>"
+

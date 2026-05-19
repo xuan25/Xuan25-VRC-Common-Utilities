@@ -1,0 +1,39 @@
+# UdonTelemetry Locale file
+# Copyright (C) 2026 Xuan25.
+# This file is distributed under the same license as the Xuan25 Common Utilities package.
+# Xuan25 <xuan@xuan25.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: UdonTelemetry\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-01 00:00-0000\n"
+"PO-Revision-Date: 2026-01-01 00:00-0000\n"
+"Last-Translator: Xuan25 <xuan@xuan25.com>\n"
+"Language-Team: Hungarian <xuan@xuan25.com>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "UdonTelemetryIncluded"
+msgstr "<size=50><b>Ez a világ tartalmazza az UdonTelemetry komponenst</b></size>"
+
+msgid "UdonTelemetryIncludedDescription"
+msgstr "<size=30>Ez a komponens a játékosok világon belüli pozícióinak hőtérképes eloszlásáról gyűjt statisztikát, hogy segítse az alkotókat a világtervezés és a tartalom optimalizálásában.</size>"
+
+msgid "PrivacyNotice"
+msgstr "<size=40><b>Adatvédelmi tájékoztató</b></size>"
+
+msgid "PrivacyNoticeDescription"
+msgstr "<size=30>Ez a világ névtelenül gyűjti a játékosok pozícióadatait, és a kapcsolódó adatokat tárolás és kezelés céljából továbbítja a következőnek: <i>{0}</i>.\n"
+"Ezeket az adatokat <i>{1}</i> statisztikai elemzésre, hőtérképes eloszlás vizsgálatára és a térképtartalom optimalizálására használhatja.\n"
+"Nem gyűjtünk olyan információt, amely személyes azonosításra vagy követésre alkalmas.</size>"
+
+msgid "Accept"
+msgstr "<size=40>Engedélyezés</size>\n"
+"<size=20>névtelen adatgyűjtés</size>"
+
+msgid "Decline"
+msgstr "<size=40>Elutasítás</size>"
+

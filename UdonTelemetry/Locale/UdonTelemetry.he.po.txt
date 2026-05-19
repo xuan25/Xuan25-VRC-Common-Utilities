@@ -1,0 +1,39 @@
+# UdonTelemetry Locale file
+# Copyright (C) 2026 Xuan25.
+# This file is distributed under the same license as the Xuan25 Common Utilities package.
+# Xuan25 <xuan@xuan25.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: UdonTelemetry\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-01 00:00-0000\n"
+"PO-Revision-Date: 2026-01-01 00:00-0000\n"
+"Last-Translator: Xuan25 <xuan@xuan25.com>\n"
+"Language-Team: Hebrew <xuan@xuan25.com>\n"
+"Language: he\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "UdonTelemetryIncluded"
+msgstr "<size=50><b>עולם זה כולל את הרכיב UdonTelemetry</b></size>"
+
+msgid "UdonTelemetryIncludedDescription"
+msgstr "<size=30>רכיב זה משמש לאיסוף נתונים סטטיסטיים על מפת החום של מיקומי שחקנים בעולם, כדי לסייע ליוצרים בתכנון העולם ובשיפור התוכן.</size>"
+
+msgid "PrivacyNotice"
+msgstr "<size=40><b>הודעת פרטיות</b></size>"
+
+msgid "PrivacyNoticeDescription"
+msgstr "<size=30>עולם זה אוסף באופן אנונימי מידע על מיקומי שחקנים ומעביר את הנתונים הקשורים אל <i>{0}</i> לצורך אחסון וניהול.\n"
+"נתונים אלה עשויים לשמש את <i>{1}</i> לניתוח סטטיסטי, למחקר של התפלגות מפת חום ולאופטימיזציה של תוכן המפה.\n"
+"איננו אוספים כל מידע שניתן להשתמש בו כדי לזהות אותך או לעקוב אחריך באופן אישי.</size>"
+
+msgid "Accept"
+msgstr "<size=40>אפשר</size>\n"
+"<size=20>איסוף נתונים אנונימיים</size>"
+
+msgid "Decline"
+msgstr "<size=40>דחה</size>"
+

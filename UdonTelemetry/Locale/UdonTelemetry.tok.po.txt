@@ -1,0 +1,39 @@
+# UdonTelemetry Locale file
+# Copyright (C) 2026 Xuan25.
+# This file is distributed under the same license as the Xuan25 Common Utilities package.
+# Xuan25 <xuan@xuan25.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: UdonTelemetry\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-01 00:00-0000\n"
+"PO-Revision-Date: 2026-01-01 00:00-0000\n"
+"Last-Translator: Xuan25 <xuan@xuan25.com>\n"
+"Language-Team: Toki Pona <xuan@xuan25.com>\n"
+"Language: tok\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "UdonTelemetryIncluded"
+msgstr "<size=50><b>ilo UdonTelemetry li lon ma ni</b></size>"
+
+msgid "UdonTelemetryIncludedDescription"
+msgstr "<size=30>ilo ni li kama jo e sona pi ma lape ala pi jan musi lon ma ni. sona ni li pana pona tawa jan pali, lon pali ma en pona pi ijo lon ma.</size>"
+
+msgid "PrivacyNotice"
+msgstr "<size=40><b>toki pi awen sona</b></size>"
+
+msgid "PrivacyNoticeDescription"
+msgstr "<size=30>ma ni li jo e sona pi lon jan musi kepeken nasin pi nimi jan ala. ona li pana e sona ni tawa <i>{0}</i> tawa awen en lawa sona.\n"
+"<i>{1}</i> li ken kepeken sona ni tawa lukin nanpa, tawa lukin pi lon mute, tawa pona pi ijo ma.\n"
+"mi mute li jo ala e sona pi ken sona e sina taso anu ken alasa e sina taso.</size>"
+
+msgid "Accept"
+msgstr "<size=40>mi wile</size>\n"
+"<size=20>e jo pi sona nimi ala</size>"
+
+msgid "Decline"
+msgstr "<size=40>ala</size>"
+

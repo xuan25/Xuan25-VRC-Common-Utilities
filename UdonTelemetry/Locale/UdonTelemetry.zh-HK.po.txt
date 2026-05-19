@@ -1,0 +1,38 @@
+# UdonTelemetry Locale file
+# Copyright (C) 2026 Xuan25.
+# This file is distributed under the same license as the Xuan25 Common Utilities package.
+# Xuan25 <xuan@xuan25.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: UdonTelemetry\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-01 00:00-0000\n"
+"PO-Revision-Date: 2026-01-01 00:00-0000\n"
+"Last-Translator: Xuan25 <xuan@xuan25.com>\n"
+"Language-Team: Traditional Chinese <xuan@xuan25.com>\n"
+"Language: zh-HK\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "UdonTelemetryIncluded"
+msgstr "<size=50><b>本世界包含 UdonTelemetry 組件</b></size>"
+
+msgid "UdonTelemetryIncludedDescription"
+msgstr "<size=30>此組件用於統計玩家在世界中的位置熱度分佈，以協助創作者進行世界設計及內容優化。</size>"
+
+msgid "PrivacyNotice"
+msgstr "<size=40><b>私隱聲明</b></size>"
+
+msgid "PrivacyNoticeDescription"
+msgstr "<size=30>本世界會匿名收集玩家的位置資訊，並將相關資料傳送至 <i>{0}</i> 進行儲存及管理。\n"
+"這些資料可能由 <i>{1}</i> 用於統計分析、熱度分佈研究及地圖內容優化。\n"
+"我們不會收集任何可用作識別或追蹤您個人身份的資訊。</size>"
+
+msgid "Accept"
+msgstr "<size=40>允許收集匿名資料</size>"
+
+msgid "Decline"
+msgstr "<size=40>拒絕</size>"
+
