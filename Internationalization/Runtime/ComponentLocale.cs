@@ -22,8 +22,18 @@ namespace Xuan25.Internationalization
         [Tooltip("Optional variables to format the localized text with. The content and order of these variables are determined by the locale file.")]
         public string[] variables;
 
+        /// <summary>
+        /// Ensure that the text ID is valid and can be used to look up translations. This may involve using the game object name or component properties as the text ID if textID is empty, or performing other validation or setup as needed by the specific component implementation.
+        /// The exact behavior of this method will depend on the requirements of the specific component and how it uses the text ID to retrieve and display localized text.
+        /// </summary>
+        /// <returns>Whether the text ID is valid and can be used to look up translations</returns>
         public abstract bool EnsureTextID();
 
+        /// <summary>
+        /// Reload the localized text for this component based on the given text. This method will be called when the locale is updated or when the component is enabled.
+        /// The exact behavior of this method will depend on the requirements of the specific component and how it uses the text ID and variables to retrieve and display localized text.
+        /// </summary>
+        /// <param name="text">The localized text to display</param>
         public abstract void Reload(string text);
 
         public void OnEnable()
