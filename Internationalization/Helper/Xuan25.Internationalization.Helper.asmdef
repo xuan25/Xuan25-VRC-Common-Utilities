@@ -1,11 +1,8 @@
 {
-    "name": "Xuan25.Internationalization.Editor",
+    "name": "Xuan25.Internationalization.Helper",
     "rootNamespace": "",
     "references": [
-        "Xuan25.Internationalization",
-        "UdonSharp.Runtime",
-        "Unity.TextMeshPro",
-        "Xuan25.Internationalization.Helper"
+        "Xuan25.Internationalization"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
