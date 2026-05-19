@@ -24,7 +24,7 @@ namespace Xuan25.Internationalization
 
         public abstract bool EnsureTextID();
 
-        public abstract void OnLocaleUpdated(string text);
+        public abstract void Reload(string text);
 
         public void OnEnable()
         {
@@ -71,6 +71,11 @@ namespace Xuan25.Internationalization
 
         public void OnLocaleUpdated()
         {
+            Reload();
+        }
+
+        public void Reload()
+        {
             if (!EnsureLocaleManager())
             {
                 Debug.LogError($"[{nameof(TextMeshProUGUILocale)}] Failed to initialize. GameObject: {gameObject.name}");
@@ -94,7 +99,7 @@ namespace Xuan25.Internationalization
                 text = string.Format(text, variables);
             }
 
-            OnLocaleUpdated(text);
+            Reload(text);
         }
     }
 }

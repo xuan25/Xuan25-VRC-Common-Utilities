@@ -14,7 +14,7 @@ namespace Xuan25.Internationalization
         [Tooltip("The TextMeshProUGUI component to update. If left empty, the script will attempt to find one on the same GameObject.")]
         public TMPro.TextMeshProUGUI textComponent;
         
-        public override void OnLocaleUpdated(string text)
+        public override void Reload(string text)
         {
             if (!EnsureComponent())
             {
