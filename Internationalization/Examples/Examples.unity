@@ -208,7 +208,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 53549028}
-  localeManager: {fileID: 131084450}
+  manager: {fileID: 131084450}
   textComponent: {fileID: 53549030}
   textID: ExampleWithTextIDOverride
 --- !u!114 &53549030
@@ -981,7 +981,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 362780785}
-  localeManager: {fileID: 1495157791}
+  manager: {fileID: 1495157791}
   textComponent: {fileID: 362780787}
   textID: 
 --- !u!114 &362780787
@@ -1357,7 +1357,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 456511791}
-  localeManager: {fileID: 1823488854}
+  manager: {fileID: 1823488854}
   textComponent: {fileID: 456511794}
   textID: 
 --- !u!114 &456511793
@@ -1927,7 +1927,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 677137630}
-  localeManager: {fileID: 233668930}
+  manager: {fileID: 233668930}
   textComponent: {fileID: 677137628}
   textID: 
 --- !u!114 &677137632
@@ -2139,7 +2139,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 838998753}
-  localeManager: {fileID: 131084450}
+  manager: {fileID: 131084450}
   textComponent: {fileID: 838998755}
   textID: HelloWorld
 --- !u!114 &838998755
@@ -3304,7 +3304,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 1215985765}
-  localeManager: {fileID: 1734672523}
+  manager: {fileID: 1734672523}
   textComponent: {fileID: 1215985767}
   textID: 
 --- !u!114 &1215985767
@@ -4098,7 +4098,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 1712598993}
-  localeManager: {fileID: 1734672523}
+  manager: {fileID: 1734672523}
   textComponent: {fileID: 1712598995}
   textID: 
 --- !u!114 &1712598995
@@ -4748,7 +4748,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 1794653812}
-  localeManager: {fileID: 1495157791}
+  manager: {fileID: 1495157791}
   textComponent: {fileID: 1794653814}
   textID: 
 --- !u!114 &1794653814
@@ -5172,7 +5172,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 2046048867}
-  localeManager: {fileID: 233668930}
+  manager: {fileID: 233668930}
   textComponent: {fileID: 2046048869}
   textID: 
 --- !u!114 &2046048869

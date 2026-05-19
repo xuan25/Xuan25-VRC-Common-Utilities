@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Xuan25.Internationalization.Editor
 {
-    [CustomEditor(typeof(TextMeshProUGUILocale))]
+    [CustomEditor(typeof(TextMeshProUGUILocale)), CanEditMultipleObjects]
     public class TextMeshProUGUILocaleEditor : UnityEditor.Editor
     {
         private SerializedProperty localeManagerProp;
@@ -16,7 +16,6 @@ namespace Xuan25.Internationalization.Editor
 
         private bool showPreview = true;
 
-        private static readonly Dictionary<int, int> handleTextHashes = new Dictionary<int, int>();
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
@@ -75,8 +74,6 @@ namespace Xuan25.Internationalization.Editor
                 return;
             }
 
-            // using (new EditorGUI.DisabledScope(true))
-            //     EditorGUILayout.ObjectField("Manager", manager, typeof(LocaleManager), true);
             using (new EditorGUILayout.HorizontalScope())
             {
                 EditorGUILayout.LabelField("Manager", GUILayout.Width(EditorGUIUtility.labelWidth - 4));
@@ -184,7 +181,7 @@ namespace Xuan25.Internationalization.Editor
 
         private void OnEnable()
         {
-            localeManagerProp = serializedObject.FindProperty("localeManager");
+            localeManagerProp = serializedObject.FindProperty("manager");
             textComponentProp = serializedObject.FindProperty("textComponent");
             textIdProp = serializedObject.FindProperty("textID");
         }

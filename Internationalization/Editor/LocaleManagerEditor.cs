@@ -128,7 +128,7 @@ namespace Xuan25.Internationalization.Editor
             if (item is ComponentLocale componentLocale)
             {
                 Undo.RecordObject(componentLocale, "Assign LocaleManager");
-                componentLocale.localeManager = manager;
+                componentLocale.manager = manager;
                 EditorUtility.SetDirty(componentLocale);
             }
         }
@@ -173,8 +173,8 @@ namespace Xuan25.Internationalization.Editor
                     continue;
                 }
 
-                bool isAssigned = component.localeManager == manager;
-                bool isUnassigned = component.localeManager == null;
+                bool isAssigned = component.manager == manager;
+                bool isUnassigned = component.manager == null;
 
                 if (assignedToManager && isAssigned)
                 {

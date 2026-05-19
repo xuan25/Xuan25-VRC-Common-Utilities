@@ -26,7 +26,7 @@ namespace Xuan25.Internationalization
                 return;
             }
 
-            if (!localeManager.GetText(textID, out string msg))
+            if (!manager.GetText(textID, out string msg))
             {
                 Debug.LogError($"[{nameof(TextMeshProUGUILocale)}] Failed to get translation for text ID: {textID}. GameObject: {gameObject.name}");
                 return;
@@ -70,7 +70,7 @@ namespace Xuan25.Internationalization
 
         public bool EnsureLocaleManager()
         {
-            if (localeManager != null)
+            if (base.manager != null)
             {
                 return true;
             }
@@ -100,7 +100,7 @@ namespace Xuan25.Internationalization
 
         public void Register(LocaleManager localeManager)
         {
-            this.localeManager = localeManager;
+            this.manager = localeManager;
             localeManager.RegisterComponentLocale(this);
         }
     }

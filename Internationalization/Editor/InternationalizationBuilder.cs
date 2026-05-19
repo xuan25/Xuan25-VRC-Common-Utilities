@@ -63,7 +63,7 @@ namespace Xuan25.Internationalization.Editor
             int count = 0;
             foreach (ComponentLocale componentLocale in componentLocales)
             {
-                if (componentLocale.localeManager != null)
+                if (componentLocale.manager != null)
                     continue;
                 fallbackLocaleManager.RegisterComponentLocale(componentLocale);
                 count++;

@@ -104,7 +104,7 @@ namespace Xuan25.Internationalization
                 componentLocales = newComponentLocales;
             }
 
-            componentLocale.localeManager = this;
+            componentLocale.manager = this;
 
             if (currentLocale != null)
             {
@@ -139,7 +139,7 @@ namespace Xuan25.Internationalization
             }
             componentLocales = newComponentLocales;
 
-            componentLocale.localeManager = null;
+            componentLocale.manager = null;
         }
 
         public bool GetText(string id, out string msg)

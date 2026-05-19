@@ -12,26 +12,26 @@ namespace Xuan25.Internationalization
     {
         [SerializeField]
         [Tooltip("The LocaleManager instance to register this component with.")]
-        public LocaleManager localeManager;
+        public LocaleManager manager;
 
         public void OnEnable()
         {
-            if (localeManager == null)
+            if (manager == null)
             {
                 Debug.LogError($"[{nameof(ComponentLocale)}] No LocaleManager configured. GameObject: {gameObject.name}");
                 return;
             }
-            localeManager.RegisterComponentLocale(this);
+            manager.RegisterComponentLocale(this);
         }
 
         public void OnDisable()
         {
-            if (localeManager == null)
+            if (manager == null)
             {
                 Debug.LogError($"[{nameof(ComponentLocale)}] No LocaleManager configured. GameObject: {gameObject.name}");
                 return;
             }
-            localeManager.UnregisterComponentLocale(this);
+            manager.UnregisterComponentLocale(this);
         }
 
         public abstract void OnLocaleUpdated();
