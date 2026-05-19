@@ -35,3 +35,6 @@ msgstr "带回退语言环境的示例"
 
 msgid "HintAlwaysFallbackToEN"
 msgstr "由于其他语言文件的缺失，这个组件将会永远备选到英文。"
+
+msgid "ExampleWithVariables"
+msgstr "带变量的示例"

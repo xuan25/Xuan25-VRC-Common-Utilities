@@ -25,13 +25,16 @@ msgid "ExampleSimple"
 msgstr "Example Simple"
 
 msgid "ExampleWithLocaleOverride"
-msgstr "Example With Local Override"
+msgstr "Example with Local Override"
 
 msgid "ExampleWithTextIDOverride"
-msgstr "Example With text ID Override"
+msgstr "Example with Text ID Override"
 
 msgid "ExampleWithFallbackLocale"
-msgstr "Example With fallback locale"
+msgstr "Example with fallback locale"
 
 msgid "HintAlwaysFallbackToEN"
 msgstr "This component will always fallbacking to English due to the lack of other languages."
+
+msgid "ExampleWithVariables"
+msgstr "Example with Variables"
