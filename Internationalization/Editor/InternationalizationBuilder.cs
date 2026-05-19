@@ -16,8 +16,8 @@ namespace Xuan25.Internationalization.Editor
         private LocaleManager GetFallbackLocaleManager() => 
             FindComponentGlobalFirst<LocaleManager>();
 
-        private PortableObjectHandle[] GetPortableObjectHandles() =>
-            FindComponentGlobal<PortableObjectHandle>();
+        private LocaleHandle[] GetLocaleHandles() =>
+            FindComponentGlobal<LocaleHandle>();
 
         private ComponentLocale[] GetComponentLocale() =>
             FindComponentGlobal<ComponentLocale>();
@@ -25,27 +25,27 @@ namespace Xuan25.Internationalization.Editor
         private TextMeshProUGUILocale[] GetTextMeshProUGUILocales() =>
             FindComponentGlobal<TextMeshProUGUILocale>();
 
-        private void BakePortableObjectHandles(PortableObjectHandle[] handles)
+        private void BakeLocaleHandles(LocaleHandle[] handles)
         {
             if (handles == null) return;
 
             int count = 0;
-            foreach (PortableObjectHandle handle in handles)
+            foreach (LocaleHandle handle in handles)
             {
                 if (!handle.Bake())
                     continue;
                 count++;
             }
 
-            Debug.Log($"[{nameof(InternationalizationBuilder)}] Baked {count} / {handles.Length} PortableObjectHandles.");
+            Debug.Log($"[{nameof(InternationalizationBuilder)}] Baked {count} / {handles.Length} LocaleHandles.");
         }
 
-        private void HookupPortableObjectHandles(PortableObjectHandle[] handles, LocaleManager fallbackLocaleManager)
+        private void HookupLocaleHandles(LocaleHandle[] handles, LocaleManager fallbackLocaleManager)
         {
             if (handles == null || fallbackLocaleManager == null) return;
 
             int count = 0;
-            foreach (PortableObjectHandle handle in handles)
+            foreach (LocaleHandle handle in handles)
             {
                 if (handle.manager != null)
                     continue;
@@ -53,7 +53,7 @@ namespace Xuan25.Internationalization.Editor
                 count++;
             }
 
-            Debug.Log($"[{nameof(InternationalizationBuilder)}] Hooked up {count} / {handles.Length} PortableObjectHandles to fallback LocaleManager. GameObject: {fallbackLocaleManager.gameObject.name}");
+            Debug.Log($"[{nameof(InternationalizationBuilder)}] Hooked up {count} / {handles.Length} LocaleHandles to fallback LocaleManager. GameObject: {fallbackLocaleManager.gameObject.name}");
         }
 
         private void HookupComponentLocales(ComponentLocale[] componentLocales, LocaleManager fallbackLocaleManager)
@@ -101,12 +101,12 @@ namespace Xuan25.Internationalization.Editor
             if (fallbackLocaleManager == null)
                 return;
             
-            PortableObjectHandle[] portableObjectHandles = GetPortableObjectHandles();
+            LocaleHandle[] localeHandles = GetLocaleHandles();
             ComponentLocale[] componentLocales = GetComponentLocale();
             TextMeshProUGUILocale[] textMeshProUGUILocales = GetTextMeshProUGUILocales();
 
-            BakePortableObjectHandles(portableObjectHandles);
-            HookupPortableObjectHandles(portableObjectHandles, fallbackLocaleManager);
+            BakeLocaleHandles(localeHandles);
+            HookupLocaleHandles(localeHandles, fallbackLocaleManager);
             HookupComponentLocales(componentLocales, fallbackLocaleManager);
             HookupTextMeshProUGUI(textMeshProUGUILocales);
         }
