@@ -29,26 +29,17 @@ namespace Xuan25.Internationalization.Editor
 
         private void DrawInfoAndPreview()
         {
-            TMPro.TextMeshProUGUI textComponent = textComponentProp.objectReferenceValue as TMPro.TextMeshProUGUI;
-            if (textComponent == null)
-            {
-                textComponent = (target as TextMeshProUGUILocale).GetComponent<TMPro.TextMeshProUGUI>();
-                if (textComponent == null)
-                {
-                    EditorGUILayout.HelpBox("No TextMeshProUGUI component assigned and found on the current object.", MessageType.Error);
-                }
-                else
-                {
-                    EditorGUILayout.HelpBox("TextMeshProUGUI component is not assigned. Auto bind to component on current object.", MessageType.Info);
-                }
-            }
+            LocaleManager manager = localeManagerProp.objectReferenceValue as LocaleManager;
 
             if (string.IsNullOrEmpty(textIdProp.stringValue))
             {
                 EditorGUILayout.HelpBox("Text ID is empty. The TextMeshProUGUI text is used as the ID.", MessageType.Info);
             }
 
-            LocaleManager manager = localeManagerProp.objectReferenceValue as LocaleManager;
+            TMPro.TextMeshProUGUI textComponent = textComponentProp.objectReferenceValue as TMPro.TextMeshProUGUI;
+
+            string effectiveId = GetEffectiveTextId(textComponent);
+
             if (manager == null)
             {
                 manager = FindObjectOfType<LocaleManager>();
@@ -62,11 +53,23 @@ namespace Xuan25.Internationalization.Editor
                 }
             }
 
-            string effectiveId = GetEffectiveTextId(textComponent);
             if (string.IsNullOrEmpty(effectiveId))
             {
                 EditorGUILayout.HelpBox("Text ID is empty and no TextMeshProUGUI text was found.", MessageType.Warning);
                 return;
+            }
+
+            if (textComponent == null)
+            {
+                textComponent = (target as TextMeshProUGUILocale).GetComponent<TMPro.TextMeshProUGUI>();
+                if (textComponent == null)
+                {
+                    EditorGUILayout.HelpBox("No TextMeshProUGUI component assigned and found on the current object.", MessageType.Error);
+                }
+                else
+                {
+                    EditorGUILayout.HelpBox("TextMeshProUGUI component is not assigned. Auto bind to component on current object.", MessageType.Info);
+                }
             }
 
             showPreview = EditorGUILayout.Foldout(showPreview, "Preview", true);
@@ -94,7 +97,14 @@ namespace Xuan25.Internationalization.Editor
 
             foreach (LocaleHandle handle in handles)
             {
-                DrawHandlePreview(handle, effectiveId);
+                try
+                {
+                    DrawHandlePreview(handle, effectiveId);
+                }
+                catch (System.Exception ex)
+                {
+                    EditorGUILayout.HelpBox($"Error drawing preview for handle {handle.name}: {ex.Message}", MessageType.Error);
+                }
             }
         }
 
@@ -123,7 +133,6 @@ namespace Xuan25.Internationalization.Editor
             {
                 variables[i] = variablesProp.GetArrayElementAtIndex(i).stringValue;
             }
-            textValue = string.Format(textValue, variables);
 
             using (new EditorGUILayout.VerticalScope("box"))
             {
@@ -139,14 +148,23 @@ namespace Xuan25.Internationalization.Editor
 
                 EditorGUILayout.LabelField("Language", languageLabel);
 
-                using (new EditorGUI.DisabledScope(true))
+                try
                 {
-                    EditorGUILayout.TextArea(textValue, GUILayout.MinHeight(36));
-                }
+                    textValue = string.Format(textValue, variables);
 
-                if (!hasText)
+                    using (new EditorGUI.DisabledScope(true))
+                    {
+                        EditorGUILayout.TextArea(textValue, GUILayout.MinHeight(36));
+                    }
+
+                    if (!hasText)
+                    {
+                        EditorGUILayout.HelpBox("No translation found for this text ID.", MessageType.Warning);
+                    }
+                }
+                catch (System.Exception ex)
                 {
-                    EditorGUILayout.HelpBox("No translation found for this text ID.", MessageType.Warning);
+                    EditorGUILayout.HelpBox($"Error drawing preview for handle {handle.name}: {ex.Message}", MessageType.Error);
                 }
             }
         }
