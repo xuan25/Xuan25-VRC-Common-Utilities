@@ -422,23 +422,23 @@ namespace Playlist {
             for (int i = 0; i < tokens.Length; i++)
             {
                 string token = tokens[i];
-                if (playlistItemMeta.Title.Contains(token))
+                if (playlistItemMeta.Title.ToUpper().Contains(token))
                 {
                     score += (float)token.Length / playlistItemMeta.Title.Length;
                 }
-                if (playlistItemMeta.Artist.Contains(token))
+                if (playlistItemMeta.Artist.ToUpper().Contains(token))
                 {
                     score += (float)token.Length / playlistItemMeta.Artist.Length;
                 }
-                if (playlistItemMeta.TitleAcronym.Contains(token))
+                if (playlistItemMeta.TitleAcronym.ToUpper().Contains(token))
                 {
                     score += (float)token.Length / playlistItemMeta.TitleAcronym.Length;
                 }
-                if (playlistItemMeta.ArtistAcronym.Contains(token))
+                if (playlistItemMeta.ArtistAcronym.ToUpper().Contains(token))
                 {
                     score += (float)token.Length / playlistItemMeta.ArtistAcronym.Length;
                 }
-                if (playlistItemMeta.Genre.Contains(token))
+                if (playlistItemMeta.Genre.ToUpper().Contains(token))
                 {
                     score += 1;
                 }
