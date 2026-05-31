@@ -1,7 +1,6 @@
 ﻿
 using UdonSharp;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using VRC.SDKBase;
 using VRC.Udon;
 

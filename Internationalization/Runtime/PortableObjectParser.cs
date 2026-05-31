@@ -1,7 +1,4 @@
-using System.Drawing;
 using System.Text.RegularExpressions;
-using Unity.VisualScripting;
-using UnityEngine.UIElements;
 
 namespace Xuan25.Internationalization
 { 

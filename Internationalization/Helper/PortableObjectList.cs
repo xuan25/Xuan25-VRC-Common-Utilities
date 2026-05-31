@@ -1,8 +1,5 @@
 #if UNITY_EDITOR
 
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace Xuan25.Internationalization.Editor
 {
 
