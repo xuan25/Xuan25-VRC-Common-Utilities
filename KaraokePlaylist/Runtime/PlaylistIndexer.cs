@@ -422,23 +422,23 @@ namespace Playlist {
             for (int i = 0; i < tokens.Length; i++)
             {
                 string token = tokens[i];
-                if (playlistItemMeta.Title.ToUpper().Contains(token))
+                if (playlistItemMeta.TitleUpper.Contains(token))
                 {
-                    score += (float)token.Length / playlistItemMeta.Title.Length;
+                    score += (float)token.Length / playlistItemMeta.TitleUpper.Length;
                 }
-                if (playlistItemMeta.Artist.ToUpper().Contains(token))
+                if (playlistItemMeta.ArtistUpper.Contains(token))
                 {
-                    score += (float)token.Length / playlistItemMeta.Artist.Length;
+                    score += (float)token.Length / playlistItemMeta.ArtistUpper.Length;
                 }
-                if (playlistItemMeta.TitleAcronym.ToUpper().Contains(token))
+                if (playlistItemMeta.TitleAcronymUpper.Contains(token))
                 {
-                    score += (float)token.Length / playlistItemMeta.TitleAcronym.Length;
+                    score += (float)token.Length / playlistItemMeta.TitleAcronymUpper.Length;
                 }
-                if (playlistItemMeta.ArtistAcronym.ToUpper().Contains(token))
+                if (playlistItemMeta.ArtistAcronymUpper.Contains(token))
                 {
-                    score += (float)token.Length / playlistItemMeta.ArtistAcronym.Length;
+                    score += (float)token.Length / playlistItemMeta.ArtistAcronymUpper.Length;
                 }
-                if (playlistItemMeta.Genre.ToUpper().Contains(token))
+                if (playlistItemMeta.GenreUpper.Contains(token))
                 {
                     score += 1;
                 }

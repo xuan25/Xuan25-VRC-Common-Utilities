@@ -17,6 +17,12 @@ namespace Playlist {
         public string ArtistAcronym;
         public string Genre;
 
+        public string TitleUpper;
+        public string ArtistUpper;
+        public string TitleAcronymUpper;
+        public string ArtistAcronymUpper;
+        public string GenreUpper;
+
         void Start()
         {
 
@@ -27,10 +33,15 @@ namespace Playlist {
             this.controller = controller;
             this.PlayID = playID;
             this.Title = title;
+            this.TitleUpper = title.ToUpper();
             this.Artist = artist;
+            this.ArtistUpper = artist.ToUpper();
             this.TitleAcronym = titleAcronym;
+            this.TitleAcronymUpper = titleAcronym.ToUpper();
             this.ArtistAcronym = singerAcronym;
+            this.ArtistAcronymUpper = singerAcronym.ToUpper();
             this.Genre = genre;
+            this.GenreUpper = genre.ToUpper();
         }
     }
 
