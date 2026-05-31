@@ -32,7 +32,7 @@ namespace Playlist {
 
         private int validResults = 0;
 
-        private string filterString = "";
+        private string[] filterTokens = null;
 
         private int clearPlaylistCursor = -1;
         private int preparePlaylistCursor = -1;
@@ -156,7 +156,7 @@ namespace Playlist {
             while (stepActions < itemsPreFrame && scoreComputingCursor < playlistItemMetasCount)
             {
                 PlaylistItemMeta playlistItemMeta = playlistItemMetas[playlistItemMetasCount - 1 - scoreComputingCursor];
-                float filterScore = ComputeFilterScore(filterString, playlistItemMeta);
+                float filterScore = ComputeFilterScore(filterTokens, playlistItemMeta);
                 if (filterScore <= 0)
                 {
                     // invalid result penalty
@@ -340,7 +340,7 @@ namespace Playlist {
             itemDisplayOffset = 0;
             pager.Reset();
 
-            filterString = filter;
+            filterTokens = string.IsNullOrEmpty(filter) ? null : filter.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             scoreComputingCursor = 0;
             scoreSortingCursor = 0;
             playlistHidingCursor = 0;
@@ -359,7 +359,7 @@ namespace Playlist {
             //         continue;
             //     }
 
-            //     float filterScore = ComputeFilterScore(filter, playlistItemMeta);
+            //     float filterScore = ComputeFilterScore(filterTokens, playlistItemMeta);
 
             //     if (filterScore <= 0)
             //     {
@@ -411,13 +411,13 @@ namespace Playlist {
             OnIndexingBegin();
         }
 
-        private float ComputeFilterScore(string filter, PlaylistItemMeta playlistItemMeta)
+        private float ComputeFilterScore(string[] filterTokens, PlaylistItemMeta playlistItemMeta)
         {
-            if (string.IsNullOrEmpty(filter))
+            if (filterTokens == null || filterTokens.Length == 0)
             {
                 return 1;
             }
-            string[] tokens = filter.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] tokens = filterTokens;
             float score = 0;
             for (int i = 0; i < tokens.Length; i++)
             {
