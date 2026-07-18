@@ -18,6 +18,8 @@ namespace Playlist {
 
         public Pager pager;
 
+        public UnityEngine.UI.Slider progressBar;
+
         private int itemDisplayOffset = 0;
         
         private PlaylistController playlistController;
@@ -34,19 +36,34 @@ namespace Playlist {
 
         private string[] filterTokens = null;
 
-        private int clearPlaylistCursor = -1;
-        private int preparePlaylistCursor = -1;
-        private int scoreComputingCursor = -1;
-        private int scoreSortingCursor = -1;
-        private int playlistHidingCursor = -1;
-        private int playlistShowingCursor = -1;
-        private int playlistSortingCursor = -1;
+        const int FLAG_PENDING = 0;
+        const int FLAG_FINISHED = -1;
+        const int FLAG_INVALID = -2;
+
+        private int clearPlaylistCursor = FLAG_INVALID;
+        private int preparePlaylistCursor = FLAG_INVALID;
+        private int scoreComputingCursor = FLAG_INVALID;
+        private int scoreSortingCursor = FLAG_INVALID;
+        private int playlistHidingCursor = FLAG_INVALID;
+        private int playlistShowingCursor = FLAG_INVALID;
+        private int playlistSortingCursor = FLAG_INVALID;
 
         private bool isIndexing = false;
         
         
         void Start()
         {
+            if (indexingHinter != null)
+            {
+                indexingHinter.SetActive(false);
+            }
+
+            if (progressBar != null)
+            {
+                progressBar.value = 0;
+                progressBar.gameObject.SetActive(false);
+            }
+            
             pager.Setup(this);
         }
 
@@ -61,6 +78,7 @@ namespace Playlist {
             if (clearPlaylistCursor >= 0)
             {
                 ClearPlaylistStep();
+                UpdateProgress();
                 return;
             }
 
@@ -68,6 +86,7 @@ namespace Playlist {
             if (preparePlaylistCursor >= 0)
             {
                 PreparePlaylistStep();
+                UpdateProgress();
                 return;
             }
 
@@ -75,6 +94,7 @@ namespace Playlist {
             if (scoreComputingCursor >= 0)
             {
                 ScoreComputingStep();
+                UpdateProgress();
                 return;
             }
 
@@ -82,6 +102,7 @@ namespace Playlist {
             if (scoreSortingCursor >= 0)
             {
                 ScoreSortingStep();
+                UpdateProgress();
                 return;
             }
 
@@ -89,6 +110,7 @@ namespace Playlist {
             if (playlistHidingCursor >= 0)
             {
                 PlaylistHidingStep();
+                UpdateProgress();
                 return;
             }
 
@@ -96,6 +118,7 @@ namespace Playlist {
             if (playlistShowingCursor >= 0)
             {
                 PlaylistShowingStep();
+                UpdateProgress();
                 return;
             }
 
@@ -103,13 +126,70 @@ namespace Playlist {
             if (playlistSortingCursor >= 0)
             {
                 PlaylistSortingStep();
+                UpdateProgress();
                 return;
             }
 
             if (isIndexing)
             {
+                UpdateProgress();
                 OnIndexingEnd();
                 return;
+            }
+        }
+
+        private void UpdateProgress()
+        {
+            int[] cursors = new int [] { 
+                clearPlaylistCursor, 
+                preparePlaylistCursor, 
+                scoreComputingCursor, 
+                scoreSortingCursor, 
+                playlistHidingCursor, 
+                playlistShowingCursor, 
+                playlistSortingCursor
+            };
+            int[] cursorsMax = new int [] {
+                playlistItemMetasCount,
+                playlistItemMetasCount,
+                playlistItemMetasCount,
+                playlistItemMetasCount,
+                playlistItemMetasCount,
+                playlistItemMetasCount,
+                playlistItemMetasCount
+            };
+            int totalSteps = 0;
+            int completedSteps = 0;
+            float ratioOfCurrentStep = 0;
+
+            for (int i = 0; i < cursors.Length; i++)
+            {
+                int cursor = cursors[i];
+                int cursorMax = cursorsMax[i];
+                if (cursor == FLAG_PENDING)
+                {
+                    totalSteps++;
+                }
+                else if (cursor == FLAG_FINISHED)
+                {
+                    totalSteps++;
+                    completedSteps++;
+                }
+                else if (cursor >= 0)
+                {
+                    totalSteps++;
+                    ratioOfCurrentStep = (float)cursor / cursorMax;
+                    ratioOfCurrentStep = Mathf.Clamp(ratioOfCurrentStep, 0, 1);
+                }
+            }
+
+            float progress = (float)completedSteps / totalSteps + ratioOfCurrentStep / totalSteps;
+
+            Debug.Log($"[{nameof(PlaylistIndexer)}] Progress: {progress * 100}% ({completedSteps}/{totalSteps} + {ratioOfCurrentStep * 100}%)");
+
+            if (progressBar != null)
+            {
+                progressBar.value = progress;
             }
         }
 
@@ -119,7 +199,7 @@ namespace Playlist {
                 int childCount = playlistController.playlistItemContainer.childCount;
                 if (childCount == 0)
                 {
-                    clearPlaylistCursor = -1;
+                    clearPlaylistCursor = FLAG_FINISHED;
                     break;
                 }
                 Transform child = playlistController.playlistItemContainer.GetChild(childCount - 1);
@@ -145,7 +225,7 @@ namespace Playlist {
 
             if (preparePlaylistCursor >= playlistItemMetasCount) {
                 validResults = playlistItemMetasCount;
-                preparePlaylistCursor = -1;
+                preparePlaylistCursor = FLAG_FINISHED;
 
                 pager.Config(maxDisplayItems, playlistItemMetasCount);
             }
@@ -174,7 +254,7 @@ namespace Playlist {
 
             // last score computing step
             if (scoreComputingCursor >= playlistItemMetasCount) {
-                scoreComputingCursor = -1;
+                scoreComputingCursor = FLAG_FINISHED;
                 Debug.Log($"[PlaylistFilter] Score computing done, valid results: {validResults}");
             }
         }
@@ -184,7 +264,7 @@ namespace Playlist {
             Array.Copy(playlistItems, playlistItemsSorted, playlistItemMetasCount);
             Array.Sort((Array)filterScores, playlistItemsSorted);
             
-            scoreSortingCursor = -1;
+            scoreSortingCursor = FLAG_FINISHED;
             Debug.Log("[PlaylistFilter] Score sorting done");
         }
 
@@ -206,7 +286,7 @@ namespace Playlist {
             // last score sorting step
             if (playlistHidingCursor >= playlistItemMetasCount)
             {
-                playlistHidingCursor = -1;
+                playlistHidingCursor = FLAG_FINISHED;
                 Debug.Log("[PlaylistFilter] Playlist hiding done");
             }
         }
@@ -229,7 +309,7 @@ namespace Playlist {
             // last score sorting step
             if (playlistShowingCursor >= playlistItemMetasCount)
             {
-                playlistShowingCursor = -1;
+                playlistShowingCursor = FLAG_FINISHED;
                 Debug.Log("[PlaylistFilter] Playlist Showing done");
             }
         }
@@ -254,7 +334,7 @@ namespace Playlist {
             // last score sorting step
             if (playlistSortingCursor >= playlistItemMetasCount)
             {
-                playlistSortingCursor = -1;
+                playlistSortingCursor = FLAG_FINISHED;
                 Debug.Log("[PlaylistFilter] Playlist Sorting done");
             }
         }
@@ -269,6 +349,12 @@ namespace Playlist {
             {
                 indexingHinter.SetActive(true);
             }
+
+            if (progressBar != null)
+            {
+                progressBar.value = 0;
+                progressBar.gameObject.SetActive(true);
+            }
         }
 
         private void OnIndexingEnd()
@@ -281,15 +367,32 @@ namespace Playlist {
                 indexingHinter.SetActive(false);
             }
 
+            if (progressBar != null)
+            {
+                progressBar.value = 1;
+                progressBar.gameObject.SetActive(false);
+            }
+
             if (pager != null)
             {
                 pager.Config(maxDisplayItems, validResults);
             }
         }
 
+        private void InvalidateCursorsExceptPrepare()
+        {
+            scoreComputingCursor = FLAG_INVALID;
+            scoreSortingCursor = FLAG_INVALID;
+            playlistHidingCursor = FLAG_INVALID;
+            playlistShowingCursor = FLAG_INVALID;
+            playlistSortingCursor = FLAG_INVALID;
+        }
+
         public void PreparePlaylist()
         {
             Debug.Log("[PlaylistFilter] PreparePlaylist");
+
+            InvalidateCursorsExceptPrepare();
 
             playlistItemMetas = playlistController.GetPlaylistItemMetas();
             playlistItemMetasCount = playlistItemMetas.Length;
@@ -301,8 +404,8 @@ namespace Playlist {
             itemDisplayOffset = 0;
             pager.Reset();
 
-            clearPlaylistCursor = 0;
-            preparePlaylistCursor = 0;
+            clearPlaylistCursor = FLAG_PENDING;
+            preparePlaylistCursor = FLAG_PENDING;
 
             OnIndexingBegin();
 
@@ -323,11 +426,13 @@ namespace Playlist {
         public void ReBuildPlaylist() {
             Debug.Log("[PlaylistFilter] ReBuildPlaylist");
 
+            InvalidateCursorsExceptPrepare();
+
             itemDisplayOffset = 0;
             pager.Reset();
             
-            playlistHidingCursor = 0;
-            playlistSortingCursor = 0;
+            playlistHidingCursor = FLAG_PENDING;
+            playlistSortingCursor = FLAG_PENDING;
 
             OnIndexingBegin();
         }
@@ -336,15 +441,17 @@ namespace Playlist {
         {
             Debug.Log($"[PlaylistFilter] FilterPlaylist: {filter}");
 
+            InvalidateCursorsExceptPrepare();
+
             validResults = 0;
             itemDisplayOffset = 0;
             pager.Reset();
 
             filterTokens = string.IsNullOrEmpty(filter) ? null : filter.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            scoreComputingCursor = 0;
-            scoreSortingCursor = 0;
-            playlistHidingCursor = 0;
-            playlistSortingCursor = 0;
+            scoreComputingCursor = FLAG_PENDING;
+            scoreSortingCursor = FLAG_PENDING;
+            playlistHidingCursor = FLAG_PENDING;
+            playlistSortingCursor = FLAG_PENDING;
 
             OnIndexingBegin();
 
@@ -405,8 +512,10 @@ namespace Playlist {
 
             this.itemDisplayOffset = itemDisplayOffset;
 
-            playlistHidingCursor = 0;
-            playlistShowingCursor = 0;
+            InvalidateCursorsExceptPrepare();
+
+            playlistHidingCursor = FLAG_PENDING;
+            playlistShowingCursor = FLAG_PENDING;
 
             OnIndexingBegin();
         }
@@ -450,9 +559,7 @@ namespace Playlist {
         public void StopOngoingTask() {
             Debug.Log("[PlaylistFilter] StopOngoingTask");
 
-            scoreComputingCursor = -1;
-            scoreSortingCursor = -1;
-            playlistSortingCursor = -1;
+            InvalidateCursorsExceptPrepare();
         }
 
         public PlaylistItem GetRandomValidPlaylistItem()
