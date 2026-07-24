@@ -22,7 +22,7 @@ namespace Xuan25.PlayerVoiceSystem.Debugging
 
         int playerCountMax;
 
-        void Start()
+        void OnEnable()
         {
             if (playerVoiceRoomController == null)
             {
@@ -43,16 +43,33 @@ namespace Xuan25.PlayerVoiceSystem.Debugging
 
             playerCountMax = playerVoiceRoomController.playerVoiceRoomMask.Length;
             rows = new RoomDebuggingRow[playerCountMax];
-            for (int i = 0; i < playerCountMax; i++)
-            {
-                GameObject rowObject = Instantiate(rowPrefab, rowContainer.transform);
-                rowObject.SetActive(false); // Initially hide the row
-                RoomDebuggingRow row = rowObject.GetComponent<RoomDebuggingRow>();
-                row.Setup(roomCountMax);
-                rows[i] = row;
-            }
 
             OnPlayerListChanged();
+        }
+
+        private void InitializeRow(int index, int roomCount, bool isActive, string username)
+        {
+            if (rows[index] == null)
+            {
+                GameObject rowObject = Instantiate(rowPrefab, rowContainer.transform);
+                RoomDebuggingRow row = rowObject.GetComponent<RoomDebuggingRow>();
+                row.Setup(roomCount);
+                rows[index] = row;
+            }
+
+            rows[index].gameObject.SetActive(isActive);
+            if (isActive)
+            {
+                rows[index].SetUserName(username);
+            }
+        }
+
+        private void UninitializeRow(int index)
+        {
+            if (rows[index] != null)
+            {
+                rows[index].gameObject.SetActive(false);
+            }
         }
 
         public void OnPlayerListChanged()
@@ -68,12 +85,11 @@ namespace Xuan25.PlayerVoiceSystem.Debugging
                 VRCPlayerApi player = VRCPlayerApi.GetPlayerById(i);
                 if (player == null)
                 {
-                    rows[i].gameObject.SetActive(false);
+                    UninitializeRow(i);
                     continue;
                 }
 
-                rows[i].gameObject.SetActive(true);
-                rows[i].SetUserName(player.displayName);
+                InitializeRow(i, playerVoiceRoomController.playerVoiceRooms.Length, true, player.displayName);
             }
 
             UpdatePlayerState();
@@ -92,6 +108,10 @@ namespace Xuan25.PlayerVoiceSystem.Debugging
                 VRCPlayerApi player = VRCPlayerApi.GetPlayerById(i);
                 if (player == null) continue;
 
+                if (rows[i] == null)
+                {
+                    InitializeRow(i, playerVoiceRoomController.playerVoiceRooms.Length, true, player.displayName);
+                }
                 rows[i].SetMask(playerVoiceRoomController.playerVoiceRoomMask[i], roomValidityMask);
                 // Debug.Log($"[{GetUdonTypeName()}] Updated mask for player {player.displayName} (ID: {i}) with mask: {playerVoiceRoomController.playerVoiceRoomMask[i]} and room validity mask: {roomValidityMask}");
             }

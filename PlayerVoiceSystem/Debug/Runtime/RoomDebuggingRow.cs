@@ -24,11 +24,6 @@ namespace Xuan25.PlayerVoiceSystem.Debugging
 
         private int roomCountMax;
 
-        void Start()
-        {
-
-        }
-
         public void Setup(int roomCountMax)
         {
             this.roomCountMax = roomCountMax;
