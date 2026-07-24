@@ -11,6 +11,8 @@ namespace Xuan25.PlayerVoiceSystem
     public class PlayerVoiceRoomController : PlayerVoiceScaler
     {
 
+        public const int NUM_PLAYER_MAX = 1000;
+
         #region Event System for external listeners
 
         [SerializeField]
@@ -51,8 +53,8 @@ namespace Xuan25.PlayerVoiceSystem
 
         public PlayerVoiceRoom[] playerVoiceRooms = new PlayerVoiceRoom[sizeof(int) * 8]; // 32 rooms maximum
 
-        [HideInInspector]
-        public int[] playerVoiceRoomMask = new int[80];
+        [System.NonSerialized]
+        public int[] playerVoiceRoomMask = new int[NUM_PLAYER_MAX];
 
         private VRCPlayerApi localPlayer;
 

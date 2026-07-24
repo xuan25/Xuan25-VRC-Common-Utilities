@@ -8,7 +8,7 @@ namespace Xuan25.AvatarAdmin
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
     public class AvatarAdminCore : UdonSharpBehaviour
     {
-        public const int NUM_PLAYER_MAX = 80;
+        public const int NUM_PLAYER_MAX = 1000;
         public const int IDX_UNINITIALIZED = int.MaxValue;
         public const int IDX_UNSET = int.MaxValue - 1;
 

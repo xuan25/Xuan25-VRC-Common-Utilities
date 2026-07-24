@@ -1,5 +1,4 @@
 ﻿
-using System;
 using UdonSharp;
 using UnityEngine;
 using VRC.SDKBase;
@@ -11,6 +10,9 @@ namespace Xuan25.PlayerVoiceSystem
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class PlayerVoiceTrigger : PlayerVoiceScaler
     {
+
+        public const int NUM_PLAYER_MAX = 1000;
+
         #region Event source for external listeners
 
         [SerializeField]
@@ -78,8 +80,8 @@ namespace Xuan25.PlayerVoiceSystem
         [SerializeField]
         private bool activeUpdate = false;
 
-        [HideInInspector]
-        public bool[] playerMask = new bool[80];
+        [System.NonSerialized]
+        public bool[] playerMask = new bool[NUM_PLAYER_MAX];
 
         private bool[] playerMaskDirty;
 
@@ -92,7 +94,7 @@ namespace Xuan25.PlayerVoiceSystem
                 playerMask[i] = false;
             }
             playerMaskDirty = new bool[playerMask.Length];
-            Array.Copy(playerMask, playerMaskDirty, playerMask.Length);
+            System.Array.Copy(playerMask, playerMaskDirty, playerMask.Length);
         }
 
         void Start()

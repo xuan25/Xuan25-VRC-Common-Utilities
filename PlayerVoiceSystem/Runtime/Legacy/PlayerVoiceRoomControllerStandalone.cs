@@ -15,7 +15,7 @@
 
 //         public PlayerVoiceRoomStandalone[] playerVoiceRooms = new PlayerVoiceRoomStandalone[32];
 
-//         private int[] playerVoiceRoomMask = new int[80];
+//         private int[] playerVoiceRoomMask = new int[1000];
         
 //         void Start()
 //         {

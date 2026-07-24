@@ -9,7 +9,7 @@ namespace Xuan25.PingSender
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
     public class PingSenderCore : UdonSharpBehaviour
     {
-        public const int NUM_PLAYER_MAX = 80;
+        public const int NUM_PLAYER_MAX = 1000;
 
         public bool[] playerIDMask = new bool[NUM_PLAYER_MAX];
                 
