@@ -51,7 +51,7 @@ namespace Xuan25.PlayerVoiceSystem
         public float volumetricRadiusScaler = 1.0f;
         public bool lowpassDisable = false;
 
-        public PlayerVoiceRoom[] playerVoiceRooms = new PlayerVoiceRoom[sizeof(int) * 8]; // 32 rooms maximum
+        public PlayerVoiceRoomBase[] playerVoiceRooms = new PlayerVoiceRoomBase[sizeof(int) * 8]; // 32 rooms maximum
 
         [System.NonSerialized]
         public int[] playerVoiceRoomMask = new int[NUM_PLAYER_MAX];

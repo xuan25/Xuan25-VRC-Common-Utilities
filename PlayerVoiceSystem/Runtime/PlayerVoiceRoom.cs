@@ -9,7 +9,7 @@ namespace Xuan25.PlayerVoiceSystem
 {
 
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
-    public class PlayerVoiceRoom : UdonSharpBehaviour
+    public class PlayerVoiceRoom : PlayerVoiceRoomBase
     {
 
         #region Player Cache Management
@@ -41,17 +41,69 @@ namespace Xuan25.PlayerVoiceSystem
         private int roomID;
 
         private PlayerVoiceRoomController playerVoiceRoomController;
+        private PlayerVoiceMultipartRoom multipartRoom;
+
+        #region Controller Dynamic Dispatching
+
+        // Implement dynamic dispatching manually because UdonSharp does not support interfaces.
+        // playerVoiceRoomController has already derived from an abstract class that mimics the interface, 
+        // which prevents the class further derived from another abstract class that mimics another interface.
+
+        private void Controller_Assign_DP(PlayerVoiceRoomController controller)
+        {
+            this.multipartRoom = null;
+            this.playerVoiceRoomController = controller;
+        }
+
+        private void Controller_Assign_DP(PlayerVoiceMultipartRoom controller)
+        {
+            this.playerVoiceRoomController = null;
+            this.multipartRoom = controller;
+        }
+
+                // Wrapper method is required due to manual implementation of dynamic dispatching.
+        private bool Controller_IsNull_DP()
+        {
+            return playerVoiceRoomController == null && multipartRoom == null;
+        }
+
+        private void Controller_OnPlayerRoomEnter_DP(VRCPlayerApi player, int roomId)
+        {
+            if (playerVoiceRoomController != null)
+            {
+                playerVoiceRoomController.OnPlayerRoomEnter(player, roomID);
+            }
+            if (multipartRoom != null)
+            {
+                multipartRoom.OnPlayerRoomEnter(player, roomID);
+            }
+        }
+
+        private void Controller_OnPlayerRoomLeave_DP(VRCPlayerApi player, int roomId)
+        {
+            if (playerVoiceRoomController != null)
+            {
+                playerVoiceRoomController.OnPlayerRoomLeave(player, roomID);
+            }
+            if (multipartRoom != null)
+            {
+                multipartRoom.OnPlayerRoomLeave(player, roomID);
+            }
+        }
+
+        #endregion
 
         [SerializeField]
         private bool activeUpdate = false;
 
-        private bool[] playerMask;
+        [NonSerialized]
+        public bool[] playerMask;
 
         private bool[] playerMaskDirty;
 
-        public void Setup(PlayerVoiceRoomController controller, int roomID)
+        public override void Setup(PlayerVoiceRoomController controller, int roomID)
         {
-            this.playerVoiceRoomController = controller;
+            Controller_Assign_DP(controller);
             this.roomID = roomID;
 
             playerMask = new bool[controller.playerVoiceRoomMask.Length];
@@ -63,9 +115,18 @@ namespace Xuan25.PlayerVoiceSystem
             Array.Copy(playerMask, playerMaskDirty, playerMask.Length);
         }
 
-        void Start()
+        public void Setup(PlayerVoiceMultipartRoom controller, int roomID)
         {
+            Controller_Assign_DP(controller);
+            this.roomID = roomID;
 
+            playerMask = new bool[controller.playerVoiceRoomMask.Length];
+            for (int i = 0; i < playerMask.Length; i++)
+            {
+                playerMask[i] = false;
+            }
+            playerMaskDirty = new bool[controller.playerVoiceRoomMask.Length];
+            Array.Copy(playerMask, playerMaskDirty, playerMask.Length);
         }
 
         public override void OnPlayerTriggerEnter(VRCPlayerApi player)
@@ -73,14 +134,13 @@ namespace Xuan25.PlayerVoiceSystem
             if (activeUpdate) return;
             if (!Utilities.IsValid(player)) return;
 
-            if (playerVoiceRoomController == null)
+            if (Controller_IsNull_DP())
             {
-                Debug.LogError("[PlayerVoiceRoom] PlayerVoiceRoomController is not set up correctly.");
+                Debug.LogError($"[{nameof(PlayerVoiceRoom)}] Controller is not set up correctly.");
                 return;
             }
 
-            playerVoiceRoomController.OnPlayerRoomEnter(player, roomID);
-
+            Controller_OnPlayerRoomEnter_DP(player, roomID);
         }
 
         public override void OnPlayerTriggerExit(VRCPlayerApi player)
@@ -88,13 +148,13 @@ namespace Xuan25.PlayerVoiceSystem
             if (activeUpdate) return;
             if (!Utilities.IsValid(player)) return;
 
-            if (playerVoiceRoomController == null)
+            if (Controller_IsNull_DP())
             {
-                Debug.LogError("[PlayerVoiceRoom] PlayerVoiceRoomController is not set up correctly.");
+                Debug.LogError($"[{nameof(PlayerVoiceRoom)}] Controller is not set up correctly.");
                 return;
             }
 
-            playerVoiceRoomController.OnPlayerRoomLeave(player, roomID);
+            Controller_OnPlayerRoomLeave_DP(player, roomID);
         }
 
         public override void OnPlayerTriggerStay(VRCPlayerApi player)
@@ -102,9 +162,9 @@ namespace Xuan25.PlayerVoiceSystem
             if (!activeUpdate) return;
             if (!Utilities.IsValid(player)) return;
 
-            if (playerVoiceRoomController == null)
+            if (Controller_IsNull_DP())
             {
-                Debug.LogError("[PlayerVoiceRoom] PlayerVoiceRoomController is not set up correctly.");
+                Debug.LogError($"[{nameof(PlayerVoiceRoom)}] Controller is not set up correctly.");
                 return;
             }
 
@@ -149,12 +209,12 @@ namespace Xuan25.PlayerVoiceSystem
                     if (playerMaskDirty[playerId])
                     {
                         playerMask[playerId] = true;
-                        playerVoiceRoomController.OnPlayerRoomEnter(player, roomID);
+                        Controller_OnPlayerRoomEnter_DP(player, roomID);
                     }
                     else
                     {
                         playerMask[playerId] = false;
-                        playerVoiceRoomController.OnPlayerRoomLeave(player, roomID);
+                        Controller_OnPlayerRoomLeave_DP(player, roomID);
                     }
                 }
                 // Reset dirty state after processing, awaiting next FixedUpdate to set it again

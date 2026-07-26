@@ -485,7 +485,7 @@ MonoBehaviour:
       Data: 26|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: Xuan25.PlayerVoiceSystem.PlayerVoiceRoom[], Xuan25.PlayerVoiceSystem
+      Data: Xuan25.PlayerVoiceSystem.PlayerVoiceRoomBase[], Xuan25.PlayerVoiceSystem
     - Name: 
       Entry: 8
       Data: 

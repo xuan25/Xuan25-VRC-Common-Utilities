@@ -129,6 +129,7 @@ MonoBehaviour:
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 3574377858778387398}
   activeUpdate: 1
+  playerMask: 
 --- !u!114 &3574377858778387398
 MonoBehaviour:
   m_ObjectHideFlags: 0
