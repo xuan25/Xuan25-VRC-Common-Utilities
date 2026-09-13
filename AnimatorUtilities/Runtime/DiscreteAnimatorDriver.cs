@@ -15,23 +15,23 @@ namespace Xuan25.AnimatorUtilities
         [SerializeField] private float[] parameterFloatValue;
         [SerializeField] private int[] parameterIntValue;
         [SerializeField] private bool[] parameterBoolValue;
-        [SerializeField] private bool resetOnStart = true;
+        [SerializeField] private bool resetOnEnable = true;
         [SerializeField] private bool global;
 
         [UdonSynced]
         private int index = -1;
 
-        void Start()
+        void OnEnable()
         {
-            ResetOnStartIfNeeded();
+            ResetOnEnableIfNeeded();
         }
 
-        private void ResetOnStartIfNeeded()
+        private void ResetOnEnableIfNeeded()
         {
             // Do nothing if not global, or if we are the owner (in a global synced setup))
             if (global && !Networking.IsOwner(gameObject)) return;
-            // Do nothing if we are not supposed to reset on start
-            if (!resetOnStart) return;
+            // Do nothing if we are not supposed to reset on enabled
+            if (!resetOnEnable) return;
             // Reset to initial state (index 0)
             SetParameter(0);
         }
